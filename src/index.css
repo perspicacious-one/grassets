@@ -1,0 +1,84 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+main {
+  margin: 42px auto;
+	padding: 0 24px;
+	font-weight: 400;
+}
+
+article {
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+/* Header styles */
+.Header-header {
+  padding: 24px 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* Home */
+.Home-ul {
+  padding: 0;
+}
+.Home-li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  border: 1px solid #eee;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.Home-link {
+  display: flex;
+  color: #000;
+}
+.Home-link:hover {
+  box-shadow: 1px 1px 5px #999;
+}
+.Home-placeholder {
+  background-color: #eee;
+  min-width: 100px;
+  margin-right: 24px;
+}
+.Home-img {
+  display: block;
+  height: 100%;
+}
+.Home-showMoreWrapper {
+  display: flex;
+  justify-content: center;
+}
+.Home-button {
+  width: 100%;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  background: deepskyblue;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+.Home-button:disabled{
+  background: grey;
+  cursor: not-allowed;
+}
+
+/* About */
+.About-infoHeader {
+  text-align: center;
+}
+.About-img {
+  height: 120px;
+  width: auto;
+}
+.About-author {
+  margin-bottom: 72px;
+}
