@@ -135,7 +135,6 @@ class HardwareMutationForm extends React.Component {
 
 
 export default compose(
-	graphql(GET_EMPLOYEES_BASIC),
 	graphql(UPDATE_HARDWARE, {
 		name : 'updateHardware',
 		refetchQueries: [{query: GET_HARDWARES}]

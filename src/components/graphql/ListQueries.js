@@ -11,6 +11,8 @@ export const GET_HARDWARES = gql`
 			employee {
 				id
 				email
+				firstName
+				lastName
 			}
     }
   }
