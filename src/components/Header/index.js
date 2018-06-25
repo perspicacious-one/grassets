@@ -36,9 +36,9 @@ function Header(props) {
           <Typography variant="title" color="inherit" className={classes.flex}>
             Assets
           </Typography>
-					<Button color="inherit"><NavLink exact to='/hardware' className={classes.menuButton} activeClassName='Header-isActive'>Hardware</NavLink></Button>
-					<Button color="inherit"><NavLink exact to='/subscriptions' className={classes.menuButton} activeClassName='Header-isActive'>Subscriptions</NavLink></Button>
-					<Button color="inherit"><NavLink exact to='/software' className={classes.menuButton} activeClassName='Header-isActive'>Software</NavLink></Button>
+					<NavLink exact to='/hardware' className={classes.menuButton} activeClassName='Header-isActive'>Hardware</NavLink>
+					<NavLink exact to='/subscriptions' className={classes.menuButton} activeClassName='Header-isActive'>Subscriptions</NavLink>
+					<NavLink exact to='/software' className={classes.menuButton} activeClassName='Header-isActive'>Software</NavLink>
           <Button color="inherit" className={classes.menuButton}>Login</Button>
         </Toolbar>
       </AppBar>

@@ -15,11 +15,11 @@ const FormLoader = (props) => {
 				// case "Billing":
 				// 	return (GET_BILLING);
 				case "SaaP":
-				return (<SaapMutationForm toggleMethod={this.toggleDrawer} />);
+				return (<SaapMutationForm toggleMethod={props.toggleDrawer} />);
 				case "SaaS":
-					return (<SaasMutationForm toggleMethod={this.toggleDrawer}/>);
+					return (<SaasMutationForm toggleMethod={props.toggleDrawer}/>);
 				case "Hardware":
-					return (<HardwareMutationForm toggleMethod={this.toggleDrawer}/>);
+					return (<HardwareMutationForm toggleMethod={props.toggleDrawer}/>);
 				case "":
 					return (null);
 				default:
