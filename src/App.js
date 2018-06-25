@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import './App.css';
-import theme from './components/Theme';
-import {HardwareTable} from './components/AssetTable';
+import { theme, ThemeAlternate } from './components/Theme';
+import { HardwareTable, SaaSTable, SaaPTable } from './components/AssetTable';
 import Header from './components/Header';
 import Grid from '@material-ui/core/Grid';
 
@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
 			<Router>
-			  <MuiThemeProvider theme={theme}>
+			  <MuiThemeProvider theme={ThemeAlternate}>
 				<div>
 					<Header />
 					<main>
@@ -22,7 +22,9 @@ class App extends Component {
             direction={'column'}
             justify={'center'} >
 						<Grid item xs>
-							<Route exact path='/' component={HardwareTable} />
+							<Route exact path='/hardware' component={HardwareTable} />
+							<Route exact path='/subscriptions' component={SaaSTable} />
+							<Route exact path='/software' component={SaaPTable} />
 						</Grid>
 					</Grid>
 					</main>

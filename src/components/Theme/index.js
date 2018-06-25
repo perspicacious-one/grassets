@@ -62,3 +62,62 @@ const theme = createMuiTheme({
 });
 
 export default theme;
+
+export const ThemeAlternate = createMuiTheme({
+	palette: {
+		primary: {
+			main: '#651fff'
+		},
+		secondary: {
+			main: '#ff3d00',
+			// dark: will be calculated from palette.secondary.main,
+		},
+		error: red,
+		contrastThreshold: 3,
+		tonalOffset: 0.2,
+	},
+
+	typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      'Roboto',
+			'"Helvetica Neue"',
+			'-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+		].join(','),
+		fontSize: 16,
+		fontWeight: 400
+	},
+	root: {
+    flexGrow: 1,
+	},
+	overrides: {
+		MuiTableHead: {
+			root: {
+
+			}
+		},
+		MuiTableCell: {
+			head: {
+				fontWeight: 500,
+				fontSize: '1.2rem'
+			}
+		},
+		MuiInput: {
+			root: {
+				lineHeight: '1.3875em'
+			}
+		},
+		MuiSvgIcon: {
+			root: {
+				margin: '5px'
+			}
+		}
+	}
+});

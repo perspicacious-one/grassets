@@ -1,24 +1,38 @@
 import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableHeader from './TableHeader';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import DetailCard from '../DetailCard/DetailCard';
 import CustomTableRow from './TableRow';
 import AddIcon from '@material-ui/icons/Add';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import CloseIcon from '@material-ui/icons/Close';
+import FormLoader from '../DetailCard/FormLoader'
 
 const styles = {
 	paper: {
 		maxWidth: 1180,
-		margin: 'auto'
+		margin: 'auto',
+		paddingTop: '15px'
 	},
-	button: {
-		margin: '15px',
+	buttonLeft: {
+		margin: '20px',
+		float: 'left'
+	},
+	buttonRight: {
+		margin: '20px',
 		float: 'right'
+	},
+	drawer: {
+		maxWidth: '860px',
+		minWidth: '640px',
+		padding: '20px'
+	},
+	heading: {
+		margin: '25px',
+		textAlign: 'center'
 	}
 }
 
@@ -28,58 +42,64 @@ class AssetTable extends React.Component {
 
 		this.state = {
 			active: false,
-			usedBy: ""
+			usedBy: "",
+			subType: ""
 		}
+		this.typename = this.props.typename;
+		this.labels = Object.keys(this.props.assets[0]).filter( label => !["__typename", "id"].includes(label) );
 		this.toggleDrawer = this.toggleDrawer.bind(this);
-		this.renderRows = this.renderRows.bind(this);
 	}
 
-
-
-	toggleDrawer = (close, id) => {
+	toggleDrawer = (close, id, type) => {
     this.setState({
 			active: close,
-			usedBy: id
+			usedBy: id,
+			subType: type
     });
 	};
 
-	renderRows = (n) => {
-		return (
-			<TableRow key={n.id}>
-				<TableCell component="th" scope="row">
-					{n.maker}
-				</TableCell>
-				<TableCell>{n.model}</TableCell>
-				<TableCell>{n.hardwareType}</TableCell>
-				<TableCell>
-					<a href={n.drivers || '#'} target="_blank">
-						<OpenInNewIcon />
-					</a>
-				</TableCell>
-				<TableCell>
-					{n.employee != undefined ? this.renderButton(n.employee) : ""}
-				</TableCell>
-			</TableRow>
-		)
+	renderDrawerContent = () => {
+		if(!this.state.active) {
+			return null;
+		}
+		if(this.state.active && !this.state.usedBy) {
+			return( <FormLoader noQuery={true} typename={this.typename} toggleMethod={this.toggleDrawer} /> )
+		} else {
+			return( <FormLoader noQuery={false} typename={this.typename} toggleMethod={this.toggleDrawer} variable={this.state.usedBy} /> )
+		}
 	}
-
 	render() {
-		const labels = Object.keys(this.props.assets[0]).filter( label => !["__typename", "id"].includes(label) );
+
+		const form = 	this.renderDrawerContent();
 
 		return(
 			<Paper style={styles.paper}>
+				<div style={styles.heading}>
+					<h2>{this.props.displayName}</h2>
+				</div>
 				<Table>
-					<TableHeader headings={labels} />
+					<TableHeader headings={this.labels} />
 					<TableBody>
 						{ 
-							this.props.assets.map(n => <CustomTableRow entry={n} meta={labels} toggleMethod={this.toggleDrawer}/> ) 
+							this.props.assets.map(n => <CustomTableRow typename={this.typename} entry={n} meta={this.labels} toggleMethod={this.toggleDrawer}/> ) 
 						}
 					</TableBody>
 				</Table>
-				<DetailCard active={this.state.active} queryVariable={this.state.usedBy} toggleMethod={this.toggleDrawer}/>
-				<Button variant="fab" color="secondary" aria-label="add" style={styles.button} onClick={ () => this.toggleDrawer(true)} >
+				<Drawer anchor="right" open={this.state.active} elevation={6} style={styles.drawer}>
+					<div tabIndex={0}>
+						<Button size="small" variant="fab" color="secondary" style={styles.buttonLeft} aria-label="add" onClick={ () => this.toggleDrawer(false, null, "")} >
+							<CloseIcon />
+						</Button>
+						<Divider />
+					</div>
+
+					{	form }
+				</Drawer>
+				<Divider />
+
+				<Button variant="fab" color="secondary" aria-label="add" style={styles.buttonRight} onClick={ () => this.toggleDrawer(true, null, this.typename)} >
 					<AddIcon />
-				</Button>
+				</Button>				
 			</Paper>
 		)
 	}

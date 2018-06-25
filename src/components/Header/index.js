@@ -9,18 +9,22 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
   root: {
-    flexGrow: 1,
+		flexGrow: 1,
+		justifyContent: "space-between"
   },
   flex: {
     flex: 1,
   },
   menuButton: {
-    marginLeft: -12,
+    marginLeft: 20,
 		marginRight: 20,
 		textDecoration: 'none',
 		textTransform: 'uppercase',
 		color: 'white',
-  },
+	},
+	menu: {
+		justifyContent: "space-between"
+	}
 };
 
 function Header(props) {
@@ -28,12 +32,14 @@ function Header(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.menu}>
           <Typography variant="title" color="inherit" className={classes.flex}>
             Assets
           </Typography>
-					<NavLink exact to='/hardware' className={classes.menuButton} activeClassName='Header-isActive'>Hardware</NavLink>
-          <Button color="inherit">Login</Button>
+					<Button color="inherit"><NavLink exact to='/hardware' className={classes.menuButton} activeClassName='Header-isActive'>Hardware</NavLink></Button>
+					<Button color="inherit"><NavLink exact to='/subscriptions' className={classes.menuButton} activeClassName='Header-isActive'>Subscriptions</NavLink></Button>
+					<Button color="inherit"><NavLink exact to='/software' className={classes.menuButton} activeClassName='Header-isActive'>Software</NavLink></Button>
+          <Button color="inherit" className={classes.menuButton}>Login</Button>
         </Toolbar>
       </AppBar>
     </div>

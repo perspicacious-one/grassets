@@ -10,8 +10,11 @@ import Button from '@material-ui/core/Button';
 const styles = {
 	button: {
 		textTransform: 'lowercase',
+		marginLeft: '0'
 	},
-
+	cell: {
+		textAlign: 'middle'
+	}
 }
 class CustomTableRow extends React.Component {
 	constructor(props) {
@@ -33,17 +36,19 @@ class CustomTableRow extends React.Component {
 		return result;
 	}
 
-	toggleDrawer(active, id) {
-		this.props.toggleMethod(active, id);
+	toggleDrawer(active, id, type) {
+		
+		this.props.toggleMethod(active, id, type);
 	}
 
 	renderCell(val) {
-		var reg = new RegExp(/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/)
+		var regUrl = new RegExp(/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/);
+		var regDate = new RegExp(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d))/);
 
 		switch (true) {
 			case val == null:
 				return <TableCell></TableCell>
-			case reg.test(val):
+			case regUrl.test(val):
 				return (
 					<TableCell>
 					<a href={val || '#'} target="_blank">
@@ -54,21 +59,25 @@ class CustomTableRow extends React.Component {
 			case typeof val === 'object':
 				return(
 					<TableCell>
-						<Button key={val.id} style={styles.button} color="secondary" onClick={ () => this.toggleDrawer(true, val.id) }>
+						<Button key={val.id} style={styles.button} color="secondary" onClick={ () => this.toggleDrawer(true, val.id, val.__typename) }>
 							<ViewListIcon />
 							{val.email}
 						</Button>
 					</TableCell>
 				);
+			case regDate.test(val):
+				let date = val.match(regDate);
+				return(<TableCell>{date[0]}</TableCell>);
+
 			default:
-				return( <TableCell>{val}</TableCell>);
+				return( <TableCell>{val.toString()}</TableCell>);
 		}
 
 	}
 	render() {
 		const cells = this.matchValues();
 		return(
-			<TableRow key={this.props.entry.id}>
+			<TableRow hover selected key={this.props.entry.id} onClick={ () => this.toggleDrawer(true, this.props.entry.id, this.props.typename)}>
 				<TableCell component="th" scope="row">
 					{cells[0]}
 				</TableCell>
