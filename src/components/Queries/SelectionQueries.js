@@ -12,7 +12,19 @@ export const GET_EMPLOYEE = gql`
   }
 `;
 
-
+export const GET_EMPLOYEE_HARDWARE = gql`
+  query getEmployee($id: ID!) { 
+    Employee(id: $id) { 
+      id
+			hardwares {
+				id
+				maker
+				model
+				hardwareType
+			}
+    }
+  }
+`;
 export const GET_BILLING = gql`
   query getCard($id: ID!) { 
     Card(id: $id) { 

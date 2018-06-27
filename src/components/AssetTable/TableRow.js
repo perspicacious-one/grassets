@@ -3,8 +3,6 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import ViewListIcon from '@material-ui/icons/ViewList';
-import Button from '@material-ui/core/Button';
 
 
 const styles = {
@@ -59,10 +57,7 @@ class CustomTableRow extends React.Component {
 			case typeof val === 'object':
 				return(
 					<TableCell>
-						<Button key={val.id} style={styles.button} color="secondary" onClick={ () => this.toggleDrawer(true, val.id, val.__typename) }>
-							<ViewListIcon />
-							{val.email}
-						</Button>
+							{val.firstName + ' ' + val.lastName}
 					</TableCell>
 				);
 			case regDate.test(val):

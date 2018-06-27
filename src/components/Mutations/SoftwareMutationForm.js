@@ -1,19 +1,15 @@
 import { compose, graphql } from 'react-apollo'
 import {
-	ADD_SAAS,
-	UPDATE_SAAS
-} from './Mutations';
+	ADD_SAAP,
+	UPDATE_SAAP
+} from './index';
 import React from 'react';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl'
+import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import { GET_SAASES } from '../graphql/ListQueries'
-import { FormatDate } from '../../utils/StringUtil';
+import { GET_SAAPS } from '../Queries/ListQueries';
 
 const styles = {
 	root: {
@@ -30,17 +26,16 @@ const styles = {
 }
 
 
-class SaasMutationForm extends React.Component {
+class SaapMutationForm extends React.Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
 			id: '',
 			name: '',
-			cost: 0.00,
 			qty: 0,
-			renewalTerm: '',
-			expiration: '',
+			maintenance: '',
+			key: '',
 			adminEmail: '',
 			adminPassword: '',
 			adminPortal: '',
@@ -49,14 +44,13 @@ class SaasMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, cost, qty, renewalTerm, expiration, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, qty, maintenance, key, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
-			cost: cost,
 			qty: qty,
-			renewalTerm: renewalTerm,
-			expiration: FormatDate(expiration),
+			maintenance: maintenance,
+			key: key,
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
@@ -66,11 +60,11 @@ class SaasMutationForm extends React.Component {
 		event.preventDefault();
 	
 		if(!this.state.id) {
-			this.props.createSaas({
+			this.props.createSaap({
 				variables: this.state
 			});
 		} else {
-			this.props.updateSaas({
+			this.props.updateSaap({
 				variables: this.state
 			});
 		}
@@ -82,6 +76,7 @@ class SaasMutationForm extends React.Component {
 			[event.target.id]: event.target.value
 		})
 	}
+
 	render() {
 		return(
 			<div style={styles.root}>
@@ -91,18 +86,6 @@ class SaasMutationForm extends React.Component {
 								<TextField 	id={"name"} label={"Product"} fullWidth value={this.state.name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
-							<FormControl fullWidth>
-								<InputLabel htmlFor="cost">Cost</InputLabel>
-								<Input
-									id="cost"
-									type="number"
-									value={this.state.cost}
-									onChange={ event => this.setState({ [event.target.id]: parseInt(event.target.value, 10)})} 
-									startAdornment={<InputAdornment position="start">$</InputAdornment>}
-								/>
-							</FormControl>
-							</Grid>
-							<Grid item xs={6}>
 								<TextField 	id={"qty"} fullWidth				
 									type="number"
 									label={"Quantity"}  
@@ -110,38 +93,39 @@ class SaasMutationForm extends React.Component {
 									onChange={ event => this.setState({ [event.target.id]: parseInt(event.target.value, 10)})} />
 							</Grid>
 							<Grid item xs={6}>
-								<TextField 	id={"expiration"} label={"Expiration"} fullWidth 
-									type="date"
-									value={this.state.expiration} 
-									InputLabelProps={{
-										shrink: true,
-									}}
+								<TextField 	id={"key"} label={"Key"} fullWidth 
+									value={this.state.key} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
-								</Grid>
-							<Grid item xs={6}>
-								<TextField select id={"renewalTerm"} label={"Renewal Period"} fullWidth 
-									value={this.state.renewalTerm} 
-									onChange={ event => this.setState({ "renewalTerm": event.target.value})}
-								>
-									<MenuItem key={"Monthly"} value={'Monthly'}>Monthly</MenuItem>
-									<MenuItem key={"Annually"} value={'Annually'}>Annually</MenuItem>
-								</TextField>
 							</Grid>
+
 							<Grid item xs={6}>
-								<TextField 	id={"email"} label={"Admin Email"} fullWidth 
+								<TextField 	id={"adminEmail"} label={"Admin Email"} fullWidth 
 									value={this.state.adminEmail} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
-								<TextField 	id={"password"} label={"Admin Password"} fullWidth
+								<TextField 	id={"adminPassword"} label={"Admin Password"} fullWidth
 									type="password" 
-									value={this.state.password} 
+									value={this.state.adminPassword} 
+									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+							</Grid>
+							<Grid item xs={12}>
+								<TextField 	id={"adminPortal"} label={"Portal Url"} fullWidth
+									value={this.state.adminPortal} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
-								<TextField 	id={"portalUrl"} label={"Portal Url"} fullWidth
-									value={this.state.portalUrl} 
-									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+							<FormControlLabel
+									control={
+										<Checkbox
+											checked={this.state.maintenance}
+											onChange={ event => this.setState({ [event.target.id]: event.target.value})} 
+											value={this.state.maintenance}
+											color="primary"
+										/>
+									}
+									label="Maintenance"
+								/>
 							</Grid>
 							<Grid item xs={12}>
 								<Button type='submit' variant="contained" color="secondary" style={styles.button} >
@@ -157,12 +141,12 @@ class SaasMutationForm extends React.Component {
 
 
 export default compose(
-	graphql(UPDATE_SAAS, {
-		name : 'updateSaas',
-		refetchQueries: [{query: GET_SAASES}]
+	graphql(UPDATE_SAAP, {
+		name : 'updateSaap',
+		refetchQueries: [{query: GET_SAAPS}]
   }),
-	graphql(ADD_SAAS, {
-		name : 'createSaas',
-		refetchQueries: [{query: GET_SAASES}]
+	graphql(ADD_SAAP, {
+		name : 'createSaap',
+		refetchQueries: [{query: GET_SAAPS}]
   })
-)(SaasMutationForm);
+)(SaapMutationForm);

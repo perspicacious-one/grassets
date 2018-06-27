@@ -1,25 +1,26 @@
 import React from 'react';
 import Loading from '../common/Loading';
-import HardwareMutationForm from '../Forms/HardwareMutations';
-import SaasMutationForm from '../Forms/SaasMutations';
-import SaapMutationForm from '../Forms/SoftwareMutationForm';
+import HardwareMutationForm from '../Mutations/HardwareMutations';
+import SaasMutationForm from '../Mutations/SaasMutations';
+import SaapMutationForm from '../Mutations/SoftwareMutationForm';
+import EmployeeMutationForm from '../Mutations/EmployeeMutationForm';
 import { Query } from 'react-apollo'
-import { GET_HARDWARE,GET_SAAS,GET_SAAP } from '../graphql/SelectionQueries'
+import { GET_HARDWARE,GET_SAAS,GET_SAAP, GET_EMPLOYEE } from '../Queries/SelectionQueries'
 
 
 const FormLoader = (props) => {
 		if(props.noQuery === true) {
 			switch (props.typename) {
-				// case "Employee":
-				// 	return (GET_EMPLOYEE);
+				case "Employee":
+					return (<EmployeeMutationForm toggleMethod={props.toggleMethod}/>);
 				// case "Billing":
 				// 	return (GET_BILLING);
 				case "SaaP":
-				return (<SaapMutationForm toggleMethod={props.toggleDrawer} />);
+				return (<SaapMutationForm toggleMethod={props.toggleMethod} />);
 				case "SaaS":
-					return (<SaasMutationForm toggleMethod={props.toggleDrawer}/>);
+					return (<SaasMutationForm toggleMethod={props.toggleMethod}/>);
 				case "Hardware":
-					return (<HardwareMutationForm toggleMethod={props.toggleDrawer}/>);
+					return (<HardwareMutationForm toggleMethod={props.toggleMethod}/>);
 				case "":
 					return (null);
 				default:
@@ -28,8 +29,17 @@ const FormLoader = (props) => {
 			
 		} else {
 			switch (props.typename) {
-				// case "Employee":
-				// 	return (GET_EMPLOYEE);
+				case "Employee":
+					return (<Query query={GET_EMPLOYEE} variables={{ id: props.variable }}>
+						{({ loading, error, data }) => {
+						if (loading) return ( <Loading />	);
+						if (error) return `Error! ${error.message}`;
+						return( 
+							<EmployeeMutationForm data={data.Employee} toggleMethod={props.toggleMethod}/>
+						)
+						}
+					}
+					</Query>);
 				// case "Billing":
 				// 	return (GET_BILLING);
 				case "SaaP":

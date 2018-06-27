@@ -18,3 +18,15 @@ export const FormatDate = (val) => {
 	var result = val.match(regDate);
 	return result[0];
 }
+
+export const GetDisplayName = (val) => {
+	var keys = Object.keys(val)
+	switch (true) {
+		case(keys.includes('firstName')):
+			return(val.firstName + ' ' + val.lastName);
+		case(keys.includes('model')):
+			return(val.maker + ' ' + val.model);
+		default:
+			return(val.name);
+	}
+}

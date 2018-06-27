@@ -8,6 +8,7 @@
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
     "apollo-link-http": "^1.5.4",
+    "auth0-js": "^9.6.1",
     "graphiql": "^0.11.11",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",

@@ -2,14 +2,16 @@ import { compose, graphql, Query } from 'react-apollo'
 import {
 	ADD_HARDWARE,
 	UPDATE_HARDWARE
-} from './Mutations';
+} from './index';
 import React from 'react';
 import Loading from '../common/Loading';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import { GET_HARDWARES, GET_EMPLOYEES_BASIC } from '../graphql/ListQueries';
+import { GET_HARDWARES, GET_EMPLOYEES_BASIC, GET_HARDWARE } from '../Queries';
+import RelationList from '../Controls/RelationList';
+import DataMap from '../common/DataSource';
 
 const styles = {
 	button: {
@@ -39,6 +41,7 @@ class HardwareMutationForm extends React.Component {
 			employee: ''
 		}
 		this.onSubmit = this.onSubmit.bind(this);
+		this.relationList = null;
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
@@ -51,33 +54,10 @@ class HardwareMutationForm extends React.Component {
 			hardwareType: hardwareType,
 			employee: employee,
 		})
-		this.dropdown = (
-			<Query query={GET_EMPLOYEES_BASIC}>
-			{({ loading, error, data }) => {
-				if (loading) return (
-							<Loading />
-					);
-				if (error) return `Error! ${error.message}`;
-			  if (data) return( 
-					<TextField select 
-							id={"employeesList"} 
-							label={"Employee"} 
-							fullWidth 
-							onChange={ event => this.setState( {[data[0]]: event.target.value} ) }
-						>
-							{ 
-								data.allEmployees.map(record =>  {
-									return(	<MenuItem key={record.id} value={record.id}>{[record.firstName, record.lastName].join(' ')}</MenuItem> )	})
-							}
-						</TextField>
-				 )
-				 return(null)
-					}
-				}
-			</Query>
-		)
+		this.relationList = (<RelationList id={this.state.id} dataSource={DataMap.hardware} relatives={this.state.employee}	/>)
 
 	}
+
 	onSubmit(event) {
 		event.preventDefault();
 	
@@ -117,9 +97,7 @@ class HardwareMutationForm extends React.Component {
 								<MenuItem key={"Display"} value={'Display'}>Display</MenuItem>
 								<MenuItem key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
 							</TextField>
-							{
-								this.dropdown
-							}
+							{ this.relationList }
 						</Grid>
 						<Grid item xs={6}>
 							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
@@ -137,10 +115,10 @@ class HardwareMutationForm extends React.Component {
 export default compose(
 	graphql(UPDATE_HARDWARE, {
 		name : 'updateHardware',
-		refetchQueries: [{query: GET_HARDWARES}]
+		refetchQueries: [GET_HARDWARES]
   }),
 	graphql(ADD_HARDWARE, {
 		name : 'createHardware',
-		refetchQueries: [{query: GET_HARDWARES}]
+		refetchQueries: [GET_HARDWARES]
   })
 )(HardwareMutationForm);

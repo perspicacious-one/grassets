@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import CloseIcon from '@material-ui/icons/Close';
-import FormLoader from '../DetailCard/FormLoader'
+import FormLoader from '../Forms/FormLoader'
 
 const styles = {
 	paper: {
@@ -65,12 +65,10 @@ class AssetTable extends React.Component {
 		if(this.state.active && !this.state.usedBy) {
 			return( <FormLoader noQuery={true} typename={this.typename} toggleMethod={this.toggleDrawer} /> )
 		} else {
-			return( <FormLoader noQuery={false} typename={this.typename} toggleMethod={this.toggleDrawer} variable={this.state.usedBy} /> )
+			return( <FormLoader noQuery={false} typename={this.state.subType} toggleMethod={this.toggleDrawer} variable={this.state.usedBy} /> )
 		}
 	}
 	render() {
-
-		const form = 	this.renderDrawerContent();
 
 		return(
 			<Paper style={styles.paper}>
@@ -87,13 +85,13 @@ class AssetTable extends React.Component {
 				</Table>
 				<Drawer anchor="right" open={this.state.active} elevation={6} style={styles.drawer}>
 					<div tabIndex={0}>
-						<Button size="small" variant="fab" color="secondary" style={styles.buttonLeft} aria-label="add" onClick={ () => this.toggleDrawer(false, null, "")} >
+						<Button variant="fab" color="secondary" style={styles.buttonLeft} aria-label="add" onClick={ () => this.toggleDrawer(false, null, "")} >
 							<CloseIcon />
 						</Button>
 						<Divider />
 					</div>
 
-					{	form }
+					{	this.renderDrawerContent() }
 				</Drawer>
 				<Divider />
 

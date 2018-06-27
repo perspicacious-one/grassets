@@ -21,14 +21,18 @@ const styles = {
 		textDecoration: 'none',
 		textTransform: 'uppercase',
 		color: 'white',
+		fontWeight: '600',
+		fontSize: '14px',
+		letterSpacing: '1px',
 	},
+
 	menu: {
 		justifyContent: "space-between"
 	}
 };
 
 function Header(props) {
-	const { classes } = props;
+	const { classes, auth } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -39,7 +43,29 @@ function Header(props) {
 					<NavLink exact to='/hardware' className={classes.menuButton} activeClassName='Header-isActive'>Hardware</NavLink>
 					<NavLink exact to='/subscriptions' className={classes.menuButton} activeClassName='Header-isActive'>Subscriptions</NavLink>
 					<NavLink exact to='/software' className={classes.menuButton} activeClassName='Header-isActive'>Software</NavLink>
-          <Button color="inherit" className={classes.menuButton}>Login</Button>
+					<NavLink exact to='/employees' className={classes.menuButton} activeClassName='Header-isActive'>Employees</NavLink>
+					{
+              !auth.isAuthenticated() && (
+                  <Button
+                    id="qsLoginBtn"
+                    className={classes.menuButton}
+                    onClick={auth.login.bind(this)}
+                  >
+                    Log In
+                  </Button>
+                )
+            }
+            {
+              auth.isAuthenticated() && (
+                  <Button
+                    id="qsLogoutBtn"
+                    className={classes.menuButton}
+                    onClick={auth.logout.bind(this)}
+                  >
+                    Log Out
+                  </Button>
+                )
+            }
         </Toolbar>
       </AppBar>
     </div>
@@ -47,7 +73,8 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
+	auth: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Header);
