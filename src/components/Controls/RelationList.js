@@ -1,22 +1,32 @@
 import React from 'react';
-import { GetDisplayName } from '../../utils/StringUtil';
 import Loading from '../common/Loading';
+import DataMap from '../common/DataSource';
 import { withStyles } from '@material-ui/core/styles';
+import {InactiveRelativeItem} from './ListItem';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import { DeleteButton, AddButton } from './BaseControls';
-import RelationActionButton from './RelationButton';
-import { Query } from 'react-apollo'
+import { AddIconButton } from './BaseControls';
+import {RelationActionButton} from './RelationButton';
+import { Query } from 'react-apollo';
+import { WithQueryMutationChip } from '../Controls/RelationButton';
 
 const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-  },
+	},
+	linkedList: {
+		marginTop: '20px',
+		marginBottom: '10px'
+	},
+	linkedListRow: {
+		backgroundColor: theme.palette.primary.light
+	},
+	queryList: {
+		marginTop: '10px',
+		marginBottom: '10px',
+		backgroundColor: theme.palette.tonalOffset
+	}
 });
 
 class RelationList extends React.Component {
@@ -26,78 +36,55 @@ class RelationList extends React.Component {
 		this.state = {
 			relationList: []
 		}
+		this.renderListItem = this.renderListItem.bind(this);
+		this.objName = this.props.dataSource.refName;
+		this.relationName = this.props.dataSource.relativeTypes;
 	}
-	componentDidMount() {
-		this.setState({
-			relationList: this.props.relatives
-		})
+	unLink() {
+
 	}
 	renderListItem(record) {
-		const { dataSource, id } = this.props;
-		if(this.state.relationList.includes(record)) {
-			return(
-				<ListItem 
-					key={record.id}
-					role={undefined}
-					dense
-					button
-				>
-					<ListItemText primary={GetDisplayName(record)} />
-					<ListItemSecondaryAction>
-						{
-							RelationActionButton(DeleteButton)({
-							mutation: dataSource.mutate.removeRelative[0],
-							parentId: id,
-							childId: record.id,
-						})
-						}
-					</ListItemSecondaryAction>
-				</ListItem>
-			)
+		const { dataSource, parentId } = this.props;
+		let result = null;
+		if(!record) {return;}
+		if(this.props.relatives.includes({record}) === false) {
+			const addButton = RelationActionButton(AddIconButton)({
+				mutation: dataSource.mutate.addRelative.employee,
+				parentId: parentId,
+				childId: record.id,
+				callback: this.props.callback
+			})
+			result = (<InactiveRelativeItem data={record} actionButton={addButton} />)
 		}
-		if(!this.state.relationList.includes(record)) {
-			return(
-				<ListItem 
-					key={record.id}
-					role={undefined}
-					dense
-					button
-				>
-					<ListItemText primary={GetDisplayName(record)} />
-					<ListItemSecondaryAction>
-						{
-							RelationActionButton(AddButton)({
-							mutation: dataSource.mutate.addRelative[0],
-							parentId: id,
-							childId: record.id,
-						})
-						}
-					</ListItemSecondaryAction>
-				</ListItem>
-			)
-		}
+		return result;
 	}
+
 	render() {
-		const { dataSource, id} = this.props
+		const { dataSource, parentId} = this.props;
+		const listQuery = DataMap[(dataSource.relativeTypes)].query.allBasic
     return (
-			<List subheader={<ListSubheader component="div">Related List</ListSubheader>}>
-      <Query 
-				query={dataSource.query.allBasic} 
-				variables={{ id }}
-				notifyOnNetworkStatusChange>
-						{({ loading, error, data, refetch }) => {
+					<React.Fragment>
+						<WithQueryMutationChip context={dataSource.refName} mutation={dataSource.mutate.removeRelative[(this.relationName)]} id={parentId} />					
+						<List style={styles.queryList}>
+						{
+							listQuery && (
+								<Query 
+									query={listQuery} 
+									>
+										{({ loading, error, data, refetch }) => {
 
-						if (loading) return ( <Loading />	);
-						if (error) return `Error! ${error.message}`;
-						if (data ) return(
-								data[dataSource.relativeTypes].map(record => this.renderListItem(record))
-						)	
-					}	
-				}
-			</Query>
-			</List>
-
-		)}
+										if (loading) return ( <Loading />	);
+										if (error) return `Error! ${error.message}`;
+										if (data ) return( Object.values(data)[0].map(record => this.renderListItem(record)) 	)	
+									}	
+								}
+								</Query>
+							)
+						}
+						</List>
+					</React.Fragment>
+			)
+		}
   }
 
 

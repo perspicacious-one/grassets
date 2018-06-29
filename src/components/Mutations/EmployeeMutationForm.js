@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import TextField from '@material-ui/core/TextField';
-import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import {
 	ADD_EMPLOYEE,

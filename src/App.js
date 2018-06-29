@@ -7,10 +7,7 @@ import { theme, ThemeAlternate } from './components/Theme';
 import { HardwareTable, SaaSTable, SaaPTable, EmployeeTable } from './components/AssetTable';
 import Header from './components/Header';
 import Grid from '@material-ui/core/Grid';
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+
 
 class App extends Component {
 	goTo(route) {
@@ -26,14 +23,9 @@ class App extends Component {
 	}
 	
   render() {
-		const client = new ApolloClient({
-			dataIdFromObject: o => o.id,
-			link: new HttpLink({ uri: process.env.REACT_APP_GRAPHCMS_API }),
-			cache: new InMemoryCache()
-		})
     const { isAuthenticated } = this.props.auth;
     return (
-			<ApolloProvider client={client}>
+			
 				<Router>
 					<MuiThemeProvider theme={ThemeAlternate}>
 					<div>
@@ -65,7 +57,6 @@ class App extends Component {
 					</div>
 					</MuiThemeProvider>
 				</Router>
-			</ApolloProvider>
     );
   }
 }

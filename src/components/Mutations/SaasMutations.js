@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import { GET_SAASES } from '../Queries/ListQueries'
-import { FormatDate } from '../../utils/StringUtil';
+import { FormatDate } from '../../utils/string';
 
 const styles = {
 	root: {

@@ -111,12 +111,26 @@ export const ThemeAlternate = createMuiTheme({
 		},
 		MuiInput: {
 			root: {
-				lineHeight: '1.3875em'
+				lineHeight: '1.3875em',
 			}
 		},
 		MuiSvgIcon: {
 			root: {
 				margin: '5px'
+			}
+		},
+		MuiChip: {
+			root: {
+				backgroundColor: "#651fff"
+			},
+			label: {
+				color: 'white'
+			},
+			deleteIcon: {
+				fill: 'white',
+				'&:hover': {
+					fill: 'red'
+				}
 			}
 		}
 	}

@@ -41,7 +41,7 @@ const DataMap = {
 			all: GET_EMPLOYEES,
 			allBasic: GET_EMPLOYEES_BASIC,
 			byId: GET_EMPLOYEE,
-			relatives: [GET_EMPLOYEE_HARDWARE]
+			relatives: [GET_EMPLOYEE_HARDWARE, GET_SAAP_EMPLOYEE, GET_SAAS_EMPLOYEE]
 		},
 		mutate: {
 			addRelative: {
@@ -56,14 +56,15 @@ const DataMap = {
 			create: ADD_EMPLOYEE
 		},
 		displayName: 'Employees',
-		refName: 'employee'
+		refName: 'employee',
+		relativeTypes: ['saases', 'saaps', 'hardware']
 	},
 	hardware: {
 		query: {
 			all: GET_HARDWARES,
 			allBasic: GET_HARDWARES_BASIC,
 			byId: GET_HARDWARE,
-			relatives: [GET_EMPLOYEE_HARDWARE]
+			relatives: GET_EMPLOYEE_HARDWARE
 		},
 		mutate: {
 			addRelative: {
@@ -77,14 +78,14 @@ const DataMap = {
 		},
 		displayName: 'Hardware',
 		refName: 'hardware',
-		relativeTypes: 'Employee'
+		relativeTypes: 'employee',
 	},
 	saas: {
 		query: {
 			all: GET_SAASES,
 			allBasic: GET_SAASES_BASIC,
 			byId: GET_SAAS,
-			relatives: [GET_SAAS_EMPLOYEE]
+			relatives: GET_SAAS_EMPLOYEE
 		},
 		mutate: {
 			addRelative: {
@@ -97,15 +98,15 @@ const DataMap = {
 			create: ADD_SAAS
 		},
 		displayName: 'Subscriptions',
-		refName: 'saas'
-
+		refName: 'saas',
+		relativeTypes: 'employee',
 	},
 	saap: {
 		query: {
 			all: GET_SAAPS,
 			allBasic: GET_SAAPS_BASIC,
 			byId: GET_SAAP,
-			relatives: [GET_SAAP_EMPLOYEE]
+			relatives: GET_SAAP_EMPLOYEE
 		},
 		mutate: {
 			addRelative: {
@@ -118,8 +119,10 @@ const DataMap = {
 			create: ADD_SAAP
 		},
 		displayName: 'Desktop Software',
-		refName: 'saap'
+		refName: 'saap',
+		relativeTypes: 'employee',
 	}
 }
 
 export default DataMap;
+

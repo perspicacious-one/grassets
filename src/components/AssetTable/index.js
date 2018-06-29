@@ -4,6 +4,7 @@ import { Query } from 'react-apollo'
 import { GET_HARDWARES, GET_SAASES_BASIC, GET_SAAPS_BASIC, GET_EMPLOYEES_BASIC } from '../Queries/ListQueries';
 import Loading from '../common/Loading';
 
+
 export const HardwareTable = () => (
 		<Query query={GET_HARDWARES} variables={{first:5}}>
 			{({ loading, error, data }) => {

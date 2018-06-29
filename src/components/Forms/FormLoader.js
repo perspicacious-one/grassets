@@ -31,7 +31,7 @@ const FormLoader = (props) => {
 			switch (props.typename) {
 				case "Employee":
 					return (<Query query={GET_EMPLOYEE} variables={{ id: props.variable }}>
-						{({ loading, error, data }) => {
+						{({ loading, error, data, refetch }) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
@@ -45,7 +45,7 @@ const FormLoader = (props) => {
 				case "SaaP":
 					return (
 					<Query query={GET_SAAP} variables={{ id: props.variable }}>
-						{({ loading, error, data }) => {
+						{({ loading, error, data, refetch }) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
@@ -57,7 +57,7 @@ const FormLoader = (props) => {
 				case "SaaS":
 					return (
 						<Query query={GET_SAAS} variables={{ id: props.variable }}>
-						{({ loading, error, data }) => {
+						{({ loading, error, data, refetch }) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
@@ -68,12 +68,12 @@ const FormLoader = (props) => {
 					</Query>);
 				case "Hardware":
 					return (
-						<Query query={GET_HARDWARE} variables={{ id: props.variable }}>
-						{({ loading, error, data }) => {
+						<Query query={GET_HARDWARE} variables={{ id: props.variable }} notifyOnNetworkStatusChange>
+						{({ loading, error, data, refetch }) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
-							<HardwareMutationForm data={data.Hardware} toggleMethod={props.toggleMethod}/>
+							<HardwareMutationForm data={data.Hardware} toggleMethod={props.toggleMethod} handleLinkChange={() => refetch()}/>
 						)
 						}
 					}

@@ -8,6 +8,19 @@ export const GET_EMPLOYEE = gql`
 			firstName
 			lastName
 			email
+			hardware {
+				id
+				maker
+				model
+			}
+			saas {
+				id
+				name
+			}
+			sapp {
+				id
+				name
+			}
     }
   }
 `;

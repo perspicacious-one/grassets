@@ -1,15 +1,13 @@
-import { compose, graphql, Query } from 'react-apollo'
+import { compose, graphql} from 'react-apollo'
 import {
 	ADD_HARDWARE,
 	UPDATE_HARDWARE
 } from './index';
 import React from 'react';
-import Loading from '../common/Loading';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import { GET_HARDWARES, GET_EMPLOYEES_BASIC, GET_HARDWARE } from '../Queries';
 import RelationList from '../Controls/RelationList';
 import DataMap from '../common/DataSource';
 
@@ -24,7 +22,7 @@ const styles = {
 	form: {
 		minWidth: '500px',
 		padding: '28px'
-	}
+	},
 }
 
 
@@ -38,10 +36,9 @@ class HardwareMutationForm extends React.Component {
 			model: '',
 			drivers: '',
 			hardwareType: '',
-			employee: ''
+			employee: []
 		}
 		this.onSubmit = this.onSubmit.bind(this);
-		this.relationList = null;
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
@@ -54,24 +51,30 @@ class HardwareMutationForm extends React.Component {
 			hardwareType: hardwareType,
 			employee: employee,
 		})
-		this.relationList = (<RelationList id={this.state.id} dataSource={DataMap.hardware} relatives={this.state.employee}	/>)
-
 	}
 
 	onSubmit(event) {
 		event.preventDefault();
 	
 		if(!this.state.id) {
-			this.props.createHardware({
+			this.props.createRecord({
 				variables: this.state
 			});
 		} else {
-			this.props.updateHardware({
+			this.props.updateRecord({
 				variables: this.state
 			});
 		}
 		this.props.toggleMethod(false, '', '')
 	}
+	// handleLink() {	
+	// 	this.props.handleLinkChange
+	// 	if(data){
+	// 	this.setState({
+	// 		employee: data.employee
+	// 	})
+	// 	}
+	// }
 	handleChange(event) {
 		event.preventDefault();
 		this.setState({
@@ -79,25 +82,32 @@ class HardwareMutationForm extends React.Component {
 		})
 	}
 	render() {
+		const { id, maker, model, drivers, hardwareType, employee } = this.state;
 		return(
-			<div style={styles.root}>
+			<div id={this.state.id} style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
 					<Grid container spacing={24}>
 						<Grid item xs={6}>
-							<TextField 	id={"maker"} label={"Manufacturer"} fullWidth value={this.state.maker} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+							<TextField 	id={"maker"} label={"Manufacturer"} fullWidth value={maker} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 						</Grid>
 						<Grid item xs={6}>
-							<TextField 	id={"model"} label={"Model"} fullWidth value={this.state.model} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+							<TextField 	id={"model"} label={"Model"} fullWidth value={model} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 						</Grid>
 						<Grid item xs={12}>
-							<TextField 	id={"drivers"} label={"Drivers"} fullWidth value={this.state.drivers} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
-							<TextField select id={"hardwareType"} label={"Category"} fullWidth value={this.state.hardwareType} onChange={ event => this.setState({ "hardwareType": event.target.value})}>
+							<TextField 	id={"drivers"} label={"Drivers"} fullWidth value={drivers} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+						</Grid>
+						<Grid item xs={12}>
+							<TextField select id={"hardwareType"} label={"Category"} fullWidth value={hardwareType} onChange={ event => this.setState({ "hardwareType": event.target.value})}>
 								<MenuItem key={"Laptop"} value={'Laptop'}>Laptop</MenuItem>
 								<MenuItem key={"Desktop"} value={'Desktop'}>Desktop</MenuItem>
 								<MenuItem key={"Display"} value={'Display'}>Display</MenuItem>
 								<MenuItem key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
 							</TextField>
-							{ this.relationList }
+						</Grid>
+						<Grid item xs={12}>
+						{
+							this.state.id &&  <RelationList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+						}
 						</Grid>
 						<Grid item xs={6}>
 							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
@@ -113,12 +123,12 @@ class HardwareMutationForm extends React.Component {
 
 
 export default compose(
-	graphql(UPDATE_HARDWARE, {
-		name : 'updateHardware',
-		refetchQueries: [GET_HARDWARES]
+	graphql(DataMap.hardware.mutate.update, {
+		name : 'updateRecord',
+		refetchQueries: [DataMap.hardware.query.relatives]
   }),
-	graphql(ADD_HARDWARE, {
-		name : 'createHardware',
-		refetchQueries: [GET_HARDWARES]
+	graphql(DataMap.hardware.mutate.create, {
+		name : 'createRecord',
+		refetchQueries: [DataMap.hardware.query.all]
   })
 )(HardwareMutationForm);
