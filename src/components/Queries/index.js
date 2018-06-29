@@ -1,5 +1,36 @@
 import gql from 'graphql-tag';
 
+// Employee Queries
+export const GET_EMPLOYEES = gql`
+  query allEmployees { 
+    allEmployees { 
+      id
+			firstName
+			lastName
+			email
+			saasApps {
+				id
+				name
+			}
+			hardware {
+				id
+				maker
+				model
+			}
+    }
+  }
+`;
+
+export const GET_EMPLOYEES_BASIC = gql`
+  query allEmployees { 
+    allEmployees { 
+      id
+			firstName
+			lastName
+			email
+    }
+  }
+`;
 
 export const GET_EMPLOYEE = gql`
   query getEmployee($id: ID!) { 
@@ -25,10 +56,13 @@ export const GET_EMPLOYEE = gql`
   }
 `;
 
+//Relation Queries
 export const GET_EMPLOYEE_HARDWARE = gql`
   query getEmployee($id: ID!) { 
     Employee(id: $id) { 
-      id
+			id
+			firstName
+			lastName
 			hardwares {
 				id
 				maker
@@ -66,19 +100,119 @@ export const GET_SAAS_EMPLOYEE = gql`
     }
   }
 `;
-export const GET_BILLING = gql`
-  query getCard($id: ID!) { 
-    Card(id: $id) { 
+
+//Subscription Queries
+export const GET_SAASES_BASIC = gql`
+  query allSaases { 
+    allSaases { 
       id
-			digits
 			name
+			qty
+			renewalTerm
 			expiration
+    }
+  }
+`;
+export const GET_SAASES = gql`
+  query allSaases { 
+    allSaases { 
+      id
+			name
+			qty
+			renewalTerm
+			expiration
+			adminEmail
+			adminPassword
+			adminPortal
+			users {
+				id
+				firstName
+				lastName
+			}
     }
   }
 `;
 
 
-export const GET_HARDWARE = gql`
+export const GET_SAAS = gql`
+	query getSaaS($id: ID!) { 
+		SaaS(id: $id) { 
+			id
+			name
+			qty
+			cost
+			renewalTerm
+			expiration
+			adminEmail
+			adminPassword
+			adminPortal
+			users {
+				id
+				email
+				firstName
+				lastName
+			}
+		}
+	}
+	`;
+	//Software Product Queries
+	export const GET_SAAPS_BASIC = gql`
+  query allSaaPs { 
+    allSaaPs { 
+      id
+			name
+			qty
+			maintenance
+			key
+			users {
+				id
+				firstName
+				lastName
+			}
+    }
+  }
+`;
+export const GET_SAAPS = gql`
+  query allSaaPs { 
+    allSaaPs { 
+      id
+			name
+			qty
+			maintenance
+			key
+			adminEmail
+			adminPassword
+			adminPortal
+			users {
+				id
+				firstName
+				lastName
+			}
+    }
+  }
+`;
+export const GET_SAAP = gql`
+	query getSaaP($id: ID!) { 
+		SaaP(id: $id) { 
+			id
+			name
+			qty
+			key
+			adminEmail
+			adminPassword
+			adminPortal
+			users {
+				id
+				email
+				firstName
+				lastName
+			}
+		}
+	}
+	`;
+
+	//Hardware Queries
+	export const GET_HARDWARE = gql`
 	query getHardware($id: ID!) { 
 		Hardware(id: $id) { 
       id
@@ -95,45 +229,6 @@ export const GET_HARDWARE = gql`
     }
   }
 `;
-
-export const GET_SAAS = gql`
-	query getSaaS($id: ID!) { 
-		SaaS(id: $id) { 
-			id
-			name
-			qty
-			cost
-			renewalTerm
-			expiration
-			adminEmail
-			adminPassword
-			adminPortal
-		}
-	}
-	`;
-export const GET_SAAP = gql`
-	query getSaaP($id: ID!) { 
-		SaaP(id: $id) { 
-			id
-			name
-			qty
-			key
-			adminEmail
-			adminPassword
-			adminPortal
-		}
-	}
-	`;
-export const GET_CARD = gql`
-	query Card($id: ID!) { 
-		Card(id: $id) { 
-			id
-			digits
-			name
-			expiration
-		}
-	}
-	`;
 
 export const GET_HARDWARES = gql`
   query allHardware { 
@@ -163,84 +258,15 @@ export const GET_HARDWARES_BASIC = gql`
 		}
 	}
 `;
-export const GET_SAASES_BASIC = gql`
-  query allSaases { 
-    allSaases { 
-      id
-			name
-			qty
-			renewalTerm
-			expiration
-    }
-  }
-`;
-export const GET_SAASES = gql`
-  query allSaases { 
-    allSaases { 
-      id
-			name
-			qty
-			renewalTerm
-			expiration
-			adminEmail
-			adminPassword
-			adminPortal
-    }
-  }
-`;
-export const GET_SAAPS_BASIC = gql`
-  query allSaaPs { 
-    allSaaPs { 
-      id
-			name
-			qty
-			maintenance
-			key
-    }
-  }
-`;
-export const GET_SAAPS = gql`
-  query allSaaPs { 
-    allSaaPs { 
-      id
-			name
-			qty
-			maintenance
-			key
-			adminEmail
-			adminPassword
-			adminPortal
-    }
-  }
-`;
 
-export const GET_EMPLOYEES = gql`
-  query allEmployees { 
-    allEmployees { 
-      id
-			firstName
-			lastName
-			email
-			saasApps {
-				id
-				name
-			}
-			hardware {
-				id
-				maker
-				model
-			}
-    }
-  }
-`;
 
-export const GET_EMPLOYEES_BASIC = gql`
-  query allEmployees { 
-    allEmployees { 
+export const GET_BILLING = gql`
+  query getCard($id: ID!) { 
+    Card(id: $id) { 
       id
-			firstName
-			lastName
-			email
+			digits
+			name
+			expiration
     }
   }
 `;

@@ -7,8 +7,8 @@ import {
 	UPDATE_EMPLOYEE
 } from './index';
 import { GET_EMPLOYEES } from '../Queries/ListQueries';
-import { GET_EMPLOYEE_HARDWARE } from '../Queries';
-import RelationList from '../Controls/RelationList';
+import DataMap from '../common/DataSource';
+import {EmployeeRelationsList} from '../Controls/RelationList';
 
 const styles = {
 	drawer: {
@@ -32,14 +32,15 @@ class EmployeeMutationForm extends React.Component {
 			id: '',
 			firstName: '',
 			lastName: '',
-			email: ''
+			email: '',
+			employee: ''
 		}
 		this.relationList = null;
 	}
 	componentDidMount() {
 		if(!this.state.id) { return }
-
-		this.relationList = (<RelationList id={this.state.id} relationName='Employee Hardware' relationQuery={GET_EMPLOYEE_HARDWARE} />)
+		const { id, employee } = this.state;
+		this.relationList = (<EmployeeRelationsList parentId={id} dataSource={DataMap.employee}	relatives={[employee]} />)
 	}
 	onSubmit(event) {
 		event.preventDefault();

@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import { GET_SAAPS } from '../Queries/ListQueries';
+import DataMap from '../common/DataSource';
+import {SaapRelationsList} from '../Controls/RelationList';
 
 const styles = {
 	root: {
@@ -34,7 +36,7 @@ class SaapMutationForm extends React.Component {
 			id: '',
 			name: '',
 			qty: 0,
-			maintenance: '',
+			maintenance: false,
 			key: '',
 			adminEmail: '',
 			adminPassword: '',
@@ -44,7 +46,7 @@ class SaapMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, qty, maintenance, key, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, qty, maintenance, key, employee, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
@@ -54,6 +56,7 @@ class SaapMutationForm extends React.Component {
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
+			employee
 		})
 	}
 	onSubmit(event) {
@@ -78,54 +81,61 @@ class SaapMutationForm extends React.Component {
 	}
 
 	render() {
+		const { id, name, key, qty, employee, adminEmail, adminPassword, adminPortal, maintenance} = this.state
 		return(
 			<div style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
 					<Grid container spacing={24}>
 							<Grid item xs={12}>
-								<TextField 	id={"name"} label={"Product"} fullWidth value={this.state.name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+								<TextField 	id={"name"} label={"Product"} fullWidth value={name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"qty"} fullWidth				
 									type="number"
 									label={"Quantity"}  
-									value={this.state.qty} 
+									value={qty} 
 									onChange={ event => this.setState({ [event.target.id]: parseInt(event.target.value, 10)})} />
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"key"} label={"Key"} fullWidth 
-									value={this.state.key} 
+									value={key} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 
 							<Grid item xs={6}>
 								<TextField 	id={"adminEmail"} label={"Admin Email"} fullWidth 
-									value={this.state.adminEmail} 
+									value={adminEmail} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"adminPassword"} label={"Admin Password"} fullWidth
 									type="password" 
-									value={this.state.adminPassword} 
+									value={adminPassword} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={12}>
 								<TextField 	id={"adminPortal"} label={"Portal Url"} fullWidth
-									value={this.state.adminPortal} 
+									value={adminPortal} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
 							<FormControlLabel
 									control={
 										<Checkbox
-											checked={this.state.maintenance}
-											onChange={ event => this.setState({ [event.target.id]: event.target.value})} 
-											value={this.state.maintenance}
+											id={'maintenance'}
+											checked={maintenance}
+											onChange={ event => this.setState({ [event.target.id]: event.target.checked})} 
+											value={maintenance}
 											color="primary"
 										/>
 									}
 									label="Maintenance"
 								/>
+							</Grid>
+							<Grid item xs={12}>
+									{	
+										id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+									}
 							</Grid>
 							<Grid item xs={12}>
 								<Button type='submit' variant="contained" color="secondary" style={styles.button} >

@@ -4,8 +4,8 @@ import {GetDisplayName, FormatCamel} from '../../utils/string';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { UnlinkButton } from './BaseControls';
-import { withStyles } from '@material-ui/core';
-import {RelationActionButton} from './RelationButton';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   root: {
@@ -14,35 +14,14 @@ const styles = theme => ({
 	},
 });
 
-export const ActiveRelativeItem = ({data, parentId, dataSource, callback}) => {
-	const removeButton = RelationActionButton(UnlinkButton)({
-		mutation: dataSource.mutate.removeRelative[dataSource.relativeTypes],
-		parentId: parentId,
-		childId: data.id,
-		callback: callback
-	})
-	return(
-		<ListItem 
-		key={data.id}
-		role={undefined}
-		className={styles.root}
-		divider
-		button
-		>
-		<ListItemText primary={GetDisplayName(data)} />
-			<ListItemSecondaryAction>
-				{
-					removeButton
-				}
-			</ListItemSecondaryAction>
-		</ListItem>
-	)
-}
 
-
-
-export const InactiveRelativeItem = ({actionButton, data}) => {
-
+export const InactiveRelativeItem = ({data, handleLink}) => {
+	const styles = {
+		buttonRight: {
+			float: 'right',
+			margin: '10px'
+		}
+	};
 	return(
 		<ListItem 
 		key={data.id}
@@ -52,9 +31,9 @@ export const InactiveRelativeItem = ({actionButton, data}) => {
 		>
 			<ListItemText primary={GetDisplayName(data)} />
 			<ListItemSecondaryAction>
-				{
-					actionButton
-				}
+				<IconButton aria-label="add" style={styles.buttonRight} onClick={ (e) => handleLink(data, e)} >
+					<AddIcon color="primary"/>
+				</IconButton>	
 			</ListItemSecondaryAction>
 		</ListItem>
 	)

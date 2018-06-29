@@ -1,13 +1,12 @@
 import React from 'react';
 import Loading from '../common/Loading';
 import DataMap from '../common/DataSource';
-import { withStyles } from '@material-ui/core/styles';
+import { GetDisplayName } from '../../utils/string';
+import { normalizeResult, getRelationKey } from '../../utils/traverse';
 import {InactiveRelativeItem} from './ListItem';
 import List from '@material-ui/core/List';
-import { AddIconButton } from './BaseControls';
-import {RelationActionButton} from './RelationButton';
-import { Query } from 'react-apollo';
-import { WithQueryMutationChip } from '../Controls/RelationButton';
+import Chip from '@material-ui/core/Chip';
+import { Query, compose, graphql } from 'react-apollo';
 
 const styles = theme => ({
   root: {
@@ -34,58 +33,106 @@ class RelationList extends React.Component {
 		super(props)
 
 		this.state = {
-			relationList: []
+			activeRelatives: this.props.relatives
 		}
-		this.renderListItem = this.renderListItem.bind(this);
 		this.objName = this.props.dataSource.refName;
 		this.relationName = this.props.dataSource.relativeTypes;
+		this.Link = this.Link.bind(this);
+		this.unLink = this.unLink.bind(this);
 	}
-	unLink() {
 
-	}
-	renderListItem(record) {
-		const { dataSource, parentId } = this.props;
-		let result = null;
-		if(!record) {return;}
-		if(this.props.relatives.includes({record}) === false) {
-			const addButton = RelationActionButton(AddIconButton)({
-				mutation: dataSource.mutate.addRelative.employee,
-				parentId: parentId,
-				childId: record.id,
-				callback: this.props.callback
+
+	Link(data, e) {
+		const { parentId } = this.props;
+		this.props.addRelative({
+			variables: { parentId, childId: data.id }
+		}).then(
+			this.setState({
+				activeRelatives: this.state.activeRelatives.splice(0, data)
 			})
-			result = (<InactiveRelativeItem data={record} actionButton={addButton} />)
-		}
-		return result;
+		)
+		this.props.callback
+	}
+	unLink(e) {
+		e.preventDefault();
+		const { parentId } = this.props;
+		this.props.removeRelative({
+			variables: { parentId, childId: e.target.id }
+		}).then(
+		this.setState({
+			activeRelatives: this.state.activeRelatives.filter(employee => employee.id !== e.target.id)
+			})
+		)
+		this.props.callback
 	}
 
 	render() {
 		const { dataSource, parentId} = this.props;
+		const { activeRelatives } = this.state
 		const listQuery = DataMap[(dataSource.relativeTypes)].query.allBasic
     return (
-					<React.Fragment>
-						<WithQueryMutationChip context={dataSource.refName} mutation={dataSource.mutate.removeRelative[(this.relationName)]} id={parentId} />					
-						<List style={styles.queryList}>
+			<Query query={listQuery}>
+				{({ loading, error, data, refetch }) => {
+					if (loading) return ( <Loading />	);
+					if (error) return `Error! ${error.message}`;
+					if (data) return( 
+						<React.Fragment>
 						{
-							listQuery && (
-								<Query 
-									query={listQuery} 
-									>
-										{({ loading, error, data, refetch }) => {
-
-										if (loading) return ( <Loading />	);
-										if (error) return `Error! ${error.message}`;
-										if (data ) return( Object.values(data)[0].map(record => this.renderListItem(record)) 	)	
-									}	
-								}
-								</Query>
+							!activeRelatives[0] ? null : (
+							activeRelatives.map(relative => (<Chip id={relative.id} key={relative.id} label={GetDisplayName(relative)}	onDelete={(e) => this.unLink(e) }/>))
 							)
-						}
+						}					
+						<List style={styles.queryList}>
+							{( Object.values(data)[0].map(record => <InactiveRelativeItem data={record} handleLink={this.Link} /> ) ) } 			
 						</List>
-					</React.Fragment>
-			)
-		}
+						</React.Fragment>
+					)
+				}}
+			</Query>
+		)
   }
+}
+export const HardwareRelationsList = compose(
+	graphql(DataMap.hardware.mutate.removeRelative.employee, {
+		name : 'removeRelative',
+		refetchQueries: [DataMap.hardware.query.all]
+	}),
+	graphql(DataMap.hardware.mutate.addRelative.employee, {
+		name : 'addRelative',
+		refetchQueries: [DataMap.hardware.query.all]
+	}),
 
+)(RelationList);
 
-export default withStyles(styles)(RelationList);
+export const EmployeeRelationsList = (props) => compose(
+	graphql(DataMap.employee.mutate.removeRelative[props.relation], {
+		name : 'removeRelative',
+		refetchQueries: [DataMap.employee.query.all]
+	}),
+	graphql(DataMap.employee.mutate.addRelative[props.relation], {
+		name : 'addRelative',
+		refetchQueries: [DataMap.employee.query.all]
+  }),
+)(RelationList);
+
+export const SaasRelationsList = compose(
+	graphql(DataMap.saas.mutate.removeRelative.employee, {
+		name : 'removeRelative',
+		refetchQueries: [DataMap.saas.query.all]
+	}),
+	graphql(DataMap.saas.mutate.addRelative.employee, {
+		name : 'addRelative',
+		refetchQueries: [DataMap.saas.query.all]
+  }),
+)(RelationList);
+
+export const SaapRelationsList = compose(
+	graphql(DataMap.saap.mutate.removeRelative.employee, {
+		name : 'removeRelative',
+		refetchQueries: [DataMap.saap.query.all]
+	}),
+	graphql(DataMap.saap.mutate.addRelative.employee, {
+		name : 'addRelative',
+		refetchQueries: [DataMap.saap.query.all]
+  }),
+)(RelationList);

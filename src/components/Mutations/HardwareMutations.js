@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import RelationList from '../Controls/RelationList';
+import {HardwareRelationsList} from '../Controls/RelationList';
 import DataMap from '../common/DataSource';
 
 const styles = {
@@ -67,14 +67,14 @@ class HardwareMutationForm extends React.Component {
 		}
 		this.props.toggleMethod(false, '', '')
 	}
-	// handleLink() {	
-	// 	this.props.handleLinkChange
-	// 	if(data){
-	// 	this.setState({
-	// 		employee: data.employee
-	// 	})
-	// 	}
-	// }
+	handleLinkChange(data, event) {	
+		this.props.handleLinkChange
+		if(data){
+		this.setState({
+			employee: data.employee
+		})
+		}
+	}
 	handleChange(event) {
 		event.preventDefault();
 		this.setState({
@@ -106,7 +106,7 @@ class HardwareMutationForm extends React.Component {
 						</Grid>
 						<Grid item xs={12}>
 						{
-							this.state.id &&  <RelationList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+							this.state.id &&  <HardwareRelationsList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
 						}
 						</Grid>
 						<Grid item xs={6}>

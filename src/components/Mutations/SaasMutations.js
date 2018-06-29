@@ -14,6 +14,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import { GET_SAASES } from '../Queries/ListQueries'
 import { FormatDate } from '../../utils/string';
+import DataMap from '../common/DataSource';
+import {SaasRelationsList} from '../Controls/RelationList';
 
 const styles = {
 	root: {
@@ -49,7 +51,7 @@ class SaasMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, cost, qty, renewalTerm, expiration, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, cost, qty, renewalTerm, expiration, employee, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
@@ -60,6 +62,7 @@ class SaasMutationForm extends React.Component {
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
+			employee: employee
 		})
 	}
 	onSubmit(event) {
@@ -83,12 +86,13 @@ class SaasMutationForm extends React.Component {
 		})
 	}
 	render() {
+		const { id, name, cost, qty, expiration, renewalTerm, employee, adminEmail, adminPassword, adminPortal} = this.state
 		return(
 			<div style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
 					<Grid container spacing={24}>
 							<Grid item xs={12}>
-								<TextField 	id={"name"} label={"Product"} fullWidth value={this.state.name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+								<TextField 	id={"name"} label={"Product"} fullWidth value={name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
 							<FormControl fullWidth>
@@ -96,7 +100,7 @@ class SaasMutationForm extends React.Component {
 								<Input
 									id="cost"
 									type="number"
-									value={this.state.cost}
+									value={cost}
 									onChange={ event => this.setState({ [event.target.id]: parseInt(event.target.value, 10)})} 
 									startAdornment={<InputAdornment position="start">$</InputAdornment>}
 								/>
@@ -106,13 +110,13 @@ class SaasMutationForm extends React.Component {
 								<TextField 	id={"qty"} fullWidth				
 									type="number"
 									label={"Quantity"}  
-									value={this.state.qty} 
+									value={qty} 
 									onChange={ event => this.setState({ [event.target.id]: parseInt(event.target.value, 10)})} />
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"expiration"} label={"Expiration"} fullWidth 
 									type="date"
-									value={this.state.expiration} 
+									value={expiration} 
 									InputLabelProps={{
 										shrink: true,
 									}}
@@ -120,7 +124,7 @@ class SaasMutationForm extends React.Component {
 								</Grid>
 							<Grid item xs={6}>
 								<TextField select id={"renewalTerm"} label={"Renewal Period"} fullWidth 
-									value={this.state.renewalTerm} 
+									value={renewalTerm} 
 									onChange={ event => this.setState({ "renewalTerm": event.target.value})}
 								>
 									<MenuItem key={"Monthly"} value={'Monthly'}>Monthly</MenuItem>
@@ -129,19 +133,24 @@ class SaasMutationForm extends React.Component {
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"adminEmail"} label={"Admin Email"} fullWidth 
-									value={this.state.adminEmail} 
+									value={adminEmail} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"adminPassword"} label={"Admin Password"} fullWidth
 									type="password" 
-									value={this.state.adminPassword} 
+									value={adminPassword} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
 							<Grid item xs={6}>
 								<TextField 	id={"adminPortal"} label={"Portal Url"} fullWidth
-									value={this.state.adminPortal} 
+									value={adminPortal} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
+							</Grid>
+							<Grid item xs={12}>
+									{	
+										id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+									}
 							</Grid>
 							<Grid item xs={12}>
 								<Button type='submit' variant="contained" color="secondary" style={styles.button} >

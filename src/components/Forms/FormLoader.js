@@ -35,7 +35,7 @@ const FormLoader = (props) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
-							<EmployeeMutationForm data={data.Employee} toggleMethod={props.toggleMethod}/>
+							<EmployeeMutationForm data={data.Employee} toggleMethod={props.toggleMethod} handleLinkChange={() => refetch()}/>
 						)
 						}
 					}
@@ -49,7 +49,7 @@ const FormLoader = (props) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
-							<SaapMutationForm data={data.SaaP} toggleMethod={props.toggleMethod} />
+							<SaapMutationForm data={data.SaaP} toggleMethod={props.toggleMethod} handleLinkChange={() => refetch()}/>
 						)
 						}
 					}
@@ -61,7 +61,7 @@ const FormLoader = (props) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
-							<SaasMutationForm data={data.SaaS} toggleMethod={props.toggleMethod}/>
+							<SaasMutationForm data={data.SaaS} toggleMethod={props.toggleMethod} handleLinkChange={() => refetch()}/>
 						)
 						}
 					}

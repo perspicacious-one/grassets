@@ -1,7 +1,8 @@
 import Button from '@material-ui/core/Button';
+import React from 'react';
+
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
-import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 export const DeleteButton = (props) => {
 	const styles = {
