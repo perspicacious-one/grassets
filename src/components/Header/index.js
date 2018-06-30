@@ -32,7 +32,7 @@ const styles = {
 };
 
 function Header(props) {
-	const { classes, auth } = props;
+	const { classes } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -44,28 +44,7 @@ function Header(props) {
 					<NavLink exact to='/subscriptions' className={classes.menuButton} activeClassName='Header-isActive'>Subscriptions</NavLink>
 					<NavLink exact to='/software' className={classes.menuButton} activeClassName='Header-isActive'>Software</NavLink>
 					<NavLink exact to='/employees' className={classes.menuButton} activeClassName='Header-isActive'>Employees</NavLink>
-					{
-              !auth.isAuthenticated() && (
-                  <Button
-                    id="qsLoginBtn"
-                    className={classes.menuButton}
-                    onClick={auth.login.bind(this)}
-                  >
-                    Log In
-                  </Button>
-                )
-            }
-            {
-              auth.isAuthenticated() && (
-                  <Button
-                    id="qsLogoutBtn"
-                    className={classes.menuButton}
-                    onClick={auth.logout.bind(this)}
-                  >
-                    Log Out
-                  </Button>
-                )
-            }
+
         </Toolbar>
       </AppBar>
     </div>

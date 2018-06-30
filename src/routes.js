@@ -6,7 +6,6 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import Callback from './components/Callback/Callback';
-import Auth from './components/Auth/Auth';
 import history from './history';
 
 
@@ -21,11 +20,7 @@ export const makeMainRoutes = () => {
 		<ApolloProvider client={client}>
       <Router history={history}>
         <div>
-          <Route path="/" render={(props) => <App auth={auth} {...props} />} />
-          <Route path="/callback" render={(props) => {
-            handleAuthentication(props);
-            return <Callback {...props} /> 
-          }}/>
+          <Route path="/" render={(props) => <App {...props} />} />
         </div>
       </Router>
 		</ApolloProvider>
