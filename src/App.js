@@ -10,29 +10,15 @@ import Grid from '@material-ui/core/Grid';
 
 
 class App extends Component {
-	goTo(route) {
-    this.props.history.replace(`/${route}`)
-  }
-
-  login() {
-    this.props.auth.login();
-  }
-
-  logout() {
-    this.props.auth.logout();
-	}
 	
   render() {
-    const { isAuthenticated } = this.props.auth;
     return (
 			
 				<Router>
 					<MuiThemeProvider theme={ThemeAlternate}>
 					<div>
-						<Header auth={this.props.auth}/>
+						<Header/>
 						<main>
-							{
-								isAuthenticated() && (
 									<Grid container 
 										spacing={24}
 										alignItems={'stretch'}
@@ -45,12 +31,7 @@ class App extends Component {
 											<Route exact path='/employees' component={ EmployeeTable } /> 
 										</Grid>
 									</Grid>
-								)
-							}{
-								!isAuthenticated() && (
-									<Home auth={this.props.auth}/>
-								)
-							}
+
 						</main>
 					</div>
 					</MuiThemeProvider>

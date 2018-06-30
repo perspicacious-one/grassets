@@ -9,13 +9,6 @@ import Callback from './components/Callback/Callback';
 import Auth from './components/Auth/Auth';
 import history from './history';
 
-const auth = new Auth();
-
-const handleAuthentication = ({location}) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}
 
 export const makeMainRoutes = () => {
 	const client = new ApolloClient({
