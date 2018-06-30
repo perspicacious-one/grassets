@@ -1,9 +1,8 @@
 import ListItem from '@material-ui/core/ListItem';
 import React from 'react';
-import {GetDisplayName, FormatCamel} from '../../utils/string';
+import {GetDisplayName} from '../../utils/string';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { UnlinkButton } from './BaseControls';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 

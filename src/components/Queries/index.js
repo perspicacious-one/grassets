@@ -8,14 +8,18 @@ export const GET_EMPLOYEES = gql`
 			firstName
 			lastName
 			email
-			saasApps {
+			subscription {
 				id
 				name
 			}
-			hardware {
+			hardwares {
 				id
 				maker
 				model
+			}
+			saap {
+				id
+				name
 			}
     }
   }
@@ -39,16 +43,16 @@ export const GET_EMPLOYEE = gql`
 			firstName
 			lastName
 			email
-			hardware {
+			hardwares {
 				id
 				maker
 				model
 			}
-			saas {
+			subscription {
 				id
 				name
 			}
-			sapp {
+			saap {
 				id
 				name
 			}
@@ -77,7 +81,7 @@ export const GET_SAAP_EMPLOYEE = gql`
     getSaap(id: $id) { 
 			id
 			name
-			employee {
+			user {
 				id
 				firstName
 				lastName
@@ -91,7 +95,7 @@ export const GET_SAAS_EMPLOYEE = gql`
     getSaaS(id: $id) { 
 			id
 			name
-			employee {
+			user {
 				id
 				firstName
 				lastName
@@ -110,6 +114,7 @@ export const GET_SAASES_BASIC = gql`
 			qty
 			renewalTerm
 			expiration
+			adminEmail
     }
   }
 `;
@@ -124,7 +129,7 @@ export const GET_SAASES = gql`
 			adminEmail
 			adminPassword
 			adminPortal
-			users {
+			user {
 				id
 				firstName
 				lastName
@@ -146,7 +151,7 @@ export const GET_SAAS = gql`
 			adminEmail
 			adminPassword
 			adminPortal
-			users {
+			user {
 				id
 				email
 				firstName
@@ -164,11 +169,7 @@ export const GET_SAAS = gql`
 			qty
 			maintenance
 			key
-			users {
-				id
-				firstName
-				lastName
-			}
+			adminEmail
     }
   }
 `;
@@ -183,7 +184,7 @@ export const GET_SAAPS = gql`
 			adminEmail
 			adminPassword
 			adminPortal
-			users {
+			user {
 				id
 				firstName
 				lastName
@@ -201,7 +202,7 @@ export const GET_SAAP = gql`
 			adminEmail
 			adminPassword
 			adminPortal
-			users {
+			user {
 				id
 				email
 				firstName

@@ -19,9 +19,10 @@ const handleAuthentication = ({location}) => {
 
 export const makeMainRoutes = () => {
 	const client = new ApolloClient({
-		dataIdFromObject: o => o.id,
 		link: new HttpLink({ uri: process.env.REACT_APP_GRAPHCMS_API }),
-		cache: new InMemoryCache(),
+		cache: new InMemoryCache({
+			dataIdFromObject: o => o.id
+		})
 	})
   return (
 		<ApolloProvider client={client}>

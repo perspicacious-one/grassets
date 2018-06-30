@@ -121,7 +121,8 @@ export const ThemeAlternate = createMuiTheme({
 		},
 		MuiChip: {
 			root: {
-				backgroundColor: "#651fff"
+				backgroundColor: "#651fff",
+				marginRight: '10px'
 			},
 			label: {
 				color: 'white'
@@ -131,6 +132,11 @@ export const ThemeAlternate = createMuiTheme({
 				'&:hover': {
 					fill: 'red'
 				}
+			}
+		},
+		MuiDrawer: {
+			paperAnchorRight: {
+				width: '640px',
 			}
 		}
 	}

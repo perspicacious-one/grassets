@@ -39,36 +39,50 @@ class RelationList extends React.Component {
 		this.relationName = this.props.dataSource.relativeTypes;
 		this.Link = this.Link.bind(this);
 		this.unLink = this.unLink.bind(this);
+		this.renderRelativeChip = this.renderRelativeChip.bind(this);
 	}
 
-
+	// link relative and update state to trigger ui update
 	Link(data, e) {
+		e.preventDefault;
 		const { parentId } = this.props;
 		this.props.addRelative({
 			variables: { parentId, childId: data.id }
 		}).then(
 			this.setState({
-				activeRelatives: this.state.activeRelatives.splice(0, data)
+				activeRelatives: [data].concat(this.state.activeRelatives)
 			})
 		)
-		this.props.callback
+		this.props.callback(data, e)
 	}
-	unLink(e) {
-		e.preventDefault();
+	// unlink a relative and update state to trigger ui update
+	unLink(id, e) {
+		e.preventDefault;
 		const { parentId } = this.props;
 		this.props.removeRelative({
-			variables: { parentId, childId: e.target.id }
+			variables: { parentId, childId: id }
 		}).then(
 		this.setState({
-			activeRelatives: this.state.activeRelatives.filter(employee => employee.id !== e.target.id)
+			activeRelatives: this.state.activeRelatives.filter(employee => employee.id !== id)
 			})
 		)
-		this.props.callback
 	}
+	// render the chip object for each active relative
+	renderRelativeChip() {
+		const { activeRelatives } = this.state
 
+		if(!activeRelatives || !activeRelatives[0]) {return null}
+
+		let chips = activeRelatives.filter(index => index != undefined).map(relative => {
+			if(!relative.id || !relative) {console.log('Can not add invalid relative'); return null}
+			return (<Chip id={relative.id} key={relative.id} label={GetDisplayName(relative)}	onDelete={(e) => this.unLink(relative.id, e) }/>)
+		});
+		if(!chips) {return null}
+
+		return chips
+	}
 	render() {
 		const { dataSource, parentId} = this.props;
-		const { activeRelatives } = this.state
 		const listQuery = DataMap[(dataSource.relativeTypes)].query.allBasic
     return (
 			<Query query={listQuery}>
@@ -77,11 +91,7 @@ class RelationList extends React.Component {
 					if (error) return `Error! ${error.message}`;
 					if (data) return( 
 						<React.Fragment>
-						{
-							!activeRelatives[0] ? null : (
-							activeRelatives.map(relative => (<Chip id={relative.id} key={relative.id} label={GetDisplayName(relative)}	onDelete={(e) => this.unLink(e) }/>))
-							)
-						}					
+						{	this.renderRelativeChip() }					
 						<List style={styles.queryList}>
 							{( Object.values(data)[0].map(record => <InactiveRelativeItem data={record} handleLink={this.Link} /> ) ) } 			
 						</List>
@@ -104,12 +114,12 @@ export const HardwareRelationsList = compose(
 
 )(RelationList);
 
-export const EmployeeRelationsList = (props) => compose(
-	graphql(DataMap.employee.mutate.removeRelative[props.relation], {
+export const EmployeeRelationsList = (type) => compose(
+	graphql(DataMap.employee.mutate.removeRelative[type], {
 		name : 'removeRelative',
 		refetchQueries: [DataMap.employee.query.all]
 	}),
-	graphql(DataMap.employee.mutate.addRelative[props.relation], {
+	graphql(DataMap.employee.mutate.addRelative[type], {
 		name : 'addRelative',
 		refetchQueries: [DataMap.employee.query.all]
   }),

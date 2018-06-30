@@ -12,7 +12,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import { GET_SAASES } from '../Queries/ListQueries'
 import { FormatDate } from '../../utils/string';
 import DataMap from '../common/DataSource';
 import {SaasRelationsList} from '../Controls/RelationList';
@@ -51,7 +50,7 @@ class SaasMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, cost, qty, renewalTerm, expiration, employee, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, cost, qty, renewalTerm, expiration, users, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
@@ -62,22 +61,32 @@ class SaasMutationForm extends React.Component {
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
-			employee: employee
+			users: users
 		})
 	}
+
 	onSubmit(event) {
 		event.preventDefault();
 	
 		if(!this.state.id) {
 			this.props.createSaas({
 				variables: this.state
-			});
+			})
 		} else {
 			this.props.updateSaas({
 				variables: this.state
 			});
 		}
+		this.props.refresh()
 		this.props.toggleMethod(false, '', '')
+	}
+	handleLinkChange(data, event) {	
+		this.props.handleLinkChange
+		if(data){
+			this.setState({
+				employee: data.employee
+			})
+		}
 	}
 	handleChange(event) {
 		event.preventDefault();
@@ -86,7 +95,7 @@ class SaasMutationForm extends React.Component {
 		})
 	}
 	render() {
-		const { id, name, cost, qty, expiration, renewalTerm, employee, adminEmail, adminPassword, adminPortal} = this.state
+		const { id, name, cost, qty, expiration, renewalTerm, users, adminEmail, adminPassword, adminPortal} = this.state
 		return(
 			<div style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
@@ -149,7 +158,7 @@ class SaasMutationForm extends React.Component {
 							</Grid>
 							<Grid item xs={12}>
 									{	
-										id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+										id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={users} callback={() => this.props.handleLinkChange} /> 
 									}
 							</Grid>
 							<Grid item xs={12}>
@@ -168,10 +177,10 @@ class SaasMutationForm extends React.Component {
 export default compose(
 	graphql(UPDATE_SAAS, {
 		name : 'updateSaas',
-		refetchQueries: [GET_SAASES]
+		refetchQueries: [DataMap.saas.query.allBasic]
   }),
 	graphql(ADD_SAAS, {
 		name : 'createSaas',
-		refetchQueries: [GET_SAASES]
+		refetchQueries: [DataMap.saas.query.allBasic]
   })
 )(SaasMutationForm);

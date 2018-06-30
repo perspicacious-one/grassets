@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js';
 import history from '../../history';
-
+import { ApolloClient } from 'apollo-client'
 
 export default class Auth {
 	auth0 = new auth0.WebAuth({
@@ -48,7 +48,8 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    // navigate to the home route
+		// navigate to the home route
+		ApolloClient.resetStore();
     history.replace('/home');
   }
 

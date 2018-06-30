@@ -31,7 +31,6 @@ class App extends Component {
 					<div>
 						<Header auth={this.props.auth}/>
 						<main>
-						
 							{
 								isAuthenticated() && (
 									<Grid container 
@@ -46,7 +45,6 @@ class App extends Component {
 											<Route exact path='/employees' component={ EmployeeTable } /> 
 										</Grid>
 									</Grid>
-
 								)
 							}{
 								!isAuthenticated() && (

@@ -50,12 +50,12 @@ class AssetTable extends React.Component {
 		this.toggleDrawer = this.toggleDrawer.bind(this);
 	}
 
-	toggleDrawer = (close, id, type) => {
+	toggleDrawer = (open, id, type) => {
     this.setState({
-			active: close,
+			active: open,
 			usedBy: id,
 			subType: type
-    });
+		});
 	};
 
 	renderDrawerContent = () => {
@@ -63,9 +63,9 @@ class AssetTable extends React.Component {
 			return null;
 		}
 		if(this.state.active && !this.state.usedBy) {
-			return( <FormLoader noQuery={true} typename={this.typename} toggleMethod={this.toggleDrawer} /> )
+			return( <FormLoader noQuery={true} typename={this.typename} toggleMethod={this.toggleDrawer} refresh={this.props.refresh}/> )
 		} else {
-			return( <FormLoader noQuery={false} typename={this.state.subType} toggleMethod={this.toggleDrawer} variable={this.state.usedBy} /> )
+			return( <FormLoader noQuery={false} typename={this.state.subType} toggleMethod={this.toggleDrawer} variable={this.state.usedBy} refresh={this.props.refresh}/> )
 		}
 	}
 	render() {

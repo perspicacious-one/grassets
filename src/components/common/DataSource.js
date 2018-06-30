@@ -45,19 +45,21 @@ const DataMap = {
 		},
 		mutate: {
 			addRelative: {
-				hardware: ADD_EMPLOYEE_TO_HARDWARE,
-				saas: ADD_EMPLOYEE_TO_SAAS
+				hardwares: ADD_EMPLOYEE_TO_HARDWARE,
+				subscription: ADD_EMPLOYEE_TO_SAAS,
+				saap: ADD_EMPLOYEE_TO_SAAP
 			},
 			removeRelative: {
-				hardware: REMOVE_EMPLOYEE_FROM_HARDWARE,
-				saas: REMOVE_EMPLOYEE_FROM_SAAS,
+				hardwares: REMOVE_EMPLOYEE_FROM_HARDWARE,
+				subscription: REMOVE_EMPLOYEE_FROM_SAAS,
+				saap: REMOVE_EMPLOYEE_FROM_SAAP
 			},
 			update: UPDATE_EMPLOYEE,
 			create: ADD_EMPLOYEE
 		},
 		displayName: 'Employees',
 		refName: 'employee',
-		relativeTypes: ['saases', 'saaps', 'hardware']
+		relativeTypes: ['subscription', 'saap', 'hardwares']
 	},
 	hardware: {
 		query: {

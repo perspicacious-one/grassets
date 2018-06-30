@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import { GET_SAAPS } from '../Queries/ListQueries';
 import DataMap from '../common/DataSource';
 import {SaapRelationsList} from '../Controls/RelationList';
 
@@ -20,6 +19,7 @@ const styles = {
   },
 	button: {
 		margin: '15px',
+		bottom: '15px',
 	},
 	form: {
 		minWidth: '600px',
@@ -46,7 +46,7 @@ class SaapMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, qty, maintenance, key, employee, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, qty, maintenance, key, users, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
@@ -56,7 +56,14 @@ class SaapMutationForm extends React.Component {
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
-			employee
+			users: users
+		})
+	}
+	handleLinkChange(data, e) {
+		e.preventDefault();
+
+		this.setState({
+			users: [data].concat(this.state.users)
 		})
 	}
 	onSubmit(event) {
@@ -64,15 +71,17 @@ class SaapMutationForm extends React.Component {
 	
 		if(!this.state.id) {
 			this.props.createSaap({
-				variables: this.state
+				variables: this.state,
 			});
 		} else {
 			this.props.updateSaap({
 				variables: this.state
 			});
 		}
-		this.props.toggleMethod(false, '', '')
+		this.props.refresh()
+		this.props.toggleMethod(false, '', '')	
 	}
+
 	handleChange(event) {
 		event.preventDefault();
 		this.setState({
@@ -81,7 +90,7 @@ class SaapMutationForm extends React.Component {
 	}
 
 	render() {
-		const { id, name, key, qty, employee, adminEmail, adminPassword, adminPortal, maintenance} = this.state
+		const { id, name, key, qty, users, adminEmail, adminPassword, adminPortal, maintenance} = this.state
 		return(
 			<div style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
@@ -134,14 +143,12 @@ class SaapMutationForm extends React.Component {
 							</Grid>
 							<Grid item xs={12}>
 									{	
-										id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+										id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={users} callback={() => this.props.handleLinkChange}  /> 
 									}
 							</Grid>
-							<Grid item xs={12}>
-								<Button type='submit' variant="contained" color="secondary" style={styles.button} >
+							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
 									Save
-								</Button>
-							</Grid>
+							</Button>
 					</Grid>
 				</form>
 			</div>
@@ -153,10 +160,10 @@ class SaapMutationForm extends React.Component {
 export default compose(
 	graphql(UPDATE_SAAP, {
 		name : 'updateSaap',
-		refetchQueries: [{query: GET_SAAPS}]
+		refetchQueries: [{query: DataMap.saap.query.allBasic}]
   }),
 	graphql(ADD_SAAP, {
 		name : 'createSaap',
-		refetchQueries: [{query: GET_SAAPS}]
+		refetchQueries: [{query: DataMap.saap.query.allBasic}]
   })
 )(SaapMutationForm);

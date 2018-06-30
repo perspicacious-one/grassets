@@ -1,13 +1,11 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import TextField from '@material-ui/core/TextField';
-import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import {
 	ADD_EMPLOYEE,
 	UPDATE_EMPLOYEE
 } from '../Mutations';
-import { GET_EMPLOYEES } from '../Queries/ListQueries';
 
 const styles = {
 	drawer: {
@@ -80,10 +78,10 @@ class DetailForm extends React.Component {
 export default compose(
 	graphql(UPDATE_EMPLOYEE, {
 		name : 'updateEmployee',
-		refetchQueries: [{query: GET_EMPLOYEES}]
+		refetchQueries: [{query: DataMap.employee.query.allBasic}]
   }),
 	graphql(ADD_EMPLOYEE, {
 		name : 'createEmployee',
-		refetchQueries: [{query: GET_EMPLOYEES}]
+		refetchQueries: [{query: DataMap.employee.query.allBasic}]
   })
 )(DetailForm);

@@ -130,13 +130,13 @@ export const REMOVE_EMPLOYEE_FROM_HARDWARE = gql`
 }`
 export const ADD_EMPLOYEE_TO_SAAS = gql`
 	mutation addToEmployeeSaasApps($parentId: ID!,$childId: ID!) {
-		addToEmployeeSaasApps(saasAppsSaaSId: $parentId, usersEmployeeId: $childId) {
-		usersEmployee {
+		addToEmployeeSaasApps(subscriptionSaaSId: $parentId, userEmployeeId: $childId) {
+			userEmployee {
 			id
 			firstName
 			lastName
 		}
-		saasAppsSaaS {
+		subscriptionSaaS {
 			id
 			name
 		}
@@ -144,13 +144,13 @@ export const ADD_EMPLOYEE_TO_SAAS = gql`
 }`
 export const REMOVE_EMPLOYEE_FROM_SAAS = gql`
 	mutation removeFromEmployeeSaasApps($parentId: ID!,$childId: ID!) {
-		removeFromEmployeeSaasApps(saasAppsSaaSId: $parentId, usersEmployeeId: $childId) {
-			usersEmployee {
+		removeFromEmployeeSaasApps(subscriptionSaaSId: $parentId, userEmployeeId: $childId) {
+			userEmployee {
 			id
 			firstName
 			lastName
 		}
-		saasAppsSaaS {
+		subscriptionSaaS {
 			id
 			name
 		}
@@ -158,27 +158,27 @@ export const REMOVE_EMPLOYEE_FROM_SAAS = gql`
 }`
 export const ADD_EMPLOYEE_TO_SAAP = gql`
 	mutation addToSoftware($parentId: ID!,$childId: ID!) {
-		addToSoftware(saapsSaaPId: $parentId, usersEmployeeId: $childId) {
-			usersEmployee {
+		addToSoftware(saapSaaPId: $parentId, userEmployeeId: $childId) {
+			userEmployee {
 			id
 			firstName
 			lastName
 		}
-		saapsSaaP {
+		saapSaaP {
 			id
 			name
 		}
 	} 
 }`
 export const REMOVE_EMPLOYEE_FROM_SAAP = gql`
-	mutation removeFromEmployeeSaap($parentId: ID!,$childId: ID!) {
-		removeFromEmployeeSaap(saapSaapId: $parentId, employeeEmployeeId: $childId) {
-		employeeEmployee {
+	mutation removeFromSoftware($parentId: ID!,$childId: ID!) {
+		removeFromSoftware(saapSaaPId: $parentId, userEmployeeId: $childId) {
+			userEmployee {
 			id
 			firstName
 			lastName
 		}
-		saapSaap {
+		saapSaaP {
 			id
 			name
 		}

@@ -106,7 +106,7 @@ class HardwareMutationForm extends React.Component {
 						</Grid>
 						<Grid item xs={12}>
 						{
-							this.state.id &&  <HardwareRelationsList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={this.props.handleLinkChange} /> 
+							this.state.id &&  <HardwareRelationsList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={() => this.props.handleLinkChange} /> 
 						}
 						</Grid>
 						<Grid item xs={6}>

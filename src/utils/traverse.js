@@ -48,6 +48,7 @@ export function getRelationData(data) {
 //Project specific operations
 export const GetDisplayName = (val) => {
 	var keys = Object.keys(val)
+	if(keys === '0') { keys = Object.keys(val[0])}
 	switch (true) {
 		case(keys.includes('firstName')):
 			return(val.firstName + ' ' + val.lastName);
@@ -59,5 +60,7 @@ export const GetDisplayName = (val) => {
 }
 
 export function normalizeResult(data) {
-	!data ? null : Object.values(data)[0]
+
+	if(!data) {return null }
+	if(typeof data === 'array') { return Object.values(data)[0]}
 }
