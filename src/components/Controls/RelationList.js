@@ -2,11 +2,15 @@ import React from 'react';
 import Loading from '../common/Loading';
 import DataMap from '../common/DataSource';
 import { GetDisplayName } from '../../utils/string';
-import { normalizeResult, getRelationKey } from '../../utils/traverse';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Grid from '@material-ui/core/Grid';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {InactiveRelativeItem} from './ListItem';
 import List from '@material-ui/core/List';
 import Chip from '@material-ui/core/Chip';
 import { Query, compose, graphql } from 'react-apollo';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
@@ -23,7 +27,9 @@ const styles = theme => ({
 	},
 	queryList: {
 		marginTop: '10px',
-		marginBottom: '10px',
+		marginBottom: '20px',
+		paddingLeft: '20px',
+		paddingRight: '20px',
 		backgroundColor: theme.palette.tonalOffset
 	}
 });
@@ -91,10 +97,19 @@ class RelationList extends React.Component {
 					if (error) return `Error! ${error.message}`;
 					if (data) return( 
 						<React.Fragment>
-						{	this.renderRelativeChip() }					
-						<List style={styles.queryList}>
-							{( Object.values(data)[0].map(record => <InactiveRelativeItem data={record} handleLink={this.Link} /> ) ) } 			
-						</List>
+							<Grid item xs={12} style={styles.linkedList}>
+								{	this.renderRelativeChip() }
+							</Grid>
+							<Grid item xs={12}>
+								<ExpansionPanel style={styles.linkedList}>
+									<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+										<Typography variant='subheading'>Link New: {dataSource.relativeTypes}</Typography>
+									</ExpansionPanelSummary>
+									<List style={styles.queryList}>
+										{( Object.values(data)[0].map(record => <InactiveRelativeItem data={record} handleLink={this.Link} /> ) ) } 			
+									</List>
+								</ExpansionPanel>
+							</Grid>					
 						</React.Fragment>
 					)
 				}}

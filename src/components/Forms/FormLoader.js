@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../common/Loading';
-import HardwareMutationForm from '../Mutations/HardwareMutations';
+import HardwareMutationForm from '../Mutations/HardwareMutationForm';
 import SaasMutationForm from '../Mutations/SaasMutationForm';
 import SaapMutationForm from '../Mutations/SoftwareMutationForm';
 import EmployeeMutationForm from '../Mutations/EmployeeMutationForm';

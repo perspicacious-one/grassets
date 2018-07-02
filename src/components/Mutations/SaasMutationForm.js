@@ -50,7 +50,7 @@ class SaasMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, cost, qty, renewalTerm, expiration, users, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, cost, qty, renewalTerm, expiration, user, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
@@ -61,7 +61,7 @@ class SaasMutationForm extends React.Component {
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
-			users: users
+			user: user
 		})
 	}
 
@@ -84,7 +84,7 @@ class SaasMutationForm extends React.Component {
 		this.props.handleLinkChange
 		if(data){
 			this.setState({
-				employee: data.employee
+				user: data.user
 			})
 		}
 	}
@@ -95,7 +95,7 @@ class SaasMutationForm extends React.Component {
 		})
 	}
 	render() {
-		const { id, name, cost, qty, expiration, renewalTerm, users, adminEmail, adminPassword, adminPortal} = this.state
+		const { id, name, cost, qty, expiration, renewalTerm, user, adminEmail, adminPassword, adminPortal} = this.state
 		return(
 			<div style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
@@ -158,7 +158,7 @@ class SaasMutationForm extends React.Component {
 							</Grid>
 							<Grid item xs={12}>
 									{	
-										id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={users} callback={() => this.props.handleLinkChange} /> 
+										id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={user} callback={() => this.props.handleLinkChange} /> 
 									}
 							</Grid>
 							<Grid item xs={12}>

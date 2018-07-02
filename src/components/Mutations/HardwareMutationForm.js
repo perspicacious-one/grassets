@@ -104,11 +104,9 @@ class HardwareMutationForm extends React.Component {
 								<MenuItem key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
 							</TextField>
 						</Grid>
-						<Grid item xs={12}>
 						{
 							this.state.id &&  <HardwareRelationsList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={() => this.props.handleLinkChange} /> 
 						}
-						</Grid>
 						<Grid item xs={6}>
 							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
 								Save

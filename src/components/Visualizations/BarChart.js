@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo'
-import DataMap from '../common/DataSource'
-import Grid from '@material-ui/core/Grid';
-import Loading from '../common/Loading'
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 
 
@@ -48,7 +44,7 @@ export default class SimpleBarChart extends Component  {
 					<YAxis dataKey={barKey} />
 					<Tooltip />
 					<Legend />
-					<Bar dataKey='cost' name={'Per Payment Price'} fill="#7C4DFF" />
+					<Bar dataKey='cost' name={'Per Payment Price'} fill="#FF6E40" />
 				</BarChart>
 		)
 	}

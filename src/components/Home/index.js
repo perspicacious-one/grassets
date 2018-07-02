@@ -4,6 +4,7 @@ import DataMap from '../common/DataSource'
 import Grid from '@material-ui/core/Grid';
 import FilteredChart from '../Visualizations/FilteredChart'
 import {SoftwareTotalPieChart} from '../Visualizations/SimplePieChart'
+import {SaasExpirationLineChart} from '../Visualizations/SimpleLineChart'
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
@@ -40,7 +41,7 @@ class Home extends React.Component {
 				</Grid>
 				<Grid xs={6}>
 					<Paper style={styles.paper}>
-						<SoftwareTotalPieChart title="Software Costs" />
+					<SoftwareTotalPieChart title="Software Costs" />
 					</Paper>
 				</Grid>
 			</Grid>
@@ -49,3 +50,5 @@ class Home extends React.Component {
 }
 
 export default Home;
+
+//<SoftwareTotalPieChart title="Software Costs" />

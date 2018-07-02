@@ -169,7 +169,6 @@ export const GET_SAAS = gql`
       id
 			name
 			qty
-			cost
 			maintenance
 			key
 			adminEmail
@@ -182,7 +181,6 @@ export const GET_SAAPS = gql`
       id
 			name
 			qty
-			cost
 			maintenance
 			key
 			adminEmail

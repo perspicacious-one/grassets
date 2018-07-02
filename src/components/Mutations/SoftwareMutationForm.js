@@ -46,7 +46,7 @@ class SaapMutationForm extends React.Component {
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		let { id, name, qty, maintenance, key, users, adminEmail, adminPassword, adminPortal } = this.props.data;
+		let { id, name, qty, maintenance, key, user, adminEmail, adminPassword, adminPortal } = this.props.data;
 		this.setState({
 			id: id,
 			name: name,
@@ -56,14 +56,14 @@ class SaapMutationForm extends React.Component {
 			adminEmail: adminEmail,
 			adminPassword: adminPassword,
 			adminPortal: adminPortal,
-			users: users
+			user: user
 		})
 	}
 	handleLinkChange(data, e) {
 		e.preventDefault();
 
 		this.setState({
-			users: [data].concat(this.state.users)
+			user: [data].concat(this.state.user)
 		})
 	}
 	onSubmit(event) {
@@ -90,7 +90,7 @@ class SaapMutationForm extends React.Component {
 	}
 
 	render() {
-		const { id, name, key, qty, users, adminEmail, adminPassword, adminPortal, maintenance} = this.state
+		const { id, name, key, qty, user, adminEmail, adminPassword, adminPortal, maintenance} = this.state
 		return(
 			<div style={styles.root}>
 				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
@@ -143,7 +143,7 @@ class SaapMutationForm extends React.Component {
 							</Grid>
 							<Grid item xs={12}>
 									{	
-										id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={users} callback={() => this.props.handleLinkChange}  /> 
+										id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={user} callback={() => this.props.handleLinkChange}  /> 
 									}
 							</Grid>
 							<Button type='submit' variant="contained" color="secondary" style={styles.button} >

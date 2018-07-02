@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo'
-import DataMap from '../common/DataSource'
 import Grid from '@material-ui/core/Grid';
 import Loading from '../common/Loading'
 import SimpleBarChart from './BarChart'
