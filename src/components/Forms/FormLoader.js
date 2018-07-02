@@ -5,7 +5,7 @@ import SaasMutationForm from '../Mutations/SaasMutationForm';
 import SaapMutationForm from '../Mutations/SoftwareMutationForm';
 import EmployeeMutationForm from '../Mutations/EmployeeMutationForm';
 import { Query } from 'react-apollo'
-import DataMap from '../common/DataSource'
+import DataMap from '../common/Mapping'
 
 
 const FormLoader = (props) => {

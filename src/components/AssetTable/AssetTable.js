@@ -10,6 +10,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
 import FormLoader from '../Forms/FormLoader'
 import Divider from '@material-ui/core/Divider';
+import DataMap from '../common/Mapping';
 
 const styles = {
 	paper: {

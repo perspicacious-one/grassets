@@ -8,8 +8,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import {HardwareRelationsList} from '../Controls/RelationList';
-import DataMap from '../common/DataSource';
+import {HardwareRelationsList} from '../FormList';
+import DataMap from '../common/Mapping';
+import {MapToControl} from '../common/Mapping';
 
 const styles = {
 	root: {

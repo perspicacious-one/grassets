@@ -1,7 +1,7 @@
 import React from 'react';
 import AssetTable from './AssetTable.js';
 import { Query } from 'react-apollo'
-import DataMap from '../common/DataSource';
+import DataMap from '../common/Mapping';
 import Loading from '../common/Loading';
 
 

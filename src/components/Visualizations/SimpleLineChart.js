@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Query, compose, graphql } from 'react-apollo'
-import DataMap from '../common/DataSource'
+import DataMap from '../common/Mapping';
 import Grid from '@material-ui/core/Grid';
 import {LineChart, Line, Legend, XAxis, YAxis, Tooltip, CartesianGrid} from 'recharts';
 import Typography from '@material-ui/core/Typography';

@@ -22,13 +22,7 @@ export const InactiveRelativeItem = ({data, handleLink}) => {
 		}
 	};
 	return(
-		<ListItem 
-		key={data.id}
-		role={undefined}
-		divider
-		dense
-		button
-		>
+		<ListItem key={data.id} role={undefined} divider dense button>
 			<ListItemText primary={GetDisplayName(data)} />
 			<ListItemSecondaryAction>
 				<IconButton aria-label="add" style={styles.buttonRight} onClick={ (e) => handleLink(data, e)} >

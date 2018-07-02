@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import DataMap from '../common/DataSource'
+import DataMap from '../common/Mapping';
 import Grid from '@material-ui/core/Grid';
 import FilteredChart from '../Visualizations/FilteredChart'
 import {SoftwareTotalPieChart} from '../Visualizations/SimplePieChart'

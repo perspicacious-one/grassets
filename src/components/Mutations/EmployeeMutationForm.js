@@ -6,7 +6,7 @@ import {
 	ADD_EMPLOYEE,
 	UPDATE_EMPLOYEE
 } from './index';
-import DataMap from '../common/DataSource';
+import DataMap from '../common/Mapping';
 import Chip from '@material-ui/core/Chip';
 import { GetDisplayName } from '../../utils/string';
 import Grid from '@material-ui/core/Grid';
