@@ -140,6 +140,11 @@ export const ThemeAlternate = createMuiTheme({
 			paperAnchorRight: {
 				width: '640px',
 			}
+		},
+		MuiList: {
+			padding: {
+				paddingBottom: '0'
+			}
 		}
 	}
 });

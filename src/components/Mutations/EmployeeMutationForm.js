@@ -12,16 +12,14 @@ import { GetDisplayName } from '../../utils/string';
 import Grid from '@material-ui/core/Grid';
 
 const styles = {
-	drawer: {
-		width: '640px',
-	},
+	root: {
+		flexGrow: 1,
+		maxWidth: '100%'
+  },
 	button: {
-		margin: '15px',
+		marginTop: '15px',
+		bottom: '15px',
 	},
-	form: {
-		minWidth: '500px',
-		padding: '28px'
-	}
 }
 
 class EmployeeMutationForm extends React.Component {
@@ -84,7 +82,7 @@ class EmployeeMutationForm extends React.Component {
 	}
 	render() {
 		return(
-				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
+				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
 					<Grid container spacing={24}>
 						<Grid item xs={12}>
 						<h3>{this.props.type}</h3>	

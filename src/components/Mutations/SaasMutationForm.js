@@ -18,15 +18,14 @@ import {SaasRelationsList} from '../Controls/RelationList';
 
 const styles = {
 	root: {
+		display: 'flex',
+		alignItems: 'flex-start',
 		flexGrow: 1,
-		maxWidth: '800px'
+		maxWidth: '100%'
   },
 	button: {
-		margin: '15px',
-	},
-	form: {
-		minWidth: '600px',
-		padding: '28px'
+		marginTop: '15px',
+		bottom: '15px',
 	}
 }
 
@@ -97,8 +96,7 @@ class SaasMutationForm extends React.Component {
 	render() {
 		const { id, name, cost, qty, expiration, renewalTerm, user, adminEmail, adminPassword, adminPortal} = this.state
 		return(
-			<div style={styles.root}>
-				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
+				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
 					<Grid container spacing={24}>
 							<Grid item xs={12}>
 								<TextField 	id={"name"} label={"Product"} fullWidth value={name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
@@ -151,16 +149,14 @@ class SaasMutationForm extends React.Component {
 									value={adminPassword} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12}>
 								<TextField 	id={"adminPortal"} label={"Portal Url"} fullWidth
 									value={adminPortal} 
 									onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
-							<Grid item xs={12}>
-									{	
-										id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={user} callback={() => this.props.handleLinkChange} /> 
-									}
-							</Grid>
+								{	
+									id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={user} callback={() => this.props.handleLinkChange} /> 
+								}
 							<Grid item xs={12}>
 								<Button type='submit' variant="contained" color="secondary" style={styles.button} >
 									Save
@@ -168,7 +164,6 @@ class SaasMutationForm extends React.Component {
 							</Grid>
 					</Grid>
 				</form>
-			</div>
 		)
 	}
 }

@@ -26,6 +26,7 @@ export const InactiveRelativeItem = ({data, handleLink}) => {
 		key={data.id}
 		role={undefined}
 		divider
+		dense
 		button
 		>
 			<ListItemText primary={GetDisplayName(data)} />

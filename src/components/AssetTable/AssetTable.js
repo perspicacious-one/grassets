@@ -27,8 +27,15 @@ const styles = {
 	},
 	drawer: {
 		maxWidth: '860px',
-		minWidth: '640px',
+		minWidth: '720px',
 		padding: '20px'
+	},
+	drawerContent: {
+		padding: '28px',
+		margin: '0',
+		display: 'flex',
+		alignItems: 'stretch',
+		flexGrow: 1,
 	},
 	heading: {
 		margin: '25px',
@@ -90,8 +97,9 @@ class AssetTable extends React.Component {
 						</Button>
 						<Divider />
 					</div>
-
+					<div style={styles.drawerContent}>
 					{	this.renderDrawerContent() }
+					</div>
 				</Drawer>
 
 				<Button variant="fab" color="secondary" aria-label="add" style={styles.buttonRight} onClick={ () => this.toggleDrawer(true, null, this.typename)} >

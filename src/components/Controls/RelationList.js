@@ -6,11 +6,13 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import {InactiveRelativeItem} from './ListItem';
 import List from '@material-ui/core/List';
 import Chip from '@material-ui/core/Chip';
 import { Query, compose, graphql } from 'react-apollo';
 import Typography from '@material-ui/core/Typography';
+import ErrorBoundary from '../common/ErrorBoundary';
 
 const styles = theme => ({
   root: {
@@ -20,17 +22,13 @@ const styles = theme => ({
 	},
 	linkedList: {
 		marginTop: '20px',
-		marginBottom: '10px'
-	},
-	linkedListRow: {
-		backgroundColor: theme.palette.primary.light
+		marginBottom: '15px',
+		fontSize: '36px',
 	},
 	queryList: {
-		marginTop: '10px',
-		marginBottom: '20px',
 		paddingLeft: '20px',
 		paddingRight: '20px',
-		backgroundColor: theme.palette.tonalOffset
+		paddingBottom: '0px',
 	}
 });
 
@@ -91,29 +89,31 @@ class RelationList extends React.Component {
 		const { dataSource, parentId} = this.props;
 		const listQuery = DataMap[(dataSource.relativeTypes)].query.allBasic
     return (
-			<Query query={listQuery}>
-				{({ loading, error, data, refetch }) => {
-					if (loading) return ( <Loading />	);
-					if (error) return `Error! ${error.message}`;
-					if (data) return( 
-						<React.Fragment>
-							<Grid item xs={12} style={styles.linkedList}>
-								{	this.renderRelativeChip() }
-							</Grid>
-							<Grid item xs={12}>
-								<ExpansionPanel style={styles.linkedList}>
-									<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-										<Typography variant='subheading'>Link New: {dataSource.relativeTypes}</Typography>
-									</ExpansionPanelSummary>
-									<List style={styles.queryList}>
-										{( Object.values(data)[0].map(record => <InactiveRelativeItem data={record} handleLink={this.Link} /> ) ) } 			
-									</List>
-								</ExpansionPanel>
-							</Grid>					
-						</React.Fragment>
-					)
-				}}
-			</Query>
+			<ErrorBoundary>
+				<Query query={listQuery}>
+					{({ loading, error, data, refetch }) => {
+						if (loading) return ( <Loading />	);
+						if (error) return `Error! ${error.message}`;
+						if (data) return( 
+							<React.Fragment>
+								<Grid item xs={12} style={styles.linkedList}>
+									{	this.renderRelativeChip() }
+								</Grid>
+								<Grid item xs={12}>
+									<ExpansionPanel style={styles.linkedList}>
+										<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+											<PersonAddIcon color="action"/>
+										</ExpansionPanelSummary>
+										<List style={styles.queryList}>
+											{( Object.values(data)[0].map(record => <InactiveRelativeItem data={record} handleLink={this.Link} /> ) ) } 			
+										</List>
+									</ExpansionPanel>
+								</Grid>					
+							</React.Fragment>
+						)
+					}}
+				</Query>
+			</ErrorBoundary>
 		)
   }
 }

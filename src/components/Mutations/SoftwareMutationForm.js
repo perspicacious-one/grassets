@@ -14,17 +14,18 @@ import {SaapRelationsList} from '../Controls/RelationList';
 
 const styles = {
 	root: {
+		display: 'flex',
+		alignItems: 'flex-start',
 		flexGrow: 1,
-		maxWidth: '800px'
-  },
+		maxWidth: '100%'
+	},
+	panelActionBottom: {
+		alignSelf: 'flex-end'
+	},
 	button: {
-		margin: '15px',
+		marginTop: '15px',
 		bottom: '15px',
 	},
-	form: {
-		minWidth: '600px',
-		padding: '28px'
-	}
 }
 
 
@@ -92,8 +93,7 @@ class SaapMutationForm extends React.Component {
 	render() {
 		const { id, name, key, qty, user, adminEmail, adminPassword, adminPortal, maintenance} = this.state
 		return(
-			<div style={styles.root}>
-				<form style={styles.form} onSubmit={this.onSubmit.bind(this)}>
+				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
 					<Grid container spacing={24}>
 							<Grid item xs={12}>
 								<TextField 	id={"name"} label={"Product"} fullWidth value={name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
@@ -141,17 +141,16 @@ class SaapMutationForm extends React.Component {
 									label="Maintenance"
 								/>
 							</Grid>
-							<Grid item xs={12}>
-									{	
-										id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={user} callback={() => this.props.handleLinkChange}  /> 
-									}
+							{	
+								id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={user} callback={() => this.props.handleLinkChange}  /> 
+							}
+							<Grid item xs={12} style={styles.panelActionBottom}>
+								<Button type='submit' variant="contained" color="secondary" style={styles.button} >
+										Save
+								</Button>
 							</Grid>
-							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
-									Save
-							</Button>
 					</Grid>
 				</form>
-			</div>
 		)
 	}
 }
