@@ -112,6 +112,7 @@ export const GET_SAASES_BASIC = gql`
       id
 			name
 			qty
+			cost
 			renewalTerm
 			expiration
 			adminEmail
@@ -124,6 +125,7 @@ export const GET_SAASES = gql`
       id
 			name
 			qty
+			cost
 			renewalTerm
 			expiration
 			adminEmail
@@ -167,6 +169,7 @@ export const GET_SAAS = gql`
       id
 			name
 			qty
+			cost
 			maintenance
 			key
 			adminEmail
@@ -179,6 +182,7 @@ export const GET_SAAPS = gql`
       id
 			name
 			qty
+			cost
 			maintenance
 			key
 			adminEmail

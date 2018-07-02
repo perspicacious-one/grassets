@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import App from './App';
+import Home from './components/Home'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'

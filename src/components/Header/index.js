@@ -11,7 +11,11 @@ const styles = {
   root: {
 		flexGrow: 1,
 		justifyContent: "space-between"
-  },
+	},
+	title: {
+		textDecoration: 'none',
+		color: 'white',
+	},
   flex: {
     flex: 1,
   },
@@ -37,9 +41,9 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.menu}>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            Assets
-          </Typography>
+					<Typography variant="title" color="inherit" className={classes.flex}>
+					<NavLink exact to='/' className={classes.title}>Assets</NavLink>
+					</Typography>
 					<NavLink exact to='/hardware' className={classes.menuButton} activeClassName='Header-isActive'>Hardware</NavLink>
 					<NavLink exact to='/subscriptions' className={classes.menuButton} activeClassName='Header-isActive'>Subscriptions</NavLink>
 					<NavLink exact to='/software' className={classes.menuButton} activeClassName='Header-isActive'>Software</NavLink>
@@ -53,7 +57,6 @@ function Header(props) {
 
 Header.propTypes = {
 	classes: PropTypes.object.isRequired,
-	auth: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Header);

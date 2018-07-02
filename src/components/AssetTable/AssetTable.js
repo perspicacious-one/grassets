@@ -7,9 +7,9 @@ import Button from '@material-ui/core/Button';
 import CustomTableRow from './TableRow';
 import AddIcon from '@material-ui/icons/Add';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 import CloseIcon from '@material-ui/icons/Close';
 import FormLoader from '../Forms/FormLoader'
+import Divider from '@material-ui/core/Divider';
 
 const styles = {
 	paper: {
@@ -93,7 +93,6 @@ class AssetTable extends React.Component {
 
 					{	this.renderDrawerContent() }
 				</Drawer>
-				<Divider />
 
 				<Button variant="fab" color="secondary" aria-label="add" style={styles.buttonRight} onClick={ () => this.toggleDrawer(true, null, this.typename)} >
 					<AddIcon />

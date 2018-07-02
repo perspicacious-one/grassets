@@ -66,9 +66,11 @@ export default theme;
 export const ThemeAlternate = createMuiTheme({
 	palette: {
 		primary: {
+			light: '#7C4DFF',
 			main: '#651fff'
 		},
 		secondary: {
+			light: '#FF6E40',
 			main: '#ff3d00',
 			// dark: will be calculated from palette.secondary.main,
 		},
