@@ -26,12 +26,16 @@ import {
 	REMOVE_EMPLOYEE_FROM_SAAP,
 	UPDATE_EMPLOYEE,
 	ADD_EMPLOYEE,
+	DELETE_EMPLOYEE,
 	UPDATE_HARDWARE,
 	ADD_HARDWARE,
+	DELETE_HARDWARE,
 	UPDATE_SAAS,
 	ADD_SAAS,
+	DELETE_SAAS,
 	UPDATE_SAAP,
 	ADD_SAAP,
+	DELETE_SAAP,
 	ADD_EMPLOYEE_TO_SAAS,
 	REMOVE_EMPLOYEE_FROM_SAAS,
 } from '../Mutations';
@@ -63,7 +67,8 @@ const DataMap = {
 				saap: REMOVE_EMPLOYEE_FROM_SAAP
 			},
 			update: UPDATE_EMPLOYEE,
-			create: ADD_EMPLOYEE
+			create: ADD_EMPLOYEE,
+			delete: DELETE_EMPLOYEE,
 		},
 		displayName: 'Employees',
 		refName: 'employee',
@@ -84,7 +89,8 @@ const DataMap = {
 				employee: REMOVE_EMPLOYEE_FROM_HARDWARE,
 			},
 			update: UPDATE_HARDWARE,
-			create: ADD_HARDWARE
+			create: ADD_HARDWARE,
+			delete: DELETE_HARDWARE,
 		},
 		displayName: 'Hardware',
 		refName: 'hardware',
@@ -105,7 +111,8 @@ const DataMap = {
 				employee: REMOVE_EMPLOYEE_FROM_SAAS,
 			},
 			update: UPDATE_SAAS,
-			create: ADD_SAAS
+			create: ADD_SAAS,
+			delete: DELETE_SAAS,
 		},
 		displayName: 'Subscriptions',
 		refName: 'saas',
@@ -126,7 +133,8 @@ const DataMap = {
 				employee: REMOVE_EMPLOYEE_FROM_SAAP,
 			},
 			update: UPDATE_SAAP,
-			create: ADD_SAAP
+			create: ADD_SAAP,
+			delete: DELETE_SAAP
 		},
 		displayName: 'Desktop Software',
 		refName: 'saap',

@@ -3,15 +3,20 @@ import AssetTable from './AssetTable.js';
 import { Query } from 'react-apollo'
 import DataMap from '../common/Mapping';
 import Loading from '../common/Loading';
-
+import {QueryContext} from '../common/Contexts';
 
 export const HardwareTable = () => (
-		<Query query={DataMap.hardware.query.allBasic} variables={{first:5}}>
+		<Query query={DataMap.hardware.query.allBasic}>
 			{({ loading, error, data, refetch }) => {
 				if (loading) return ( <Loading />	);
 				if (error) return `Error! ${error.message}`;
-				return( 
-					<AssetTable assets={data.allHardwares} typename={"Hardware"} displayName={"Hardware"} refresh={() => refetch()}/>
+				return(
+					<QueryContext.Provider value={{
+						refetch: () => refetch(),
+						typeName: 'hardware'
+					}}>
+						<AssetTable assets={data.allHardwares} typename={"Hardware"} displayName={"Hardware"} refresh={() => refetch()}/>
+					</QueryContext.Provider>
 				)
 				}
 			}
@@ -19,42 +24,57 @@ export const HardwareTable = () => (
 )
 
 export const SaaSTable = () => (
-	<Query query={DataMap.saas.query.allBasic} variables={{first:5}}>
+	<Query query={DataMap.saas.query.allBasic}>
 		{({ loading, error, data, refetch }) => {
 			if (loading) return (
 				<Loading />
 				);
 			if (error) return `Error! ${error.message}`;
 			return( 
-				<AssetTable assets={data.allSaases} typename={"SaaS"} displayName={"Subscriptions"} refresh={() => refetch()}/>
+				<QueryContext.Provider value={{
+						refetch: () => refetch(),
+						typeName: 'saas'
+					}}>
+					<AssetTable assets={data.allSaases} typename={"SaaS"} displayName={"Subscriptions"} refresh={() => refetch()}/>
+				</QueryContext.Provider>
 			)
 			}
 		}
 	</Query>
 )
 export const SaaPTable = () => (
-	<Query query={DataMap.saap.query.allBasic} variables={{first:5}}>
+	<Query query={DataMap.saap.query.allBasic}>
 		{({ loading, error, data, refetch }) => {
 			if (loading) return (
 				<Loading />
 				);
 			if (error) return `Error! ${error.message}`;
 			return( 
-				<AssetTable assets={data.allSaaPs} typename={"SaaP"} displayName={"Software"} refresh={() => refetch()}/>
+				<QueryContext.Provider value={{
+						refetch: () => refetch(),
+						typeName: 'saas'
+					}}>
+					<AssetTable assets={data.allSaaPs} typename={"SaaP"} displayName={"Software"} refresh={() => refetch()}/>
+				</QueryContext.Provider>
 			)
 			}
 		}
 	</Query>
 )
 export const EmployeeTable = () => (
-	<Query query={DataMap.employee.query.allBasic} variables={{first:5}}>
+	<Query query={DataMap.employee.query.allBasic}>
 		{({ loading, error, data, refetch }) => {
 			if (loading) return (
 				<Loading />
 				);
 			if (error) return `Error! ${error.message}`;
 			return( 
-				<AssetTable assets={data.allEmployees} typename={"Employee"} displayName={"Employee"} refresh={() => refetch()}/>
+				<QueryContext.Provider value={{
+						refetch: () => refetch(),
+						typeName: 'saas'
+					}}>
+					<AssetTable assets={data.allEmployees} typename={"Employee"} displayName={"Employee"} refresh={() => refetch()}/>
+				</QueryContext.Provider>
 			)
 			}
 		}

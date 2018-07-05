@@ -15,6 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import { FormatDate } from '../../utils/string';
 import DataMap from '../common/Mapping';
 import {SaasRelationsList} from '../FormList';
+import DeleteButton from '../Controls/DeleteButton';
+import SaveIcon from '@material-ui/icons/Save';
 
 const styles = {
 	root: {
@@ -26,6 +28,9 @@ const styles = {
 	button: {
 		marginTop: '15px',
 		bottom: '15px',
+	},
+	formActions: {
+		marginTop: '20px'
 	}
 }
 
@@ -96,8 +101,8 @@ class SaasMutationForm extends React.Component {
 	render() {
 		const { id, name, cost, qty, expiration, renewalTerm, user, adminEmail, adminPassword, adminPortal} = this.state
 		return(
-				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
-					<Grid container spacing={24}>
+				<form onSubmit={this.onSubmit.bind(this)}>
+					<Grid container spacing={24} style={styles.root}>
 							<Grid item xs={12}>
 								<TextField 	id={"name"} label={"Product"} fullWidth value={name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
@@ -157,12 +162,17 @@ class SaasMutationForm extends React.Component {
 								{	
 									id &&  <SaasRelationsList parentId={id} dataSource={DataMap.saas}	relatives={user} callback={() => this.props.handleLinkChange} /> 
 								}
-							<Grid item xs={12}>
-								<Button type='submit' variant="contained" color="secondary" style={styles.button} >
-									Save
+					</Grid>
+					<Grid container spacing={24} style={styles.formActions}>
+							<Grid item xs={6}>
+								<Button type='submit' color="primary" variant="fab" style={styles.button} >
+									<SaveIcon />
 								</Button>
 							</Grid>
-					</Grid>
+							<Grid item xs={6}>
+									<DeleteButton id={id} />
+							</Grid>
+						</Grid>
 				</form>
 		)
 	}

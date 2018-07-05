@@ -11,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import FormLoader from '../Forms/FormLoader'
 import Divider from '@material-ui/core/Divider';
 import DataMap from '../common/Mapping';
+import {DrawerContext} from '../common/Contexts';
 
 const styles = {
 	paper: {
@@ -99,10 +100,14 @@ class AssetTable extends React.Component {
 						<Divider />
 					</div>
 					<div style={styles.drawerContent}>
-					{	this.renderDrawerContent() }
+						<DrawerContext.Provider value={{
+							toggle: this.toggleDrawer,
+							state: this.state
+						}}>
+							{	this.renderDrawerContent() }
+						</DrawerContext.Provider>
 					</div>
 				</Drawer>
-
 				<Button variant="fab" color="secondary" aria-label="add" style={styles.buttonRight} onClick={ () => this.toggleDrawer(true, null, this.typename)} >
 					<AddIcon />
 				</Button>				

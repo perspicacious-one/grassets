@@ -10,7 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import {HardwareRelationsList} from '../FormList';
 import DataMap from '../common/Mapping';
-import {MapToControl} from '../common/Mapping';
+import DeleteButton from '../Controls/DeleteButton';
+import SaveIcon from '@material-ui/icons/Save';
 
 const styles = {
 	root: {
@@ -23,8 +24,10 @@ const styles = {
 		marginTop: '15px',
 		bottom: '15px',
 	},
+	formActions: {
+		marginTop: '20px'
+	}
 }
-
 
 class HardwareMutationForm extends React.Component {
 	constructor(props) {
@@ -84,8 +87,8 @@ class HardwareMutationForm extends React.Component {
 	render() {
 		const { id, maker, model, drivers, hardwareType, employee } = this.state;
 		return(
-				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
-					<Grid container spacing={24}>
+				<form onSubmit={this.onSubmit.bind(this)}>
+					<Grid container spacing={24} style={styles.root}>
 						<Grid item xs={6}>
 							<TextField 	id={"maker"} label={"Manufacturer"} fullWidth value={maker} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 						</Grid>
@@ -106,12 +109,17 @@ class HardwareMutationForm extends React.Component {
 						{
 							this.state.id &&  <HardwareRelationsList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={() => this.props.handleLinkChange} /> 
 						}
-						<Grid item xs={6}>
-							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
-								Save
-							</Button>
 						</Grid>
-					</Grid>
+						<Grid container spacing={24} style={styles.formActions}>
+							<Grid item xs={6}>
+								<Button type='submit' color="primary" variant="fab" style={styles.button} >
+									<SaveIcon />
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+									<DeleteButton id={id} />
+							</Grid>
+						</Grid>
 				</form>
 		)
 	}

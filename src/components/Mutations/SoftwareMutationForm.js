@@ -11,6 +11,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import DataMap from '../common/Mapping';
 import {SaapRelationsList} from '../FormList';
+import DeleteButton from '../Controls/DeleteButton';
+import SaveIcon from '@material-ui/icons/Save';
 
 const styles = {
 	root: {
@@ -18,15 +20,16 @@ const styles = {
 		alignItems: 'flex-start',
 		flexGrow: 1,
 		maxWidth: '100%'
-	},
-	panelActionBottom: {
-		alignSelf: 'flex-end'
-	},
+  },
 	button: {
 		marginTop: '15px',
 		bottom: '15px',
 	},
+	formActions: {
+		marginTop: '20px'
+	}
 }
+
 
 
 class SaapMutationForm extends React.Component {
@@ -93,8 +96,8 @@ class SaapMutationForm extends React.Component {
 	render() {
 		const { id, name, key, qty, user, adminEmail, adminPassword, adminPortal, maintenance} = this.state
 		return(
-				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
-					<Grid container spacing={24}>
+					<form onSubmit={this.onSubmit.bind(this)}>
+						<Grid container spacing={24} style={styles.root}>
 							<Grid item xs={12}>
 								<TextField 	id={"name"} label={"Product"} fullWidth value={name} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
 							</Grid>
@@ -144,10 +147,15 @@ class SaapMutationForm extends React.Component {
 							{	
 								id &&  <SaapRelationsList parentId={id} dataSource={DataMap.saap}	relatives={user} callback={() => this.props.handleLinkChange}  /> 
 							}
-							<Grid item xs={12} style={styles.panelActionBottom}>
-								<Button type='submit' variant="contained" color="secondary" style={styles.button} >
-										Save
+					</Grid>
+					<Grid container spacing={24} style={styles.formActions}>
+							<Grid item xs={6}>
+								<Button type='submit' color="primary" variant="fab" style={styles.button} >
+									<SaveIcon />
 								</Button>
+							</Grid>
+							<Grid item xs={6}>
+									<DeleteButton id={id} />
 							</Grid>
 					</Grid>
 				</form>

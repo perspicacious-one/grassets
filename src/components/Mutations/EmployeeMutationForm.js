@@ -10,9 +10,13 @@ import DataMap from '../common/Mapping';
 import Chip from '@material-ui/core/Chip';
 import { GetDisplayName } from '../../utils/string';
 import Grid from '@material-ui/core/Grid';
+import DeleteButton from '../Controls/DeleteButton';
+import SaveIcon from '@material-ui/icons/Save';
 
 const styles = {
 	root: {
+		display: 'flex',
+		alignItems: 'flex-start',
 		flexGrow: 1,
 		maxWidth: '100%'
   },
@@ -20,7 +24,11 @@ const styles = {
 		marginTop: '15px',
 		bottom: '15px',
 	},
+	formActions: {
+		marginTop: '20px'
+	}
 }
+
 
 class EmployeeMutationForm extends React.Component {
 	constructor(props) {
@@ -82,8 +90,8 @@ class EmployeeMutationForm extends React.Component {
 	}
 	render() {
 		return(
-				<form style={styles.root} onSubmit={this.onSubmit.bind(this)}>
-					<Grid container spacing={24}>
+				<form onSubmit={this.onSubmit.bind(this)}>
+					<Grid container spacing={24} style={styles.root}>
 						<Grid item xs={12}>
 						<h3>{this.props.type}</h3>	
 						</Grid>	
@@ -121,12 +129,17 @@ class EmployeeMutationForm extends React.Component {
 						<Grid item xs={12}>
 							{ this.renderChips() }
 						</Grid>
-						<Grid item xs={12}>
-							<Button type='submit' variant="contained" color="secondary" style={styles.button} >
-								Save
-							</Button>
-						</Grid>
 					</Grid>
+					<Grid container spacing={24} style={styles.formActions}>
+							<Grid item xs={6}>
+								<Button type='submit' color="primary" variant="fab" style={styles.button} >
+									<SaveIcon />
+								</Button>
+							</Grid>
+							<Grid item xs={6}>
+									<DeleteButton id={this.state.id} />
+							</Grid>
+						</Grid>
 				</form>
 				
 		)

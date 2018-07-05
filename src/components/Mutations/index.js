@@ -26,7 +26,12 @@ export const UPDATE_SAAP = gql`
 			adminPortal
 		}
 	}`
-
+export const DELETE_SAAP = gql`
+	mutation deleteSaaP($id: ID!) {
+		deleteSaaP(id: $id) {
+			id
+		}
+}`
 export const ADD_SAAS = gql`
 	mutation createSaaS($name: String!,$qty: Int,$cost: Int,$expiration: DateTime,$renewalTerm: RenewalTerm,$adminEmail: String,$adminPassword: String,$adminPortal: String) {
 		createSaaS(name: $name,qty: $qty,cost: $cost,expiration: $expiration,renewalTerm: $renewalTerm,adminEmail: $adminEmail,adminPassword: $adminPassword,adminPortal: $adminPortal) {
@@ -41,6 +46,12 @@ export const ADD_SAAS = gql`
 			adminPortal
 		}
 	}`
+export const DELETE_SAAS = gql`
+	mutation deleteSaaS($id: ID!) {
+		deleteSaaS(id: $id) {
+			id
+		}
+}`
 export const UPDATE_SAAS = gql`
 	mutation updateSaaS($id: ID!,$name: String!,$qty: Int,$cost: Int,$expiration: DateTime,$renewalTerm: RenewalTerm,$adminEmail: String,$adminPassword: String,$adminPortal: String) {
 		updateSaaS(id: $id,name: $name,qty: $qty,cost: $cost,expiration: $expiration,renewalTerm: $renewalTerm,adminEmail: $adminEmail,adminPassword: $adminPassword,adminPortal: $adminPortal) {
@@ -78,6 +89,13 @@ export const UPDATE_HARDWARE = gql`
 		}
 }`
 
+export const DELETE_HARDWARE = gql`
+	mutation deleteHardware($id: ID!) {
+		deleteHardware(id: $id) {
+			id
+		}
+}`
+
 export const ADD_EMPLOYEE = gql`
 	mutation addEmployee($firstName: String,$lastName: String,$email: String) {
 		createEmployee(firstName: $firstName,lastName: $lastName,email: $email) {
@@ -97,7 +115,12 @@ export const UPDATE_EMPLOYEE = gql`
 			email
 		}
 }`
-
+export const DELETE_EMPLOYEE = gql`
+	mutation deleteEmployee($id: ID!) {
+		deleteEmployee(id: $id) {
+			id
+		}
+}`
 export const ADD_EMPLOYEE_TO_HARDWARE = gql`
 	mutation addToEmployeeHardware($parentId: ID!,$childId: ID!) {
 		addToEmployeeHardware(hardwaresHardwareId: $parentId, employeeEmployeeId: $childId) {
