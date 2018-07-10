@@ -35,10 +35,7 @@ class HardwareFields extends React.Component {
 					<MenuItem id={"Accessories"} key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
 				</TextField>
 			</Grid>
-			{
-				id &&  
-					<HardwareRelationsList parentId={id} dataSource={DataMap.hardware}	relatives={[employee]} callback={() => context.linkAction} /> 
-			}
+
 		</React.Fragment>	
 		)
 	}

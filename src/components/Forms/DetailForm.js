@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer'
 import {FormContext} from '../common/Contexts';
 import PropTypes from 'prop-types';
+import DrawerList from '../Drawer/DrawerList'
 
 const styles = {
 	root: {
@@ -99,7 +100,9 @@ class DetailForm extends React.Component {
 							}
 							</DrawerContext.Consumer>
 						</Grid>
+						
 				</div>
+				<DrawerList />
 			</FormContext.Provider>
 		)
 	}
