@@ -1,9 +1,13 @@
 import React from 'react';
 import Loading from '../common/Loading';
-import HardwareMutationForm from '../Mutations/HardwareMutationForm';
+import {DrawerContext, QueryContext} from '../common/Contexts';
 import SaasMutationForm from '../Mutations/SaasMutationForm';
 import SaapMutationForm from '../Mutations/SoftwareMutationForm';
 import EmployeeMutationForm from '../Mutations/EmployeeMutationForm';
+import DetailForm from './DetailForm';
+import HardwareFields from './HardwareFields';
+import SoftwareFields from './SoftwareFields';
+import SubscriptionFields from './SubscriptionFields';
 import { Query } from 'react-apollo'
 import DataMap from '../common/Mapping'
 
@@ -20,7 +24,11 @@ const FormLoader = (props) => {
 				case "SaaS":
 					return (<SaasMutationForm toggleMethod={props.toggleMethod} refresh={props.refresh}/>);
 				case "Hardware":
-					return (<HardwareMutationForm toggleMethod={props.toggleMethod} refresh={props.refresh}/>);
+					return (
+						<DetailForm empty>
+							<HardwareFields />
+						</DetailForm>
+					);
 				case "":
 					return (null);
 				default:
@@ -73,7 +81,9 @@ const FormLoader = (props) => {
 						if (loading) return ( <Loading />	);
 						if (error) return `Error! ${error.message}`;
 						return( 
-							<HardwareMutationForm data={data.Hardware} toggleMethod={props.toggleMethod} refresh={props.refresh}/>
+							<DetailForm data={data.Hardware}>
+								<HardwareFields  />
+							</DetailForm>
 						)
 						}
 					}

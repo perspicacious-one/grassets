@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DataMap from '../common/Mapping';
 import {QueryContext} from '../common/Contexts';
 
-function DeleteButton(props, context) {
+function DeleteButton(props) {
 	return(
 		<QueryContext.Consumer>
 		{	context => (

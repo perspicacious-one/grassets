@@ -82,7 +82,6 @@ class SaapMutationForm extends React.Component {
 				variables: this.state
 			});
 		}
-		this.props.refresh()
 		this.props.toggleMethod(false, '', '')	
 	}
 

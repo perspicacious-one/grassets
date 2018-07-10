@@ -52,7 +52,7 @@ export const SaaPTable = () => (
 			return( 
 				<QueryContext.Provider value={{
 						refetch: () => refetch(),
-						typeName: 'saas'
+						typeName: 'saap'
 					}}>
 					<AssetTable assets={data.allSaaPs} typename={"SaaP"} displayName={"Software"} refresh={() => refetch()}/>
 				</QueryContext.Provider>
@@ -71,7 +71,7 @@ export const EmployeeTable = () => (
 			return( 
 				<QueryContext.Provider value={{
 						refetch: () => refetch(),
-						typeName: 'saas'
+						typeName: 'employee'
 					}}>
 					<AssetTable assets={data.allEmployees} typename={"Employee"} displayName={"Employee"} refresh={() => refetch()}/>
 				</QueryContext.Provider>

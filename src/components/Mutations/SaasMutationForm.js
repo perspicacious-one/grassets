@@ -81,7 +81,6 @@ class SaasMutationForm extends React.Component {
 				variables: this.state
 			});
 		}
-		this.props.refresh()
 		this.props.toggleMethod(false, '', '')
 	}
 	handleLinkChange(data, event) {	

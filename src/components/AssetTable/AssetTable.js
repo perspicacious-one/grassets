@@ -12,6 +12,7 @@ import FormLoader from '../Forms/FormLoader'
 import Divider from '@material-ui/core/Divider';
 import DataMap from '../common/Mapping';
 import {DrawerContext} from '../common/Contexts';
+import FormProvider from '../Forms';
 
 const styles = {
 	paper: {
@@ -51,7 +52,7 @@ class AssetTable extends React.Component {
 
 		this.state = {
 			active: false,
-			usedBy: "",
+			selection: "",
 			subType: ""
 		}
 		this.typename = this.props.typename;
@@ -59,22 +60,23 @@ class AssetTable extends React.Component {
 		this.toggleDrawer = this.toggleDrawer.bind(this);
 	}
 
-	toggleDrawer = (open, id, type) => {
+	toggleDrawer = (open = false, id = null, type) => {
     this.setState({
 			active: open,
-			usedBy: id,
+			selection: id,
 			subType: type
 		});
+		this.props.refresh()
 	};
 
 	renderDrawerContent = () => {
 		if(!this.state.active) {
 			return null;
 		}
-		if(this.state.active && !this.state.usedBy) {
+		if(this.state.active && !this.state.selection) {
 			return( <FormLoader noQuery={true} typename={this.typename} toggleMethod={this.toggleDrawer} refresh={this.props.refresh}/> )
 		} else {
-			return( <FormLoader noQuery={false} typename={this.state.subType} toggleMethod={this.toggleDrawer} variable={this.state.usedBy} refresh={this.props.refresh}/> )
+			return( <FormLoader noQuery={false} typename={this.state.subType} toggleMethod={this.toggleDrawer} variable={this.state.selection} /> )
 		}
 	}
 	render() {
@@ -104,7 +106,7 @@ class AssetTable extends React.Component {
 							toggle: this.toggleDrawer,
 							state: this.state
 						}}>
-							{	this.renderDrawerContent() }
+							<FormProvider />
 						</DrawerContext.Provider>
 					</div>
 				</Drawer>

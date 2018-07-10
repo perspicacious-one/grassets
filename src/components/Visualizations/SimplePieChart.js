@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Query, compose, graphql } from 'react-apollo'
 import DataMap from '../common/Mapping';
 import Grid from '@material-ui/core/Grid';
-import {PieChart, Pie, Legend, LabelList, Tooltip} from 'recharts';
+import {PieChart, Pie, Legend, LabelList, Tooltip, ResponsiveContainer} from 'recharts';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
@@ -33,10 +33,12 @@ class SimplePieChart extends Component {
 					<Typography variant="subheading" gutterBottom>Subscriptions</Typography>
 				</Grid>
 				<Grid item xs={12} style={styles.gridItemCenter}>
-					<PieChart width={400} height={400}>
+				<ResponsiveContainer width="90%" height="80%">
+					<PieChart>
 						<Pie data={data1} dataKey={'cost'} innerRadius={40} outerRadius={80} fill="#FF6E40" label />
 						<Tooltip/>
 					</PieChart>
+				</ResponsiveContainer>
 				</Grid>
 			</Grid>
 		)

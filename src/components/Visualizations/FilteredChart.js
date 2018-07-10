@@ -56,7 +56,7 @@ export default class FilteredChart extends Component  {
 		return(
 			<Grid	spacing={12} style={styles.center}>
 				<Grid item xs style={styles.gridItemCenter}>
-					<Typography variant="subheading" gutterBottom>{this.props.title}</Typography>
+					<Typography variant="title" gutterBottom>{this.props.title}</Typography>
 					<FormControl component="fieldset" required>
 						<RadioGroup
 							aria-label="renewal"

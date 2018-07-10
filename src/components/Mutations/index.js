@@ -68,7 +68,7 @@ export const UPDATE_SAAS = gql`
 	}`
 
 export const ADD_HARDWARE = gql`
-	mutation addHardware($drivers: String,$hardwareType: HardwareType,$maker: String,$model: String) {
+	mutation createEmployee($drivers: String,$hardwareType: HardwareType,$maker: String,$model: String) {
 		createHardware(maker: $maker,model: $model,drivers: $drivers,hardwareType: $hardwareType) {
 			id
 			maker
@@ -97,7 +97,7 @@ export const DELETE_HARDWARE = gql`
 }`
 
 export const ADD_EMPLOYEE = gql`
-	mutation addEmployee($firstName: String,$lastName: String,$email: String) {
+	mutation createEmployee($firstName: String,$lastName: String,$email: String) {
 		createEmployee(firstName: $firstName,lastName: $lastName,email: $email) {
 			id
 			firstName

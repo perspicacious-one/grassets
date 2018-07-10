@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer  } from 'recharts';
 
 
 const styles = {
@@ -38,7 +38,8 @@ export default class SimpleBarChart extends Component  {
 		const data = this.normalizeData(this.props.data)
 		const { xAxisKey, barKey } = this.props
 			return( 
-				<BarChart width={700} height={300} data={data}>
+				<ResponsiveContainer height="80%" aspect={4, 3}>
+				<BarChart data={data}>
 					<CartesianGrid stroke="3 3" />
 					<XAxis dataKey={xAxisKey} />
 					<YAxis dataKey={barKey} />
@@ -46,6 +47,7 @@ export default class SimpleBarChart extends Component  {
 					<Legend />
 					<Bar dataKey='cost' name={'Per Payment Price'} fill="#FF6E40" />
 				</BarChart>
+				</ResponsiveContainer>
 		)
 	}
 }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { 
 	GET_EMPLOYEE,
 	GET_EMPLOYEE_HARDWARE,
@@ -39,13 +38,10 @@ import {
 	ADD_EMPLOYEE_TO_SAAS,
 	REMOVE_EMPLOYEE_FROM_SAAS,
 } from '../Mutations';
-import { GetDisplayName } from '../../utils/string';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import HardwareFields from '../Forms/HardwareFields';
+import SoftwareFields from '../Forms/SoftwareFields';
+import SubscriptionFields from '../Forms/SubscriptionFields';
+
 
 const DataMap = {
 	employee: {
@@ -92,6 +88,7 @@ const DataMap = {
 			create: ADD_HARDWARE,
 			delete: DELETE_HARDWARE,
 		},
+		fields: HardwareFields,
 		displayName: 'Hardware',
 		refName: 'hardware',
 		relativeTypes: 'employee',
@@ -114,6 +111,7 @@ const DataMap = {
 			create: ADD_SAAS,
 			delete: DELETE_SAAS,
 		},
+		fields: SubscriptionFields,
 		displayName: 'Subscriptions',
 		refName: 'saas',
 		relativeTypes: 'employee',
@@ -136,6 +134,7 @@ const DataMap = {
 			create: ADD_SAAP,
 			delete: DELETE_SAAP
 		},
+		fields: SoftwareFields,
 		displayName: 'Desktop Software',
 		refName: 'saap',
 		relativeTypes: 'employee',
@@ -144,112 +143,3 @@ const DataMap = {
 
 
 export default DataMap;
-
-const LabelNames = {
-	maker: 'Manufacturer',
-	model: 'Model',
-	hardwareType: 'Category',
-	drivers: 'Drivers',
-	details: 'Details',
-	name: 'Name',
-	qty: 'Count',
-	key:	'Key',
-	adminEmail: 'Admin Email',
-	adminPassword: 'Admin Password',
-	adminPortal:	'Admin Portal',
-	user: 'User/Employee',
-	email: 'Email',
-	firstName: 'First Name',
-	lastName: 'Last Name',
-}
-
-export const MapToControl = (val) => {
-	if(!val[0]) { return null}
-	if(!val[1]) { return null}
-	if(val[0] === 'id') { return null } 
-		else {
-
-		try{
-			if(val[0] === 'hardwareType') {
-				return(
-					<Grid item xs={12}>
-						<TextField select id={val[0]} label={"Category"} fullWidth value={this.state[val[0]]} onChange={ event => this.setState({ 'hardwareType': event.target.value})}>
-							<MenuItem key={"Laptop"} value={'Laptop'}>Laptop</MenuItem>
-							<MenuItem key={"Desktop"} value={'Desktop'}>Desktop</MenuItem>
-							<MenuItem key={"Display"} value={'Display'}>Display</MenuItem>
-							<MenuItem key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
-						</TextField>
-					</Grid>
-				)
-			}
-			switch(typeof val[1]) {
-				case('object'):
-					return (
-						<Grid item xs={12}>
-							<Chip id={val.id} key={val.id} label={getFieldLabel(val.__typename)}	onDelete={(e) => this.unLink(val.id, e) }/>
-						</Grid>
-					)
-				case('string'):
-					return(
-						<Grid item xs={SetColumnWidth(val[1])}>
-							<TextField 	id={val[0]} label={getFieldLabel(val)} fullWidth value={this.state[val[0]]} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
-						</Grid>
-					)
-				case('boolean'):
-					return (
-						<Grid item xs={6}>
-						<FormControlLabel
-								control={
-									<Checkbox
-										id={val[0]}
-										checked={this.state[val[0]]}
-										onChange={ event => this.setState({ [event.target.id]: event.target.checked})} 
-										value={this.state[val[0]]}
-										color="primary"
-									/>
-								}
-								label={getFieldLabel(val)}
-							/>
-						</Grid>
-					)
-				case('number'):
-					return (
-						<Grid item xs={6}>
-							<TextField 	id={val[0]} fullWidth				
-								type="number"
-								label={"Quantity"}  
-								value={this.state.val[0]} 
-								onChange={ event => this.setState({ [event.target.id]: parseInt(event.target.value, 10)})} />
-						</Grid>
-					)
-				case('undefined'):
-					return (
-						<Grid item xs={SetColumnWidth(val[1])}>
-							<TextField 	id={val[0]} label={getFieldLabel(val)} fullWidth value={this.state[val[0]]} onChange={ event => this.setState({ [event.target.id]: event.target.value})} />
-						</Grid>
-					);
-				default: 
-					return null;
-			}
-		}
-		catch(e) {
-			console.log(e.message);
-			console.log(val)
-		}
-	}
-	
-}
-
-function SetColumnWidth(val) {
-	if(!val) {return}
-	val.length > 24 ? 12 : 6
-}
-
-function getFieldLabel(val) {
-	Object.keys(LabelNames).forEach( key => {
-		if(key == val[0]) {
-			return LabelNames[key];
-		}  
-	});
-	return val[0].toString(); 
-}
