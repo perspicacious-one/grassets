@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {FormatDate} from './string';
 
 export function fromNow(val) {
 	try {
@@ -17,6 +18,10 @@ const inFuture = (val) => {
 	}
 }
 
-export function FormatDate(val) {
-	return moment(val, 'YYYY-MM-DD')
+export function FormatDateRegex(val) {
+	if(moment(val).isValid()) {
+		return FormatDate(val)
+	} else {
+		return val
+	}
 }

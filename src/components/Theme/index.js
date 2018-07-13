@@ -66,7 +66,7 @@ export default theme;
 export const ThemeAlternate = createMuiTheme({
 	palette: {
 		primary: {
-			light: '#a255ff',
+			light: '#536DFE',
 			main: '#651fff',
 			dark: '0100ca'
 		},
@@ -141,15 +141,29 @@ export const ThemeAlternate = createMuiTheme({
 			}
 		},
 		MuiDrawer: {
+			root: {
+				margin: '0',
+				padding: '0',
+				flexShrink: '1',
+				overflowY: 'hidden'
+			},
 			paperAnchorRight: {
 				width: '640px',
+			},
+			paperAnchorBottom: {
+				position: 'relative',
+				width: '640px',
+				flex: 'none'
+			},
+			modal: {
+				justifyContent: 'flex-end'
 			}
 		},
 		MuiList: {
 			padding: {
 				paddingBottom: '0'
 			}
-		}
+		},
 	}
 });
 

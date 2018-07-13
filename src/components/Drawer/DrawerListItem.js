@@ -1,31 +1,43 @@
-import { QueryContext, FormContext } from '../common/Contexts';
+import { QueryContext, FormContext, RelativeContext } from '../common/Contexts';
 import ListItem from '@material-ui/core/ListItem';
 import React from 'react';
 import {GetDisplayName} from '../../utils/string';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
+import { Mutation } from 'react-apollo';
+import DataMap from '../common/Mapping';
 import IconButton from '@material-ui/core/IconButton';
-
 
 const DrawerListItem = (props) => {
 
 	function renderButton(outerContext, innerContext) {
-		if(!outerType || !innerType) { return null}
+		if(!outerContext || !innerContext) { return null}
+		const mutation = (DataMap[outerContext.typeName].mutate.addRelative[props.relativeType])
+		if(!mutation) { return null }
 		return(
+			<RelativeContext.Consumer>
+			{ context =>
 			<ListItemSecondaryAction>
-				<Mutation mutation={DataMap[outerContext.typeName].mutate.addRelative[props.relativeType]} variables={{ id: innerContext.state.id }}>
+				<Mutation 
+					mutation={mutation} 
+					variables={{ parentId: innerContext.state.id, childId: props.data.id }}>
 				{(mutateAddRelative, {data}) => (
-					<Button variant="fab" color="secondary" aria-label="delete" style={{float: 'right'}} 
+					<IconButton aria-label="add" style={{float: 'right'}} 
 					onClick={ (e) => {
 						e.preventDefault();
-						mutateAddRelative().then( innerContext.onChange(e, props.relativeType) );
+						mutateAddRelative().then( 
+							innerContext.linkAction(props.data, props.relativeType, e)
+							);
+						context.toggle();
 					}}>
 						<AddIcon color="primary"/>
-					</Button>	
+					</IconButton>	
 				)}
 				</Mutation>	
 			</ListItemSecondaryAction>
+			}
+			</RelativeContext.Consumer>
 		)
 	}
 	return(
@@ -33,8 +45,8 @@ const DrawerListItem = (props) => {
 		{ queryContext =>
 			<FormContext.Consumer>
 				{ formContext =>
-					<ListItem key={data.id} role={undefined} divider dense button>
-						<ListItemText primary={GetDisplayName(data)} />
+					<ListItem key={props.data.id} role={undefined} divider button>
+						<ListItemText primary={GetDisplayName(props.data)} />
 						{ renderButton(queryContext, formContext) }
 					</ListItem>
 				}

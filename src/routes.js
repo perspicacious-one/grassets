@@ -12,6 +12,7 @@ import history from './history';
 
 export const makeMainRoutes = () => {
 	const client = new ApolloClient({
+		connectToDevTools: true,
 		link: new HttpLink({ uri: process.env.REACT_APP_GRAPHCMS_API }),
 		cache: new InMemoryCache({
 			dataIdFromObject: o => o.id

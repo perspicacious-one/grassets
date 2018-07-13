@@ -7,36 +7,45 @@ import Drawer from '@material-ui/core/Drawer'
 import {FormContext} from '../common/Contexts';
 import PropTypes from 'prop-types';
 import DrawerList from '../Drawer/DrawerList'
+import Divider from '@material-ui/core/Divider'
+import { IsNumber, IsDate } from '../../utils/string';
 
 const styles = {
 	root: {
 		display: 'flex',
-		alignItems: 'flex-start',
-		flexGrow: 1,
-		maxWidth: '100%'
+		alignItems: 'space-between',
+		maxWidth: '100%',
+		padding: '25px'
   },
-	button: {
-		marginTop: '15px',
-		bottom: '15px',
-	},
 	formActions: {
 		marginTop: '20px'
+	},
+	footer: {
+		alignSelf: 'flex-end',
+		width: '100%',
+		marginLeft: '0',
+		padding: '0',
+		paddingTop: '10px',
+		bottom: '0',
+    right: '0',
+    position: "fixed",
 	}
 }
 
 
-class DetailForm extends React.Component {
+class FormContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			id: null
 		}
 		this.handleChange = this.handleChange.bind(this);
-		this.handleLinkChange = this.handleLinkChange.bind(this)
+		this.handleUnlink = this.handleUnlink.bind(this);
+		this.handleLink = this.handleLink.bind(this)
 	}
 	componentDidMount() {
 		if(!this.props.data) { return };
-		const entries = Object.entries(this.props.data);
+		const entries = Object.entries(Object.values(this.props.data)[0]);
 		entries.forEach(entry => {
 			this.setState({
 				[entry[0]]: entry[1],
@@ -44,22 +53,48 @@ class DetailForm extends React.Component {
 		});
 	}
 
-	handleLinkChange(data, event) {	
-		if(data){
+	handleUnlink(data, typeName = null, event) {
+		event.preventDefault();
+		if(!this.state[typeName]) { return null }
+		if(Array.isArray(this.state[typeName])) {
+			const relationList = this.state[typeName].filter(relative => relative.id !== data.id)
 			this.setState({
-				employee: data.employee
+				[typeName]: relationList
+			})
+		} else {
+			if(Object.values(this.state[typeName]).includes(data.id))
+			this.setState({
+				[typeName]: ''
+			})
+		}
+	}
+	handleLink(data, typeName = null, event) {
+		event.preventDefault();
+		if(Object.values(this.state[typeName]).includes(data.id)) {return}
+		if(Array.isArray(this.state[typeName])) {
+			const relationList = this.state[typeName].push(data);
+			this.setState({
+				[typeName]: relationList
+			})
+		} else {
+			this.setState({
+				[typeName]: Array.of(data)
 			})
 		}
 	}
 	handleChange(event, altId = null) {
 		event.preventDefault();
+		let value = event.target.value;
+		if(IsNumber(value)) {
+			value = parseInt(event.target.value)
+		}
 		if(!altId) {
 			this.setState({
-				[event.target.id]: event.target.value
+				[event.target.id]: value
 			})
 		} else {
 			this.setState({
-				[altId]: event.target.value
+				[altId]: value
 			})
 		}
 	}
@@ -71,17 +106,20 @@ class DetailForm extends React.Component {
 		return true
 	}
 	render() {
+		const children = this.shouldRenderChildren() ? this.props.children : null
 		return(
 			<FormContext.Provider value={{ 
 				state: this.state,
 				onChange: this.handleChange,
-				linkAction: this.handleLinkChange
-				}} >
-				<div>
-					<Grid container spacing={24} style={styles.root}>
-						{ this.shouldRenderChildren() ? this.props.children : null}
+				unlinkAction: this.handleUnlink,
+				linkAction: this.handleLink
+				}}>
+				<Grid container spacing={12} style={styles.root}>
+					<Grid container spacing={24} style={styles.form}>
+						{ this.props.children }
 					</Grid>
-					<Grid container spacing={24} style={styles.formActions}>
+					<Grid container spacing={12} style={styles.formActions}>
+						<Divider />
 							<DrawerContext.Consumer>
 							{context => 
 								<React.Fragment>
@@ -101,15 +139,17 @@ class DetailForm extends React.Component {
 							</DrawerContext.Consumer>
 						</Grid>
 						
+					</Grid>
+				<div style={styles.footer}>
+					<DrawerList />
 				</div>
-				<DrawerList />
 			</FormContext.Provider>
 		)
 	}
 }
 
-DetailForm.defaultProps = {
+FormContainer.defaultProps = {
   empty: false
 };
 
-export default  DetailForm
+export default FormContainer

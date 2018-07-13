@@ -1,3 +1,4 @@
+import React from 'react';
 import { 
 	GET_EMPLOYEE,
 	GET_EMPLOYEE_HARDWARE,
@@ -41,6 +42,8 @@ import {
 import HardwareFields from '../Forms/HardwareFields';
 import SoftwareFields from '../Forms/SoftwareFields';
 import SubscriptionFields from '../Forms/SubscriptionFields';
+import EmployeeFields from '../Forms/EmployeeFields';
+
 
 
 const DataMap = {
@@ -66,6 +69,7 @@ const DataMap = {
 			create: ADD_EMPLOYEE,
 			delete: DELETE_EMPLOYEE,
 		},
+		fields: (<EmployeeFields />),
 		displayName: 'Employees',
 		refName: 'employee',
 		relativeTypes: ['subscription', 'saap', 'hardwares']
@@ -88,7 +92,7 @@ const DataMap = {
 			create: ADD_HARDWARE,
 			delete: DELETE_HARDWARE,
 		},
-		fields: HardwareFields,
+		fields: (<HardwareFields />),
 		displayName: 'Hardware',
 		refName: 'hardware',
 		relativeTypes: 'employee',
@@ -102,19 +106,19 @@ const DataMap = {
 		},
 		mutate: {
 			addRelative: {
-				employee: ADD_EMPLOYEE_TO_SAAS,
+				user: ADD_EMPLOYEE_TO_SAAS,
 			},
 			removeRelative: {
-				employee: REMOVE_EMPLOYEE_FROM_SAAS,
+				user: REMOVE_EMPLOYEE_FROM_SAAS,
 			},
 			update: UPDATE_SAAS,
 			create: ADD_SAAS,
 			delete: DELETE_SAAS,
 		},
-		fields: SubscriptionFields,
+		fields: (<SubscriptionFields />),
 		displayName: 'Subscriptions',
 		refName: 'saas',
-		relativeTypes: 'employee',
+		relativeTypes: 'user',
 	},
 	saap: {
 		query: {
@@ -125,19 +129,19 @@ const DataMap = {
 		},
 		mutate: {
 			addRelative: {
-				employee: ADD_EMPLOYEE_TO_SAAP,
+				user: ADD_EMPLOYEE_TO_SAAP,
 			},
 			removeRelative: {
-				employee: REMOVE_EMPLOYEE_FROM_SAAP,
+				user: REMOVE_EMPLOYEE_FROM_SAAP,
 			},
 			update: UPDATE_SAAP,
 			create: ADD_SAAP,
 			delete: DELETE_SAAP
 		},
-		fields: SoftwareFields,
+		fields: (<SoftwareFields />),
 		displayName: 'Desktop Software',
 		refName: 'saap',
-		relativeTypes: 'employee',
+		relativeTypes: 'user',
 	}
 }
 

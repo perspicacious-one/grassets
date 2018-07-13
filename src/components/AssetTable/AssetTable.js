@@ -8,11 +8,11 @@ import CustomTableRow from './TableRow';
 import AddIcon from '@material-ui/icons/Add';
 import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
-import FormLoader from '../Forms/FormLoader'
 import Divider from '@material-ui/core/Divider';
 import DataMap from '../common/Mapping';
 import {DrawerContext} from '../common/Contexts';
 import FormProvider from '../Forms';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = {
 	paper: {
@@ -31,13 +31,15 @@ const styles = {
 	drawer: {
 		maxWidth: '860px',
 		minWidth: '720px',
-		padding: '20px'
+		flexShrink: '1',
+		padding: '0',
+		margin: '0',
 	},
 	drawerContent: {
-		padding: '28px',
+		padding: '0 28px 0 28px',
 		margin: '0',
 		display: 'flex',
-		alignItems: 'stretch',
+		flexWrap: 'wrap',
 		flexGrow: 1,
 	},
 	heading: {
@@ -69,16 +71,6 @@ class AssetTable extends React.Component {
 		this.props.refresh()
 	};
 
-	renderDrawerContent = () => {
-		if(!this.state.active) {
-			return null;
-		}
-		if(this.state.active && !this.state.selection) {
-			return( <FormLoader noQuery={true} typename={this.typename} toggleMethod={this.toggleDrawer} refresh={this.props.refresh}/> )
-		} else {
-			return( <FormLoader noQuery={false} typename={this.state.subType} toggleMethod={this.toggleDrawer} variable={this.state.selection} /> )
-		}
-	}
 	render() {
 
 		return(
@@ -95,20 +87,18 @@ class AssetTable extends React.Component {
 					</TableBody>
 				</Table>
 				<Drawer anchor="right" open={this.state.active} elevation={6} style={styles.drawer}>
-					<div tabIndex={0}>
-						<Button variant="fab" color="secondary" style={styles.buttonLeft} aria-label="add" onClick={ () => this.toggleDrawer(false, null, "")} >
+					<div tabIndex={0} style={{padding: '10px'}}>
+						<IconButton  aria-label="add" onClick={ () => this.toggleDrawer(false, null, "")} >
 							<CloseIcon />
-						</Button>
-						<Divider />
+						</IconButton>
 					</div>
-					<div style={styles.drawerContent}>
+					<Divider />
 						<DrawerContext.Provider value={{
 							toggle: this.toggleDrawer,
 							state: this.state
 						}}>
 							<FormProvider />
 						</DrawerContext.Provider>
-					</div>
 				</Drawer>
 				<Button variant="fab" color="secondary" aria-label="add" style={styles.buttonRight} onClick={ () => this.toggleDrawer(true, null, this.typename)} >
 					<AddIcon />

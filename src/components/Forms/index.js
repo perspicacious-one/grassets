@@ -1,60 +1,84 @@
 import React from 'react';
 import Loading from '../common/Loading';
 import {DrawerContext, QueryContext} from '../common/Contexts';
-import EmployeeMutationForm from '../Mutations/EmployeeMutationForm';
-import DetailForm from './DetailForm';
-import HardwareFields from './HardwareFields';
-import SoftwareFields from './SoftwareFields';
-import SubscriptionFields from './SubscriptionFields';
 import { Query } from 'react-apollo'
 import DataMap from '../common/Mapping'
+import FormContainer from './FormContainer';
+import FieldLoader from './FieldLoader';
 
-const NoQueryForm = (props) => {
+// const NoQueryForm = () => {
 
-	return(
-			<DetailForm empty>
-				{ props.children }
-			</DetailForm>
-	)
-}
-const QueryForm = (props) => {
-	return(
-		<Query query={props.query} variables={{ id: props.id }}>
-			{({ loading, error, data }) => {
-				if (loading) return ( <Loading />	);
-				if (error) return `Error! ${error.message}`;
-				return( 
-					<DetailForm data={data}>
-						{ props.chidren }
-					</DetailForm>
-				)
+// 	return(
+// 		<QueryContext.Consumer>
+// 		{ queryContext =>
+// 			<FormContainer empty>
+// 				<FieldLoader context={queryContext} />
+// 			</FormContainer>
+// 		}
+// 		</QueryContext.Consumer>
+// 	)
+// }
+// class QueryForm extends React.Component {
+// 	render() {	
+// 	 return(
+// 		<Query query={this.props.query} variables={{ id: this.props.id }}>
+// 			{({ loading, error, data }) => {
+// 				if (loading) return ( <Loading />	);
+// 				if (error) return `Error! ${error.message}`;
+// 				return( 
+// 					<FormContainer data={data}>
+// 						{ this.props.children }
+// 					</FormContainer>
+// 				)
+// 				}
+// 			}
+// 		</Query>
+// 	)
+//  }
+// }
+
+class FormProvider extends React.Component {
+
+	renderForm(context) {
+		if(!context.state.selection) {
+			return(
+				<QueryContext.Consumer>
+				{ queryContext =>
+					<FormContainer empty>
+						{ DataMap[queryContext.typeName].fields }
+					</FormContainer>
 				}
-			}
-		</Query>
-	)
-}
-const FormProvider = () => {
-	return(
-		<QueryContext.Consumer>
-			{ queryContext =>
-				<DrawerContext.Consumer>
-					{ drawerContext =>
-						{
-							!drawerContext.state.selection && ( <NoQueryForm>{DataMap[QueryContext.typeName].fields}</NoQueryForm> )
-							drawerContext.state.selection && ( 
-								<QueryForm 
-									query={DataMap[queryContext.typeName].query.byId} 
-									id={drawerContext.state.selection}
-									>
-										{DataMap[QueryContext.typeName].fields}
-									</QueryForm> 
+				</QueryContext.Consumer>
+			)
+		}
+		else {
+			return(
+				<QueryContext.Consumer>
+				{ queryContext =>
+					<Query query={DataMap[queryContext.typeName].query.byId} variables={{ id: context.state.selection }}>
+						{({ loading, error, data }) => {
+							if (loading) return ( <Loading />	);
+							if (error) return `Error! ${error.message}`;
+							return( 
+								<FormContainer data={data}>
+									{ DataMap[queryContext.typeName].fields }
+								</FormContainer>
 							)
+							}
 						}
-					}
-				</DrawerContext.Consumer>
-			}
-		</QueryContext.Consumer>
-	)
+					</Query>
+				}
+				</QueryContext.Consumer>
+			)
+		}
+	}
+	render() {
+		return(
+					<DrawerContext.Consumer>
+						{ drawerContext => (this.renderForm(drawerContext))	}
+					</DrawerContext.Consumer>
+		)
+	}
 }
 
 export default FormProvider

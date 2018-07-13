@@ -62,5 +62,5 @@ export const GetDisplayName = (val) => {
 export function normalizeResult(data) {
 
 	if(!data) {return null }
-	if(typeof data === 'array') { return Object.values(data)[0]}
+	if(Array.isArray(data)) { return Object.values(data)[0]}
 }
