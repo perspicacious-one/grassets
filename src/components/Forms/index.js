@@ -6,36 +6,6 @@ import DataMap from '../common/Mapping'
 import FormContainer from './FormContainer';
 import FieldLoader from './FieldLoader';
 
-// const NoQueryForm = () => {
-
-// 	return(
-// 		<QueryContext.Consumer>
-// 		{ queryContext =>
-// 			<FormContainer empty>
-// 				<FieldLoader context={queryContext} />
-// 			</FormContainer>
-// 		}
-// 		</QueryContext.Consumer>
-// 	)
-// }
-// class QueryForm extends React.Component {
-// 	render() {	
-// 	 return(
-// 		<Query query={this.props.query} variables={{ id: this.props.id }}>
-// 			{({ loading, error, data }) => {
-// 				if (loading) return ( <Loading />	);
-// 				if (error) return `Error! ${error.message}`;
-// 				return( 
-// 					<FormContainer data={data}>
-// 						{ this.props.children }
-// 					</FormContainer>
-// 				)
-// 				}
-// 			}
-// 		</Query>
-// 	)
-//  }
-// }
 
 class FormProvider extends React.Component {
 

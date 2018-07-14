@@ -223,11 +223,16 @@ export const GET_SAAP = gql`
 			model
 			hardwareType
 			drivers
+			details
 			employee {
 				id
 				email
 				firstName
 				lastName
+			}
+			saap {
+				id
+				name
 			}
     }
   }
@@ -241,11 +246,16 @@ export const GET_HARDWARES = gql`
 			model
 			hardwareType
 			drivers
+			details
 			employee {
 				id
 				email
 				firstName
 				lastName
+			}
+			saap {
+				id
+				name
 			}
     }
   }

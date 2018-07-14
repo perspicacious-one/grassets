@@ -8,7 +8,10 @@ import IconButton from '@material-ui/core/IconButton';
 import DrawerListItem from './DrawerListItem';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import PersonAddIcon from '@material-ui/icons/PersonAdd'
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ComputerIcon from '@material-ui/icons/Computer';
+import CloudIcon from '@material-ui/icons/Cloud';
+import CloudOffIcon from '@material-ui/icons/CloudOff'
 import List from '@material-ui/core/List';
 import { QueryContext, FormContext, RelativeContext } from '../common/Contexts';
 import { Query } from 'react-apollo';
@@ -90,6 +93,25 @@ export default class DrawerList extends React.Component {
 		}));
 	};
 	
+	renderNavActions(data) {
+		let keys = Object.keys(data).filter(key => { ['user', 'employee', 'saas', 'saap', 'hardware'].includes(key)} )
+		return keys.map(key => {
+			switch(key) {
+				case 'user':
+					return(<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
+				case 'employee':
+					return(<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
+				case 'saas':
+					return(<BottomNavigationAction label="Subscriptions" onClick={(e) => this.handleChange("saas", e)} icon={<CloudIcon />} />)
+				case 'saap':
+					return(<BottomNavigationAction label="Software" onClick={(e) => this.handleChange("saap", e)} icon={<CloudOffIcon />} />)
+				case 'hardware':
+					return(<BottomNavigationAction label="Hardware" onClick={(e) => this.handleChange("hardware", e)} icon={<ComputerIcon />} />)
+				default:
+				 return null;
+			}
+		})
+	}
 	render() {
 		return(
 			<React.Fragment>
@@ -110,7 +132,11 @@ export default class DrawerList extends React.Component {
 					<RelativeContext.Provider value={{ toggle: this.toggleDrawer }}>
 						<Paper elevation={4} style={styles.topNav}>
 							<BottomNavigation >
-								<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />
+								<FormContext.Consumer>
+								{ context => 
+										this.renderNavActions(context.state)
+								}
+								</FormContext.Consumer>
 							</BottomNavigation>
 							<Grid style={styles.header} onClick={this.toggleDrawer} >
 								<ExpandMoreIcon style={{fill: 'white', width: '1.5em', height: '1.5em'}}/>

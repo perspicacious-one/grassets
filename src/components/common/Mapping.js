@@ -24,6 +24,8 @@ import {
 	ADD_EMPLOYEE_TO_HARDWARE,
 	ADD_EMPLOYEE_TO_SAAP,
 	REMOVE_EMPLOYEE_FROM_SAAP,
+	REMOVE_SAAP_FROM_HARDWARE,
+	ADD_SAAP_TO_HARDWARE,
 	UPDATE_EMPLOYEE,
 	ADD_EMPLOYEE,
 	DELETE_EMPLOYEE,
@@ -84,9 +86,11 @@ const DataMap = {
 		mutate: {
 			addRelative: {
 				employee: ADD_EMPLOYEE_TO_HARDWARE,
+				saap: ADD_SAAP_TO_HARDWARE,
 			},
 			removeRelative: {
 				employee: REMOVE_EMPLOYEE_FROM_HARDWARE,
+				saap: REMOVE_SAAP_FROM_HARDWARE,
 			},
 			update: UPDATE_HARDWARE,
 			create: ADD_HARDWARE,
@@ -95,7 +99,7 @@ const DataMap = {
 		fields: (<HardwareFields />),
 		displayName: 'Hardware',
 		refName: 'hardware',
-		relativeTypes: 'employee',
+		relativeTypes: ['employee', 'saap'],
 	},
 	saas: {
 		query: {
@@ -130,9 +134,11 @@ const DataMap = {
 		mutate: {
 			addRelative: {
 				user: ADD_EMPLOYEE_TO_SAAP,
+				hardware: ADD_SAAP_TO_HARDWARE
 			},
 			removeRelative: {
 				user: REMOVE_EMPLOYEE_FROM_SAAP,
+				hardware: REMOVE_SAAP_FROM_HARDWARE,
 			},
 			update: UPDATE_SAAP,
 			create: ADD_SAAP,
