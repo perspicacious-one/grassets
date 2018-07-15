@@ -210,13 +210,13 @@ export const REMOVE_EMPLOYEE_FROM_SAAP = gql`
 
 export const ADD_SAAP_TO_HARDWARE = gql`
 	mutation addToSoftware($parentId: ID!,$childId: ID!) {
-		AddToClientSoftware(saaPsSaaPId: $parentId, hardwaresHardwareId: $childId) {
-		hardwaresHardware {
+		addToClientSoftware(softwareSaaPId: $parentId, hardwareHardwareId: $childId) {
+		hardwareHardware {
 			id
 			maker
 			model
 		}
-		saaPsSaaP {
+		softwareSaaP {
 			id
 			name
 		}
@@ -224,13 +224,13 @@ export const ADD_SAAP_TO_HARDWARE = gql`
 }`
 export const REMOVE_SAAP_FROM_HARDWARE = gql`
 	mutation removeFromSoftware($parentId: ID!,$childId: ID!) {
-		RemoveFromClientSoftware(saaPsSaaPId: $parentId, hardwaresHardwareId: $childId) {
-		hardwaresHardware {
+		removeFromClientSoftware(softwareSaaPId: $parentId, hardwareHardwareId: $childId) {
+		hardwareHardware {
 			id
 			firstName
 			lastName
 		}
-		saaPsSaaP {
+		softwareSaaP {
 			id
 			name
 		}

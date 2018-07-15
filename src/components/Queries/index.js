@@ -210,6 +210,11 @@ export const GET_SAAP = gql`
 				firstName
 				lastName
 			}
+			hardware {
+				id
+				maker
+				model
+			}
 		}
 	}
 	`;
@@ -230,7 +235,7 @@ export const GET_SAAP = gql`
 				firstName
 				lastName
 			}
-			saap {
+			software {
 				id
 				name
 			}
@@ -253,7 +258,7 @@ export const GET_HARDWARES = gql`
 				firstName
 				lastName
 			}
-			saap {
+			software {
 				id
 				name
 			}

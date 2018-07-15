@@ -72,10 +72,9 @@ class FormContainer extends React.Component {
 		event.preventDefault();
 		if(Object.values(this.state[typeName]).includes(data.id)) {return}
 		if(Array.isArray(this.state[typeName])) {
-			const relationList = this.state[typeName].push(data);
-			this.setState({
-				[typeName]: relationList
-			})
+			this.setState((prevState) => ({
+				[typeName]: prevState[typeName].concat(data)
+			}))
 		} else {
 			this.setState({
 				[typeName]: Array.of(data)

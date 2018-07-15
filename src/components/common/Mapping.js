@@ -86,11 +86,11 @@ const DataMap = {
 		mutate: {
 			addRelative: {
 				employee: ADD_EMPLOYEE_TO_HARDWARE,
-				saap: ADD_SAAP_TO_HARDWARE,
+				software: ADD_SAAP_TO_HARDWARE,
 			},
 			removeRelative: {
 				employee: REMOVE_EMPLOYEE_FROM_HARDWARE,
-				saap: REMOVE_SAAP_FROM_HARDWARE,
+				software: REMOVE_SAAP_FROM_HARDWARE,
 			},
 			update: UPDATE_HARDWARE,
 			create: ADD_HARDWARE,
@@ -99,7 +99,7 @@ const DataMap = {
 		fields: (<HardwareFields />),
 		displayName: 'Hardware',
 		refName: 'hardware',
-		relativeTypes: ['employee', 'saap'],
+		relativeTypes: ['employee', 'software'],
 	},
 	saas: {
 		query: {
@@ -147,7 +147,32 @@ const DataMap = {
 		fields: (<SoftwareFields />),
 		displayName: 'Desktop Software',
 		refName: 'saap',
-		relativeTypes: 'user',
+		relativeTypes: ['user', 'hardware']
+	},
+	software: {
+		query: {
+			all: GET_SAAPS,
+			allBasic: GET_SAAPS_BASIC,
+			byId: GET_SAAP,
+			relatives: GET_SAAP_EMPLOYEE
+		},
+		mutate: {
+			addRelative: {
+				user: ADD_EMPLOYEE_TO_SAAP,
+				hardware: ADD_SAAP_TO_HARDWARE
+			},
+			removeRelative: {
+				user: REMOVE_EMPLOYEE_FROM_SAAP,
+				hardware: REMOVE_SAAP_FROM_HARDWARE,
+			},
+			update: UPDATE_SAAP,
+			create: ADD_SAAP,
+			delete: DELETE_SAAP
+		},
+		fields: (<SoftwareFields />),
+		displayName: 'Desktop Software',
+		refName: 'saap',
+		relativeTypes: ['user', 'hardware']
 	}
 }
 

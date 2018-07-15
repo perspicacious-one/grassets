@@ -9,7 +9,7 @@ import { Chips } from '../Controls/RelativeChip'
 class HardwareFields extends React.Component {
 
 	renderFormFields(context) {
-		let { id, maker, model, drivers, details, hardwareType, employee, saap } = context.state
+		let { id, maker, model, drivers, details, hardwareType, employee, software } = context.state
 		return(
 			<React.Fragment>
 				<Grid item xs={6}>
@@ -36,7 +36,7 @@ class HardwareFields extends React.Component {
 					{ Chips('employee', employee) }
 				</Grid>
 				<Grid item xs={12}>
-					{ Chips('saap', saap) }
+					{ Chips('software', software) }
 				</Grid>
 			</React.Fragment>	
 		)

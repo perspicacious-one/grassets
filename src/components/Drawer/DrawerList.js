@@ -94,8 +94,8 @@ export default class DrawerList extends React.Component {
 	};
 	
 	renderNavActions(data) {
-		let keys = Object.keys(data).filter(key => { ['user', 'employee', 'saas', 'saap', 'hardware'].includes(key)} )
-		return keys.map(key => {
+		let keys = Object.keys(data).filter(key => { ['user', 'employee', 'saas', 'software', 'saap', 'hardware'].includes(key)} )
+		return Object.keys(data).map(key => {
 			switch(key) {
 				case 'user':
 					return(<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
@@ -103,6 +103,8 @@ export default class DrawerList extends React.Component {
 					return(<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
 				case 'saas':
 					return(<BottomNavigationAction label="Subscriptions" onClick={(e) => this.handleChange("saas", e)} icon={<CloudIcon />} />)
+				case 'software':
+					return(<BottomNavigationAction label="Software" onClick={(e) => this.handleChange("software", e)} icon={<CloudOffIcon />} />)
 				case 'saap':
 					return(<BottomNavigationAction label="Software" onClick={(e) => this.handleChange("saap", e)} icon={<CloudOffIcon />} />)
 				case 'hardware':
@@ -118,7 +120,11 @@ export default class DrawerList extends React.Component {
 			<Paper style={styles.paper}  elevation={4} style={styles.bottomNav}>
 				{!this.state.open &&
 					<BottomNavigation>
-						<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />
+						<FormContext.Consumer>
+						{ context => 
+								this.renderNavActions(context.state)
+						}
+						</FormContext.Consumer>
 					</BottomNavigation>
 				}
 			</Paper>
