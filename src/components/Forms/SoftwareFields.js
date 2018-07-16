@@ -67,18 +67,23 @@ export default class SoftwareFields extends React.Component {
 							label="Maintenance"
 						/>
 					</Grid>
-					<Grid item xs={12} style={styles.group}>
-					<Typography varient="subtitle" gutterBottom>
-						Users
-          </Typography>
-					{ Chips('user', user) }
-					</Grid>
-						<Grid item xs={12} style={styles.group}>
-						<Typography varient="subtitle" gutterBottom>
-							Hardware
-	          </Typography>
-						{ Chips('hardware', hardware) }
-					</Grid>
+					{
+						id && 
+						<React.Fragment>
+							<Grid item xs={12} style={styles.group}>
+								<Typography varient="subtitle" gutterBottom>
+									Users
+			          </Typography>
+								{ Chips('user', user) }
+							</Grid>
+								<Grid item xs={12} style={styles.group}>
+								<Typography varient="subtitle" gutterBottom>
+									Hardware
+			          </Typography>
+								{ Chips('hardware', hardware) }
+							</Grid>
+						</React.Fragment>
+					}
 				</React.Fragment>	
 			)
 		}

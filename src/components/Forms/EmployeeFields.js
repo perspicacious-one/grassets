@@ -17,7 +17,7 @@ const styles = {
 }
 export default class EmployeeFields extends React.Component {
 	renderFormFields(context) {
-		let { id, firstName, lastName, email, software } = context.state
+		let { id, firstName, lastName, email, saap, hardware, subscription } = context.state
 		return(
 			<React.Fragment>
 
@@ -52,12 +52,29 @@ export default class EmployeeFields extends React.Component {
 					onChange={ event => context.onChange(event) }
 				/>
 			</Grid>
-			<Grid item xs={12}>
-					<Typography variant="title" gutterBottom>
-						Software
-					</Typography>
-					{ Chips('software', software) }
-			</Grid>
+			{
+				id && 
+				<React.Fragment>
+					<Grid item xs={12} style={styles.group}>
+						<Typography varient="subtitle" gutterBottom>
+							Hardware
+		        </Typography>
+						{ Chips('hardware', hardware) }
+					</Grid>
+					<Grid item xs={12} style={styles.group}>
+						<Typography variant="subtitle" gutterBottom>
+							Software
+						</Typography>
+						{ Chips('saap', saap) }
+					</Grid>
+					<Grid item xs={12} style={styles.group}>
+						<Typography variant="subtitle" gutterBottom>
+							Subscriptions
+						</Typography>
+						{ Chips('subscription', subscription) }
+					</Grid>
+				</React.Fragment>
+			}
 			</React.Fragment>
 		)
 	}

@@ -44,18 +44,24 @@ class HardwareFields extends React.Component {
 						<MenuItem id={"Accessories"} key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
 					</TextField>
 				</Grid>
-				<Grid item xs={12} style={styles.group}>
-					<Typography varient="subtitle" gutterBottom>
-						Employee
-          </Typography>
-					{ Chips('employee', employee) }
-				</Grid>
-				<Grid item xs={12} style={styles.group}>
-					<Typography varient="subtitle" gutterBottom>
-						Installed Software
-          </Typography>
-					{ Chips('software', software) }
-				</Grid>
+				{
+					id && 
+					<React.Fragment>
+						<Grid item xs={12} style={styles.group}>
+							<Typography varient="subtitle" gutterBottom>
+								Employee
+		          </Typography>
+							{ Chips('employee', employee) }
+						</Grid>
+						<Grid item xs={12} style={styles.group}>
+							<Typography varient="subtitle" gutterBottom>
+								Installed Software
+		          </Typography>
+							{ Chips('software', software) }
+						</Grid>
+					</React.Fragment>
+				}
+
 			</React.Fragment>	
 		)
 	}

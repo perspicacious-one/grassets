@@ -83,12 +83,15 @@ export default class SubscriptionFields extends React.Component {
 						value={adminPortal || ''}
 						onChange={event => context.onChange(event) } />
 				</Grid>
-				<Grid item xs={12} style={styles.group}>
-					<Typography varient="subtitle" gutterBottom>
-						Users
-          </Typography>
-					{ Chips('user', user) }
-				</Grid>
+				{
+					id &&
+					<Grid item xs={12} style={styles.group}>
+						<Typography varient="subtitle" gutterBottom>
+							Users
+	          </Typography>
+						{ Chips('user', user) }
+					</Grid>
+				}
 			</React.Fragment>	
 		)
 	}
