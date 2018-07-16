@@ -1,17 +1,24 @@
 import React from 'react';
-
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
-
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import DataMap from '../common/Mapping';
 import {FormContext} from '../common/Contexts';
 import { Chips } from '../Controls/RelativeChip'
 
+const styles = {
+	group: {
+		padding: '12px',
+		marginLeft: '10px',
+		marginRight: '10px',
+		backgroundColor: '#EEEEEE'
+	}
+}
 export default class SoftwareFields extends React.Component {
 		renderFormFields(context) {
-			let { id, name, qty, maintenance, key, user, adminEmail, adminPassword, adminPortal } = context.state
+			let { id, name, qty, maintenance, key, user, hardware, adminEmail, adminPassword, adminPortal } = context.state
 
 			return(
 				<React.Fragment>	
@@ -60,8 +67,17 @@ export default class SoftwareFields extends React.Component {
 							label="Maintenance"
 						/>
 					</Grid>
-					<Grid item xs={12}>
-						{ Chips('user', user) }
+					<Grid item xs={12} style={styles.group}>
+					<Typography varient="subtitle" gutterBottom>
+						Users
+          </Typography>
+					{ Chips('user', user) }
+					</Grid>
+						<Grid item xs={12} style={styles.group}>
+						<Typography varient="subtitle" gutterBottom>
+							Hardware
+	          </Typography>
+						{ Chips('hardware', hardware) }
 					</Grid>
 				</React.Fragment>	
 			)

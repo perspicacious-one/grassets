@@ -13,6 +13,7 @@ import DataMap from '../common/Mapping';
 import {DrawerContext} from '../common/Contexts';
 import FormProvider from '../Forms';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
 	paper: {
@@ -76,7 +77,9 @@ class AssetTable extends React.Component {
 		return(
 			<Paper style={styles.paper}>
 				<div style={styles.heading}>
-					<h2>{this.props.displayName}</h2>
+				<Typography variant="display1" gutterBottom>
+					{this.props.displayName}
+				</Typography>
 				</div>
 				<Table>
 					<TableHeader headings={this.labels} />

@@ -18,7 +18,8 @@ const styles = {
 		padding: '25px'
   },
 	formActions: {
-		marginTop: '20px'
+		marginTop: '20px',
+		paddingTop: '10px'
 	},
 	footer: {
 		alignSelf: 'flex-end',
@@ -135,10 +136,9 @@ class FormContainer extends React.Component {
 								</Grid>
 								</React.Fragment>
 							}
-							</DrawerContext.Consumer>
-						</Grid>
-						
-					</Grid>
+						</DrawerContext.Consumer>
+					</Grid>			
+				</Grid>
 				<div style={styles.footer}>
 					<DrawerList />
 				</div>

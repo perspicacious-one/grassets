@@ -98,17 +98,17 @@ export default class DrawerList extends React.Component {
 		return Object.keys(data).map(key => {
 			switch(key) {
 				case 'user':
-					return(<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
+					return(<BottomNavigationAction showLabel label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
 				case 'employee':
-					return(<BottomNavigationAction label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
+					return(<BottomNavigationAction showLabel label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
 				case 'saas':
-					return(<BottomNavigationAction label="Subscriptions" onClick={(e) => this.handleChange("saas", e)} icon={<CloudIcon />} />)
+					return(<BottomNavigationAction showLabel label="Subscriptions" onClick={(e) => this.handleChange("saas", e)} icon={<CloudIcon />} />)
 				case 'software':
-					return(<BottomNavigationAction label="Software" onClick={(e) => this.handleChange("software", e)} icon={<CloudOffIcon />} />)
+					return(<BottomNavigationAction showLabel label="Software" onClick={(e) => this.handleChange("software", e)} icon={<CloudOffIcon />} />)
 				case 'saap':
-					return(<BottomNavigationAction label="Software" onClick={(e) => this.handleChange("saap", e)} icon={<CloudOffIcon />} />)
+					return(<BottomNavigationAction showLabel label="Software" onClick={(e) => this.handleChange("saap", e)} icon={<CloudOffIcon />} />)
 				case 'hardware':
-					return(<BottomNavigationAction label="Hardware" onClick={(e) => this.handleChange("hardware", e)} icon={<ComputerIcon />} />)
+					return(<BottomNavigationAction showLabel label="Hardware" onClick={(e) => this.handleChange("hardware", e)} icon={<ComputerIcon />} />)
 				default:
 				 return null;
 			}
@@ -119,7 +119,7 @@ export default class DrawerList extends React.Component {
 			<React.Fragment>
 			<Paper style={styles.paper}  elevation={4} style={styles.bottomNav}>
 				{!this.state.open &&
-					<BottomNavigation>
+					<BottomNavigation value={this.state.activeList} showLabels>
 						<FormContext.Consumer>
 						{ context => 
 								this.renderNavActions(context.state)
@@ -137,7 +137,7 @@ export default class DrawerList extends React.Component {
 		      >
 					<RelativeContext.Provider value={{ toggle: this.toggleDrawer }}>
 						<Paper elevation={4} style={styles.topNav}>
-							<BottomNavigation >
+							<BottomNavigation value={this.state.activeList} showLabels>
 								<FormContext.Consumer>
 								{ context => 
 										this.renderNavActions(context.state)

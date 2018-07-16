@@ -23,6 +23,7 @@ export const RelativeChip =(props) => {
 									key={props.relative.id} 
 									label={GetDisplayName(props.relative)}	
 									onDelete={(e) => unlink().then(formContext.unlinkAction(props.relative, props.relativeType, e)) }
+									style={{marginBottom: '10px'}}
 									/> 
 							)}
 						</Mutation>	

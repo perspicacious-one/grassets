@@ -5,7 +5,19 @@ import Grid from '@material-ui/core/Grid';
 import DataMap from '../common/Mapping';
 import {FormContext} from '../common/Contexts';
 import { Chips } from '../Controls/RelativeChip'
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
+const styles = {
+	group: {
+		padding: '12px',
+		marginLeft: '10px',
+		marginRight: '10px',
+		backgroundColor: '#EEEEEE'
+	}
+}
 class HardwareFields extends React.Component {
 
 	renderFormFields(context) {
@@ -32,10 +44,16 @@ class HardwareFields extends React.Component {
 						<MenuItem id={"Accessories"} key={"Accessories"} value={'Accessories'}>Accessories</MenuItem>
 					</TextField>
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item xs={12} style={styles.group}>
+					<Typography varient="subtitle" gutterBottom>
+						Employee
+          </Typography>
 					{ Chips('employee', employee) }
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item xs={12} style={styles.group}>
+					<Typography varient="subtitle" gutterBottom>
+						Installed Software
+          </Typography>
 					{ Chips('software', software) }
 				</Grid>
 			</React.Fragment>	

@@ -140,6 +140,11 @@ export const ThemeAlternate = createMuiTheme({
 				}
 			}
 		},
+		MuiBottomNavigation: {
+			root: {
+				height: '64px'
+			}
+		},
 		MuiDrawer: {
 			root: {
 				margin: '0',

@@ -11,7 +11,16 @@ import { FormatDate } from '../../utils/string';
 import DataMap from '../common/Mapping';
 import {FormContext} from '../common/Contexts';
 import { Chips } from '../Controls/RelativeChip'
+import Typography from '@material-ui/core/Typography';
 
+const styles = {
+	group: {
+		padding: '12px',
+		marginLeft: '10px',
+		marginRight: '10px',
+		backgroundColor: '#EEEEEE'
+	}
+}
 export default class SubscriptionFields extends React.Component {
 	renderFormFields(context) {
 		let { id, name, cost, qty, expiration, renewalTerm, user, adminEmail, adminPassword, adminPortal } = context.state
@@ -74,7 +83,10 @@ export default class SubscriptionFields extends React.Component {
 						value={adminPortal || ''}
 						onChange={event => context.onChange(event) } />
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item xs={12} style={styles.group}>
+					<Typography varient="subtitle" gutterBottom>
+						Users
+          </Typography>
 					{ Chips('user', user) }
 				</Grid>
 			</React.Fragment>	
