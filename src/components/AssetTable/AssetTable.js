@@ -13,17 +13,19 @@ import DataMap from '../common/Mapping';
 import {DrawerContext} from '../common/Contexts';
 import FormProvider from '../Forms';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import sortBy from 'lodash.sortby';
 
 const styles = {
 	paper: {
 		maxWidth: 1180,
 		margin: 'auto',
-		paddingTop: '15px'
+		minHeight: '400px'
 	},
 	buttonLeft: {
 		margin: '20px',
-		float: 'left'
+		position: 'fixed',
+		bottom: '0',
+		right: '0'
 	},
 	buttonRight: {
 		margin: '20px',
@@ -43,10 +45,6 @@ const styles = {
 		flexWrap: 'wrap',
 		flexGrow: 1,
 	},
-	heading: {
-		margin: '25px',
-		textAlign: 'center'
-	}
 }
 
 class AssetTable extends React.Component {
@@ -56,13 +54,22 @@ class AssetTable extends React.Component {
 		this.state = {
 			active: false,
 			selection: "",
-			subType: ""
+			subType: "",
+			order: 'asc',
+			orderBy: 'id',
 		}
 		this.typename = this.props.typename;
 		this.labels = Object.keys(this.props.assets[0]).filter( label => !["__typename", "id"].includes(label) );
 		this.toggleDrawer = this.toggleDrawer.bind(this);
+		this.handleRequestSort = this.handleRequestSort.bind(this);
 	}
-
+	sortedData = () => {
+		if(this.state.order === 'asc') {
+			return sortBy(this.props.assets, [o => { return o[this.state.orderBy]}])
+		} else {
+			return sortBy(this.props.assets, [o => { return o[this.state.orderBy]}]).reverse();
+		}
+	}
 	toggleDrawer = (open = false, id = null, type) => {
     this.setState({
 			active: open,
@@ -71,25 +78,35 @@ class AssetTable extends React.Component {
 		});
 		this.props.refresh()
 	};
+  handleRequestSort = (event, property) => {
+    const orderBy = property;
+    let order = 'desc';
 
+    if (this.state.orderBy === property && this.state.order === 'desc') {
+      order = 'asc';
+    }
+
+    this.setState({ order, orderBy });
+  };
 	render() {
-
+		const { order, orderBy, active } = this.state
+		const data = this.sortedData()
 		return(
-			<Paper style={styles.paper}>
-				<div style={styles.heading}>
-				<Typography variant="display1" gutterBottom>
-					{this.props.displayName}
-				</Typography>
-				</div>
+			<React.Fragment>
 				<Table>
-					<TableHeader headings={this.labels} />
+					<TableHeader 
+						headings={this.labels}               
+						order={order}
+            orderBy={orderBy}
+						onRequestSort={this.handleRequestSort}
+					/>
 					<TableBody>
 						{ 
-							this.props.assets.map(n => <CustomTableRow typename={this.typename} entry={n} meta={this.labels} toggleMethod={this.toggleDrawer}/> ) 
+							data.map(n => <CustomTableRow typename={this.typename} entry={n} meta={this.labels} toggleMethod={this.toggleDrawer}/> ) 
 						}
 					</TableBody>
 				</Table>
-				<Drawer anchor="right" open={this.state.active} elevation={6} style={styles.drawer}>
+				<Drawer anchor="right" open={active} elevation={6} style={styles.drawer}>
 					<div tabIndex={0} style={{padding: '10px'}}>
 						<IconButton  aria-label="add" onClick={ () => this.toggleDrawer(false, null, "")} >
 							<CloseIcon />
@@ -103,10 +120,11 @@ class AssetTable extends React.Component {
 							<FormProvider />
 						</DrawerContext.Provider>
 				</Drawer>
+				{ this.props.children }
 				<Button variant="fab" color="secondary" aria-label="add" style={styles.buttonRight} onClick={ () => this.toggleDrawer(true, null, this.typename)} >
 					<AddIcon />
 				</Button>				
-			</Paper>
+			</React.Fragment>
 		)
 	}
 }

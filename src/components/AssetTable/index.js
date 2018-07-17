@@ -1,82 +1,30 @@
 import React from 'react';
 import AssetTable from './AssetTable.js';
-import { Query } from 'react-apollo'
 import DataMap from '../common/Mapping';
 import Loading from '../common/Loading';
 import {QueryContext} from '../common/Contexts';
+import PaginatedTable from './PaginatedTable';
 
-export const HardwareTable = () => (
-		<Query query={DataMap.hardware.query.allBasic}>
-			{({ loading, error, data, refetch }) => {
-				if (loading) return ( <Loading />	);
-				if (error) return `Error! ${error.message}`;
-				return(
-					<QueryContext.Provider value={{
-						refetch: () => refetch(),
-						typeName: 'hardware'
-					}}>
-						<AssetTable assets={data.allHardwares} typename={"Hardware"} displayName={"Hardware"} refresh={() => refetch()}/>
-					</QueryContext.Provider>
-				)
-				}
-			}
-		</Query>
-)
 
-export const SaaSTable = () => (
-	<Query query={DataMap.saas.query.allBasic}>
-		{({ loading, error, data, refetch }) => {
-			if (loading) return (
-				<Loading />
-				);
-			if (error) return `Error! ${error.message}`;
-			return( 
-				<QueryContext.Provider value={{
-						refetch: () => refetch(),
-						typeName: 'saas'
-					}}>
-					<AssetTable assets={data.allSaases} typename={"SaaS"} displayName={"Subscriptions"} refresh={() => refetch()}/>
-				</QueryContext.Provider>
-			)
-			}
-		}
-	</Query>
-)
-export const SaaPTable = () => (
-	<Query query={DataMap.saap.query.allBasic}>
-		{({ loading, error, data, refetch }) => {
-			if (loading) return (
-				<Loading />
-				);
-			if (error) return `Error! ${error.message}`;
-			return( 
-				<QueryContext.Provider value={{
-						refetch: () => refetch(),
-						typeName: 'saap'
-					}}>
-					<AssetTable assets={data.allSaaPs} typename={"SaaP"} displayName={"Software"} refresh={() => refetch()}/>
-				</QueryContext.Provider>
-			)
-			}
-		}
-	</Query>
-)
-export const EmployeeTable = () => (
-	<Query query={DataMap.employee.query.allBasic}>
-		{({ loading, error, data, refetch }) => {
-			if (loading) return (
-				<Loading />
-				);
-			if (error) return `Error! ${error.message}`;
-			return( 
-				<QueryContext.Provider value={{
-						refetch: () => refetch(),
-						typeName: 'employee'
-					}}>
-					<AssetTable assets={data.allEmployees} typename={"Employee"} displayName={"Employee"} refresh={() => refetch()}/>
-				</QueryContext.Provider>
-			)
-			}
-		}
-	</Query>
-)
+export function HardwareTable(props) {
+		return(
+			<PaginatedTable query={DataMap.hardware.query.allBasicPage} name='hardware' />
+		)
+};
+
+export function SaaSTable(props) {
+	return(
+		<PaginatedTable query={DataMap.saas.query.allBasicPage} name='saas' />
+	)
+};
+
+export function SaaPTable(props) {
+	return(
+		<PaginatedTable query={DataMap.saap.query.allBasicPage} name='saap' />
+	)
+};
+export function EmployeeTable(props) {
+	return(
+		<PaginatedTable query={DataMap.employee.query.allBasicPage} name='employee' />
+	)
+};

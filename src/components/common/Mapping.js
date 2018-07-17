@@ -16,7 +16,16 @@ import {
 	GET_SAAPS_BASIC,
 	GET_SAAPS,
 	GET_EMPLOYEES,
-	GET_EMPLOYEES_BASIC
+	GET_EMPLOYEES_BASIC,
+	GET_SAASES_BASIC_PAGE,
+	GET_HARDWARES_BASIC_PAGE,
+	GET_SAAPS_BASIC_PAGE,
+	GET_EMPLOYEES_BASIC_PAGE,
+	Metas,
+	EMPLOYEE_META,
+	HARDWARE_META,
+	SAAS_META,
+	SAAP_META
 } from '../Queries';
 
 import { 
@@ -54,7 +63,9 @@ const DataMap = {
 			all: GET_EMPLOYEES,
 			allBasic: GET_EMPLOYEES_BASIC,
 			byId: GET_EMPLOYEE,
-			relatives: [GET_EMPLOYEE_HARDWARE, GET_SAAP_EMPLOYEE, GET_SAAS_EMPLOYEE]
+			relatives: [GET_EMPLOYEE_HARDWARE, GET_SAAP_EMPLOYEE, GET_SAAS_EMPLOYEE],
+			allBasicPage: GET_EMPLOYEES_BASIC_PAGE,
+			meta: EMPLOYEE_META
 		},
 		mutate: {
 			addRelative: {
@@ -81,7 +92,9 @@ const DataMap = {
 			all: GET_HARDWARES, 
 			allBasic: GET_HARDWARES_BASIC, 
 			byId: GET_HARDWARE,
-			relatives: GET_EMPLOYEE_HARDWARE
+			relatives: GET_EMPLOYEE_HARDWARE,
+			allBasicPage: GET_HARDWARES_BASIC_PAGE,
+			meta: HARDWARE_META
 		},
 		mutate: {
 			addRelative: {
@@ -106,7 +119,9 @@ const DataMap = {
 			all: GET_SAASES,
 			allBasic: GET_SAASES_BASIC,
 			byId: GET_SAAS,
-			relatives: GET_SAAS_EMPLOYEE
+			relatives: GET_SAAS_EMPLOYEE,
+			allBasicPage: GET_SAASES_BASIC_PAGE,
+			meta: SAAS_META
 		},
 		mutate: {
 			addRelative: {
@@ -129,7 +144,9 @@ const DataMap = {
 			all: GET_SAAPS,
 			allBasic: GET_SAAPS_BASIC,
 			byId: GET_SAAP,
-			relatives: GET_SAAP_EMPLOYEE
+			relatives: GET_SAAP_EMPLOYEE,
+			allBasicPage: GET_SAAPS_BASIC_PAGE,
+			meta: SAAP_META
 		},
 		mutate: {
 			addRelative: {
@@ -173,7 +190,7 @@ const DataMap = {
 		displayName: 'Desktop Software',
 		refName: 'saap',
 		relativeTypes: ['user', 'hardware']
-	}
+	},
 }
 
 

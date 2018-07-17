@@ -36,6 +36,21 @@ export const GET_EMPLOYEES_BASIC = gql`
   }
 `;
 
+export const GET_EMPLOYEES_BASIC_PAGE = gql`
+  query allEmployees($skip: Int, $first: Int, $last: Int) { 
+    allEmployees(
+			skip: $skip
+			first: $first
+			last: $last
+		) { 
+      id
+			firstName
+			lastName
+			email
+    }
+  }
+`;
+
 export const GET_EMPLOYEE = gql`
   query getEmployee($id: ID!) { 
     Employee(id: $id) { 
@@ -119,6 +134,23 @@ export const GET_SAASES_BASIC = gql`
     }
   }
 `;
+export const GET_SAASES_BASIC_PAGE = gql`
+	query allSaases($skip: Int, $first: Int, $last: Int) { 
+		allSaases(
+			skip: $skip
+			first: $first
+			last: $last
+		) { 
+			id
+			name
+			qty
+			cost
+			renewalTerm
+			expiration
+			adminEmail
+		}
+	}
+`;
 export const GET_SAASES = gql`
   query allSaases { 
     allSaases { 
@@ -174,6 +206,22 @@ export const GET_SAAS = gql`
 			adminEmail
     }
   }
+`;
+export const GET_SAAPS_BASIC_PAGE = gql`
+	query allSaaPs($skip: Int, $first: Int, $last: Int) { 
+		allSaaPs(
+			skip: $skip
+			first: $first
+			last: $last
+		) { 
+			id
+			name
+			qty
+			maintenance
+			key
+			adminEmail
+		}
+	}
 `;
 export const GET_SAAPS = gql`
   query allSaaPs { 
@@ -276,6 +324,21 @@ export const GET_HARDWARES_BASIC = gql`
 		}
 	}
 `;
+export const GET_HARDWARES_BASIC_PAGE = gql`
+	query allHardware($skip: Int, $first: Int, $last: Int) { 
+		allHardwares(
+			skip: $skip
+			first: $first
+			last: $last
+		) { 
+			id
+			maker
+			model
+			hardwareType
+			drivers
+		}
+	}
+`;
 
 
 export const GET_BILLING = gql`
@@ -286,5 +349,34 @@ export const GET_BILLING = gql`
 			name
 			expiration
     }
+  }
+`;
+
+export const HARDWARE_META = gql`
+	query _allHardwaresMeta {
+		_allHardwaresMeta {
+			count
+		}
+  }
+`;
+export const SAAS_META = gql`
+	query _allSaasesMeta {
+		_allSaasesMeta {
+			count
+		}
+  }
+`;
+export const SAAP_META = gql`
+	query _allSaaPsMeta {
+		_allSaaPsMeta {
+			count
+		} 
+  }
+`;
+export const EMPLOYEE_META = gql`
+	query _allEmployeesMeta {
+		_allEmployeesMeta {
+			count
+		}
   }
 `;

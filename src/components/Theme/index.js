@@ -169,6 +169,15 @@ export const ThemeAlternate = createMuiTheme({
 				paddingBottom: '0'
 			}
 		},
+		MuiTablePagination: {
+			select: {
+				paddingLeft: '4px',
+				minWidth: '25px',
+			},
+			caption: {
+				lineHeight: '1.4em'
+			}
+		}
 	}
 });
 

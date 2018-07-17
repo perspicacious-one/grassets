@@ -4,6 +4,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import './App.css';
 import { theme, ThemeAlternate } from './components/Theme';
 import { HardwareTable, SaaSTable, SaaPTable, EmployeeTable } from './components/AssetTable';
+import PaginatedTable from './components/AssetTable/PaginatedTable';
 import Header from './components/Header';
 import Grid from '@material-ui/core/Grid';
 import Home from './components/Home'
