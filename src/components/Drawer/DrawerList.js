@@ -98,7 +98,7 @@ export default class DrawerList extends React.Component {
 		return Object.keys(data).map(key => {
 			switch(key) {
 				case 'user':
-					return(<BottomNavigationAction showLabel label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
+					return(<BottomNavigationAction showLabel label="Employees" onClick={(e) => this.handleChange("user", e)} icon={<PersonAddIcon />} />)
 				case 'employee':
 					return(<BottomNavigationAction showLabel label="Employees" onClick={(e) => this.handleChange("employee", e)} icon={<PersonAddIcon />} />)
 				case 'saas':
