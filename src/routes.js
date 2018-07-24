@@ -8,7 +8,9 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import Callback from './components/Callback/Callback';
 import history from './history';
+import LogRocket from 'logrocket';
 
+LogRocket.init('itb7ok/dsi-assets');
 
 export const makeMainRoutes = () => {
 	const client = new ApolloClient({

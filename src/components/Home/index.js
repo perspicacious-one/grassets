@@ -4,14 +4,15 @@ import { compose, graphql } from 'react-apollo';
 import DataMap from '../common/Mapping';
 import Grid from '@material-ui/core/Grid';
 import FilteredChart from '../Visualizations/FilteredChart'
-import {SaasExpirationLineChart} from '../Visualizations/SimpleLineChart'
 import Typography from '@material-ui/core/Typography';
-import {fromNow, FormatDate} from '../../utils/date.js';
+import {isWithinDays, getWordsTillExpire} from '../../utils/date.js';
 import WarningIcon from '@material-ui/icons/Warning'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
+
 
 const styles = {
   root: {
@@ -33,8 +34,18 @@ const styles = {
 	}
 };
 class Home extends React.Component {
+  state = {
+	  days: 30
+  }
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   render() {
 		const data1 = Object.values(this.props.saasQuery).pop();
+		const expiring = data1 && data1.filter(record => isWithinDays(record.expiration, this.state.days))
     return (
 			<Grid style={styles.center}>
 				<Grid xs={12} style={styles.subTitle}>
@@ -49,15 +60,32 @@ class Home extends React.Component {
 				</Grid>
 				<Grid xs={6}>
 					<Paper style={styles.paper}>
-					<Typography variant="title" gutterBottom style={{marginLeft: '30px', paddingTop: '20px'}}>Expirations</Typography>
+					<Grid container style={{maxWidth: '600px', alignItems: 'flex-start'}} spacing={24}>
+						<Grid xs={9} >
+							<Typography variant="title" gutterBottom style={{marginLeft: '30px', paddingTop: '20px'}}>Expirations</Typography>
+						</Grid>
+						<Grid xs={3}>
+							<TextField
+								id="days"
+								label="Max days"
+								value={this.state.days}
+								onChange={this.handleChange('days')}
+								type="number"
+								InputLabelProps={{
+									shrink: true,
+								}}
+								margin="normal"
+							/>
+						</Grid>
+					</Grid>
 					<List>
 					{
-						data1 && (data1.map(entry => { return(
+						expiring && (expiring.map(entry => { return(
 							<ListItem>
 								<ListItemIcon>
 									<WarningIcon style={{fill: 'red'}}/>
 								</ListItemIcon>
-								<ListItemText inset primary={entry.name + ' expires ' + fromNow(entry.expiration)} />
+								<ListItemText inset primary={entry.name + ' expires ' + getWordsTillExpire(entry.expiration)} />
 							</ListItem>
 						) })	
 						)}

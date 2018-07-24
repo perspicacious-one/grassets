@@ -33,6 +33,7 @@ class HardwareFields extends React.Component {
       <React.Fragment>
         <Grid item xs={6}>
           <TextField
+            required
             id={"maker"}
             label={"Manufacturer"}
             placeholder="e.g. - Dell"
@@ -43,6 +44,7 @@ class HardwareFields extends React.Component {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             id={"model"}
             label={"Model"}
             placeholder="e.g. - Precision T7600"

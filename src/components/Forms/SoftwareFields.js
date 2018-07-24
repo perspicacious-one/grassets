@@ -37,6 +37,7 @@ export default class SoftwareFields extends React.Component {
       <React.Fragment>
         <Grid item xs={12}>
           <TextField
+            required
             id={"name"}
             label={"Product"}
             fullWidth

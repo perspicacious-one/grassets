@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import DrawerList from "../Drawer/DrawerList";
 import Divider from "@material-ui/core/Divider";
 import { IsNumber, IsDate } from "../../utils/string";
+import { getFirstObjectWithId } from '../../utils/traverse';
 
 const styles = {
   root: {

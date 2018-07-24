@@ -1,50 +1,47 @@
-import DataMap from '../components/common/DataSource'
+import DataMap from '../components/common/Mapping'
 
 
 //Apollo graphql data operations
-export function getRootKey(data) {
-	if(!data) {return null;}
-	var root = Object.keys(data).shift().toString();
-	if(data[root] !== undefined) {
-		return root;
-	} else {
-		return null;
-	}
-}
-export function getPairs(data) {
-	if(!data) {return null;}
-	let rootName = getRootKey(data);
-	if(data[rootName] !== undefined) {
-		return Object.entries(data[rootName])
-	}
-}
-export function getRelationKey(data) {
-	let result = null
-	if(!data) {return null;}
-	let splitData = Object.entries(data) 
-	splitData.map(entry => {
-		if(typeof entry[1] === 'object' ) {
-			if(Object.keys(entry[1]).includes('id')) {
-				result = entry[0];
-			}
-		}
-	})
-	return result
-}
-export function getRelationData(data) {
-	let result = null
-	if(!data) {return null;}
-	let splitData = Object.entries(data) 
-	splitData.map(entry => {
-		if(typeof entry[1] === 'object' ) {
-			if(Object.keys(entry[1]).includes('id')) {
-				result = entry[1];
-			}
-		}
 
-	})
-	return result
+// var traverse = function(data) {	
+// 	return {
+// 	  first: function(key) {
+// 		return first;
+// 	  },
+	  
+// 	  last: function(key) {
+// 		return last;
+// 	  },
+	  
+// 	  count: function() {
+// 		return count;
+// 	  },
+	  
+// 	}
+// }
+function hasId(val) {
+	if(typeof val === 'object') {
+		let keys = Object.keys(val);
+		return keys.includes('id')
+	}
+	return false
 }
+export function getFirstObjectWithId(data, depth = 4) {
+	if(!data) { return null };
+	if(depth < 1) { return data };
+	console.log(data)
+	let entries = Object.values(data);
+	if(hasId(entries)) { return entries };
+	if(Array.isArray(entries)) {
+		let first = entries[0];
+		if(typeof first === 'object' && hasId(first) ){
+			return entries;
+		}
+	} else {
+		getFirstObjectWithId(entries, depth - 1);
+	}
+}
+
 //Project specific operations
 export const GetDisplayName = (val) => {
 	var keys = Object.keys(val)

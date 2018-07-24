@@ -31,6 +31,7 @@ export default class EmployeeFields extends React.Component {
       <React.Fragment>
         <Grid item xs={12}>
           <TextField
+            required
             id="firstName"
             label="First Name"
             value={firstName || ""}
@@ -41,6 +42,7 @@ export default class EmployeeFields extends React.Component {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             id="lastName"
             label="Last Name"
             value={lastName || ""}
