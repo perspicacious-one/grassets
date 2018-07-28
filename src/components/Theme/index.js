@@ -150,7 +150,14 @@ export const ThemeAlternate = createMuiTheme({
         flex: "none"
       },
       modal: {
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        top: 0,
+        left: 0,
+        width: "100 %",
+        height: "100 %",
+        display: "flex",
+        zIndex: 1300,
+        position: "fixed"
       }
     },
     MuiList: {
