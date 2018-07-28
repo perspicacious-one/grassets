@@ -55,7 +55,7 @@ export default class PaginatedTable extends React.Component {
             skip: skip,
             first: rowsPerPage
           }}
-          pollInterval={15000}
+          pollInterval={100000}
         >
           {({ loading, error, data, refetch }) => {
             if (loading) return <Loading />;
