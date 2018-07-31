@@ -55,14 +55,17 @@ export default class PaginatedTable extends React.Component {
             skip: skip,
             first: rowsPerPage
           }}
-          pollInterval={100000}
         >
           {({ loading, error, data, refetch }) => {
             if (loading) return <Loading />;
             if (error) return `Error! ${error.message}`;
             return (
               <QueryContext.Provider
-                value={{ refetch: () => refetch(), typeName: name }}
+                value={{
+                  refetch: () => refetch(),
+                  typeName: name,
+                  query: query
+                }}
               >
                 <AssetTable
                   assets={Object.values(data)[0]}
