@@ -1,25 +1,17 @@
-import React from "react";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import DataMap from "../common/Mapping";
-import { FormContext } from "../common/Contexts";
-import { Chips } from "../Controls/RelativeChip";
-import ChipContainer from "../Controls/ChipContainer";
+import React from 'react';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import DataMap from '../common/Mapping';
+import { FormContext } from '../common/Contexts';
+import { Chips } from '../Controls/RelativeChip';
+import ChipContainer from '../Controls/ChipContainer';
 
-const styles = {
-  group: {
-    padding: "12px",
-    marginLeft: "10px",
-    marginRight: "10px",
-    backgroundColor: "#EEEEEE"
-  }
-};
 export default class SoftwareFields extends React.Component {
   renderFormFields(context) {
-    let {
+    const {
       id,
       name,
       qty,
@@ -30,7 +22,7 @@ export default class SoftwareFields extends React.Component {
       adminEmail,
       adminPassword,
       adminPortal,
-      notes
+      notes,
     } = context.state;
 
     return (
@@ -38,96 +30,99 @@ export default class SoftwareFields extends React.Component {
         <Grid item xs={12}>
           <TextField
             required
-            id={"name"}
-            label={"Product"}
+            id="name"
+            label="Product"
             fullWidth
-            value={name || ""}
+            value={name || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            id={"qty"}
+            id="qty"
             fullWidth
             type="number"
-            label={"Quantity"}
-            value={qty || ""}
+            label="Quantity"
+            value={qty || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            id={"key"}
-            label={"Key"}
+            id="key"
+            label="Key"
             fullWidth
-            value={key || ""}
+            value={key || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            id={"adminEmail"}
-            label={"Admin Email"}
+            id="adminEmail"
+            label="Admin Email"
             fullWidth
-            value={adminEmail || ""}
+            value={adminEmail || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            id={"adminPassword"}
-            label={"Admin Password"}
+            id="adminPassword"
+            label="Admin Password"
             fullWidth
             type="password"
-            value={adminPassword || ""}
+            value={adminPassword || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id={"adminPortal"}
-            label={"Portal Url"}
+            id="adminPortal"
+            label="Portal Url"
             fullWidth
-            value={adminPortal || ""}
+            value={adminPortal || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id={"notes"}
-            label={"Notes"}
+            id="notes"
+            label="Notes"
             multiline
             placeholder="Additional information"
             fullWidth
-            value={notes || ""}
+            value={notes || ''}
             onChange={event => context.onChange(event)}
           />
         </Grid>
         <Grid item xs={6}>
           <FormControlLabel
-            control={
+            control={(
               <Checkbox
-                id={"maintenance"}
+                id="maintenance"
                 checked={maintenance}
                 onChange={event => context.onChange(event)}
                 value={maintenance || false}
                 color="primary"
               />
-            }
+)}
             label="Maintenance"
           />
         </Grid>
         {id && (
           <React.Fragment>
-            <ChipContainer title="Used By">{Chips("user", user)}</ChipContainer>
             <ChipContainer title="Used By">
-              {Chips("hardware", hardware)}
+              {Chips('user', user)}
+            </ChipContainer>
+            <ChipContainer title="Used By">
+              {Chips('hardware', hardware)}
             </ChipContainer>
           </React.Fragment>
         )}
       </React.Fragment>
     );
   }
+
   render() {
     return (
       <FormContext.Consumer>

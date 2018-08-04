@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 export const QueryContext = React.createContext();
-// QueryContext values: 
+// QueryContext values:
 // refetch: () => refetch(),
 // typeName: --> Matches the mapping key
 
 export const DrawerContext = React.createContext();
-// DrawerContext values: 
+// DrawerContext values:
 // toggle: this.toggleDrawer,
 // state: this.state --> selection id & drawer state
 
 export const FormContext = React.createContext();
-// FormContext values: 
+// FormContext values:
 // state: this.state, --> values from query byId
 // onChange: this.handleChange,
 // linkAction: this.handleLinkChange

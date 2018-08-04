@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   BarChart,
   CartesianGrid,
@@ -7,24 +7,24 @@ import {
   Tooltip,
   Legend,
   Bar,
-  ResponsiveContainer
-} from "recharts";
+  ResponsiveContainer,
+} from 'recharts';
 
 const styles = {
   center: {
-    margin: "auto",
-    padding: "15px"
+    margin: 'auto',
+    padding: '15px',
   },
   gridItemLeft: {
-    display: "flex",
-    justifyContent: "center"
+    display: 'flex',
+    justifyContent: 'center',
   },
   radioGroup: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
-  }
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 };
 
 export default class SimpleBarChart extends Component {
@@ -32,22 +32,23 @@ export default class SimpleBarChart extends Component {
     super(props);
     this.isFiltered = this.isFiltered.bind(this);
   }
+
   isFiltered(value) {
     return value.renewalTerm === this.props.filter;
   }
+
   normalizeData(data) {
-    let result = Object.values(data)[0]
-      .map(record => {
-        return {
-          name: record.name,
-          cost: record.cost * record.qty,
-          renewalTerm: record.renewalTerm,
-          id: record.id
-        };
-      })
+    const result = Object.values(data)[0]
+      .map(record => ({
+        name: record.name,
+        cost: record.cost * record.qty,
+        renewalTerm: record.renewalTerm,
+        id: record.id,
+      }))
       .filter(this.isFiltered);
     return result;
   }
+
   render() {
     const data = this.normalizeData(this.props.data);
     const { xAxisKey, barKey } = this.props;
@@ -59,7 +60,7 @@ export default class SimpleBarChart extends Component {
           <YAxis dataKey={barKey} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="cost" name={"Per Payment Price"} fill="#FF6E40" />
+          <Bar dataKey="cost" name="Per Payment Price" fill="#FF6E40" />
         </BarChart>
       </ResponsiveContainer>
     );

@@ -3,8 +3,6 @@ import Drawer from "@material-ui/core/Drawer";
 import Loading from "../common/Loading";
 import DataMap from "../common/Mapping";
 import ErrorBoundary from "../common/ErrorBoundary";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
 import DrawerListItem from "./DrawerListItem";
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -13,7 +11,7 @@ import ComputerIcon from "@material-ui/icons/Computer";
 import CloudIcon from "@material-ui/icons/Cloud";
 import CloudOffIcon from "@material-ui/icons/CloudOff";
 import List from "@material-ui/core/List";
-import { QueryContext, FormContext, RelativeContext } from "../common/Contexts";
+import { FormContext, RelativeContext } from "../common/Contexts";
 import { Query } from "react-apollo";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -44,14 +42,12 @@ const styles = {
   },
   drawer: {
     display: "flex",
-
     alignItems: "flex-start",
     padding: "0"
   },
   list: {
     padding: "20px",
-    width: "100%",
-    padding: "0"
+    width: "100%"
   },
   header: {
     display: "block",
@@ -93,11 +89,6 @@ export default class DrawerList extends React.Component {
   };
 
   renderNavActions(data) {
-    let keys = Object.keys(data).filter(key => {
-      ["user", "employee", "saas", "software", "saap", "hardware"].includes(
-        key
-      );
-    });
     return Object.keys(data).map(key => {
       switch (key) {
         case "user":
@@ -191,7 +182,7 @@ export default class DrawerList extends React.Component {
                 />
               </Grid>
             </Paper>
-            <Grid container spacing={12}>
+            <Grid container spacing={16}>
               <Grid item xs={12}>
                 <RelativeQueryList relativeType={this.state.activeList} />
               </Grid>

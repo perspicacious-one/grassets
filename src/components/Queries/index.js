@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 // Employee Queries
 export const GET_EMPLOYEES = gql`
@@ -71,7 +71,7 @@ export const GET_EMPLOYEE = gql`
   }
 `;
 
-//Relation Queries
+// Relation Queries
 export const GET_EMPLOYEE_HARDWARE = gql`
   query getEmployee($id: ID!) {
     Employee(id: $id) {
@@ -116,7 +116,7 @@ export const GET_SAAS_EMPLOYEE = gql`
   }
 `;
 
-//Subscription Queries
+// Subscription Queries
 export const GET_SAASES_BASIC = gql`
   query allSaases {
     allSaases {
@@ -187,7 +187,7 @@ export const GET_SAAS = gql`
     }
   }
 `;
-//Software Product Queries
+// Software Product Queries
 export const GET_SAAPS_BASIC = gql`
   query allSaaPs {
     allSaaPs {
@@ -258,7 +258,7 @@ export const GET_SAAP = gql`
   }
 `;
 
-//Hardware Queries
+// Hardware Queries
 export const GET_HARDWARE = gql`
   query getHardware($id: ID!) {
     Hardware(id: $id) {

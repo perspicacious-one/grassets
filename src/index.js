@@ -11,14 +11,13 @@ const routes = makeMainRoutes();
 
 ReactDOM.render(
   routes,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
-registerServiceWorker()
-	// ReactDOM.render(
-	// 	<ApolloProvider client={client}>
-	// 		<App auth={auth}/>
-	// 	</ApolloProvider>,
-	// 	document.getElementById('root')
-	// )
-	// registerServiceWorker();
-
+registerServiceWorker();
+// ReactDOM.render(
+// 	<ApolloProvider client={client}>
+// 		<App auth={auth}/>
+// 	</ApolloProvider>,
+// 	document.getElementById('root')
+// )
+// registerServiceWorker();

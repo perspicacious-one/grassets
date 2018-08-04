@@ -1,10 +1,9 @@
-import React from "react";
-import { Query } from "react-apollo";
-import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import { QueryContext } from "../common/Contexts";
-import DataMap from "../common/Mapping";
+import React from 'react';
+import { Query } from 'react-apollo';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import DataMap from '../common/Mapping';
 
 export default class Pagination extends React.Component {
   render() {
@@ -31,10 +30,10 @@ export default class Pagination extends React.Component {
                         rowsPerPage={rowsPerPage}
                         page={page}
                         backIconButtonProps={{
-                          "aria-label": "Previous Page"
+                          'aria-label': 'Previous Page',
                         }}
                         nextIconButtonProps={{
-                          "aria-label": "Next Page"
+                          'aria-label': 'Next Page',
                         }}
                         onChangePage={this.props.handleChangePage}
                         onChangeRowsPerPage={this.props.handleChangeRowsPerPage}

@@ -1,13 +1,12 @@
-import Button from "@material-ui/core/Button";
-import React from "react";
-import Chip from "@material-ui/core/Chip";
-import RemoveIcon from "@material-ui/icons/Remove";
-import DataMap from "../common/Mapping";
-import { Mutation } from "react-apollo";
-import { QueryContext, FormContext } from "../common/Contexts";
-import { GetDisplayName } from "../../utils/string";
+import React from 'react';
+import Chip from '@material-ui/core/Chip';
+import RemoveIcon from '@material-ui/icons/Remove';
+import { Mutation } from 'react-apollo';
+import DataMap from '../common/Mapping';
+import { QueryContext, FormContext } from '../common/Contexts';
+import { GetDisplayName } from '../../utils/string';
 
-export const RelativeChip = props => {
+export const RelativeChip = (props) => {
   if (props.relativeType && props.relative) {
     return (
       <QueryContext.Consumer>
@@ -22,7 +21,7 @@ export const RelativeChip = props => {
                 }
                 variables={{
                   parentId: formContext.state.id,
-                  childId: props.relative.id
+                  childId: props.relative.id,
                 }}
               >
                 {(unlink, { data }) => (
@@ -30,14 +29,13 @@ export const RelativeChip = props => {
                     id={props.relative.id}
                     key={props.relative.id}
                     label={GetDisplayName(props.relative)}
-                    onDelete={e =>
-                      unlink().then(
-                        formContext.unlinkAction(
-                          props.relative,
-                          props.relativeType,
-                          e
-                        )
-                      )
+                    onDelete={e => unlink().then(
+                      formContext.unlinkAction(
+                        props.relative,
+                        props.relativeType,
+                        e,
+                      ),
+                    )
                     }
                   />
                 )}
@@ -55,11 +53,8 @@ export function Chips(type, val) {
     return null;
   }
   if (Array.isArray(val)) {
-    const chips = val.map(chip => {
-      return <RelativeChip relativeType={type} relative={chip} />;
-    });
+    const chips = val.map(chip => <RelativeChip relativeType={type} relative={chip} />);
     return chips;
-  } else {
-    return <RelativeChip relativeType={type} relative={val} />;
   }
+  return <RelativeChip relativeType={type} relative={val} />;
 }

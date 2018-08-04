@@ -115,6 +115,7 @@ class AssetTable extends React.Component {
             {data.map(n => (
               <CustomTableRow
                 typename={this.typename}
+                key={n.id}
                 entry={n}
                 meta={this.labels}
                 toggleMethod={this.toggleDrawer}

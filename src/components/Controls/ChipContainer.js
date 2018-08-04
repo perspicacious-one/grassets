@@ -1,22 +1,22 @@
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import React from "react";
-import Paper from "@material-ui/core/Paper";
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
 
 const styles = {
   group: {
-    padding: "12px",
-    margin: "10px",
-    backgroundColor: "#EEEEEE",
-    borderRadius: "4px"
+    padding: '12px',
+    margin: '10px',
+    backgroundColor: '#EEEEEE',
+    borderRadius: '4px',
   },
   field: {
-    padding: "12px",
-    margin: "10px",
-    border: "1px solid #E0E0E0",
-    borderRadius: "4px",
-    backgroundColor: "#FAFAFA"
-  }
+    padding: '12px',
+    margin: '10px',
+    border: '1px solid #E0E0E0',
+    borderRadius: '4px',
+    backgroundColor: '#FAFAFA',
+  },
 };
 
 export default class ChipContainer extends React.Component {

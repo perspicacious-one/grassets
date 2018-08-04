@@ -53,7 +53,7 @@ export default class FilteredChart extends Component {
   render() {
     const { query } = this.props;
     return (
-      <Grid spacing={12} style={styles.center}>
+      <Grid spacing={16} style={styles.center}>
         <Grid item xs style={styles.gridItemCenter}>
           <Typography variant="title" gutterBottom>
             {this.props.title}

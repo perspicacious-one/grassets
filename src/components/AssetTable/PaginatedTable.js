@@ -1,9 +1,5 @@
 import React from "react";
 import { Query } from "react-apollo";
-import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import capitalize from "lodash.capitalize";
 import Paper from "@material-ui/core/Paper";
 import Loading from "../common/Loading";
 import { QueryContext } from "../common/Contexts";

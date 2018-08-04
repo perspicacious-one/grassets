@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   GET_EMPLOYEE,
   GET_EMPLOYEE_HARDWARE,
@@ -25,8 +25,8 @@ import {
   EMPLOYEE_META,
   HARDWARE_META,
   SAAS_META,
-  SAAP_META
-} from "../Queries";
+  SAAP_META,
+} from '../Queries';
 
 import {
   REMOVE_EMPLOYEE_FROM_HARDWARE,
@@ -48,12 +48,12 @@ import {
   ADD_SAAP,
   DELETE_SAAP,
   ADD_EMPLOYEE_TO_SAAS,
-  REMOVE_EMPLOYEE_FROM_SAAS
-} from "../Mutations";
-import HardwareFields from "../Forms/HardwareFields";
-import SoftwareFields from "../Forms/SoftwareFields";
-import SubscriptionFields from "../Forms/SubscriptionFields";
-import EmployeeFields from "../Forms/EmployeeFields";
+  REMOVE_EMPLOYEE_FROM_SAAS,
+} from '../Mutations';
+import HardwareFields from '../Forms/HardwareFields';
+import SoftwareFields from '../Forms/SoftwareFields';
+import SubscriptionFields from '../Forms/SubscriptionFields';
+import EmployeeFields from '../Forms/EmployeeFields';
 
 const DataMap = {
   employee: {
@@ -63,29 +63,29 @@ const DataMap = {
       byId: GET_EMPLOYEE,
       relatives: [GET_EMPLOYEE_HARDWARE, GET_SAAP_EMPLOYEE, GET_SAAS_EMPLOYEE],
       allBasicPage: GET_EMPLOYEES_BASIC_PAGE,
-      meta: EMPLOYEE_META
+      meta: EMPLOYEE_META,
     },
     mutate: {
       addRelative: {
         hardwares: ADD_EMPLOYEE_TO_HARDWARE,
         subscription: ADD_EMPLOYEE_TO_SAAS,
         saap: ADD_EMPLOYEE_TO_SAAP,
-        software: ADD_EMPLOYEE_TO_SAAP
+        software: ADD_EMPLOYEE_TO_SAAP,
       },
       removeRelative: {
         hardwares: REMOVE_EMPLOYEE_FROM_HARDWARE,
         subscription: REMOVE_EMPLOYEE_FROM_SAAS,
         saap: REMOVE_EMPLOYEE_FROM_SAAP,
-        software: REMOVE_EMPLOYEE_FROM_SAAP
+        software: REMOVE_EMPLOYEE_FROM_SAAP,
       },
       update: UPDATE_EMPLOYEE,
       create: ADD_EMPLOYEE,
-      delete: DELETE_EMPLOYEE
+      delete: DELETE_EMPLOYEE,
     },
     fields: <EmployeeFields />,
-    displayName: "Employees",
-    refName: "employee",
-    relativeTypes: ["subscription", "saap", "hardwares"]
+    displayName: 'Employees',
+    refName: 'employee',
+    relativeTypes: ['subscription', 'saap', 'hardwares'],
   },
   user: {
     query: {
@@ -94,29 +94,29 @@ const DataMap = {
       byId: GET_EMPLOYEE,
       relatives: [GET_EMPLOYEE_HARDWARE, GET_SAAP_EMPLOYEE, GET_SAAS_EMPLOYEE],
       allBasicPage: GET_EMPLOYEES_BASIC_PAGE,
-      meta: EMPLOYEE_META
+      meta: EMPLOYEE_META,
     },
     mutate: {
       addRelative: {
         hardwares: ADD_EMPLOYEE_TO_HARDWARE,
         subscription: ADD_EMPLOYEE_TO_SAAS,
         saas: ADD_EMPLOYEE_TO_SAAS,
-        saap: ADD_EMPLOYEE_TO_SAAP
+        saap: ADD_EMPLOYEE_TO_SAAP,
       },
       removeRelative: {
         hardwares: REMOVE_EMPLOYEE_FROM_HARDWARE,
         subscription: REMOVE_EMPLOYEE_FROM_SAAS,
         saas: REMOVE_EMPLOYEE_FROM_SAAS,
-        saap: REMOVE_EMPLOYEE_FROM_SAAP
+        saap: REMOVE_EMPLOYEE_FROM_SAAP,
       },
       update: UPDATE_EMPLOYEE,
       create: ADD_EMPLOYEE,
-      delete: DELETE_EMPLOYEE
+      delete: DELETE_EMPLOYEE,
     },
     fields: <EmployeeFields />,
-    displayName: "Employees",
-    refName: "employee",
-    relativeTypes: ["subscription", "saap", "hardwares"]
+    displayName: 'Employees',
+    refName: 'employee',
+    relativeTypes: ['subscription', 'saap', 'hardwares'],
   },
   hardware: {
     query: {
@@ -125,25 +125,25 @@ const DataMap = {
       byId: GET_HARDWARE,
       relatives: GET_EMPLOYEE_HARDWARE,
       allBasicPage: GET_HARDWARES_BASIC_PAGE,
-      meta: HARDWARE_META
+      meta: HARDWARE_META,
     },
     mutate: {
       addRelative: {
         employee: ADD_EMPLOYEE_TO_HARDWARE,
-        software: ADD_SAAP_TO_HARDWARE
+        software: ADD_SAAP_TO_HARDWARE,
       },
       removeRelative: {
         employee: REMOVE_EMPLOYEE_FROM_HARDWARE,
-        software: REMOVE_SAAP_FROM_HARDWARE
+        software: REMOVE_SAAP_FROM_HARDWARE,
       },
       update: UPDATE_HARDWARE,
       create: ADD_HARDWARE,
-      delete: DELETE_HARDWARE
+      delete: DELETE_HARDWARE,
     },
     fields: <HardwareFields />,
-    displayName: "Hardware",
-    refName: "hardware",
-    relativeTypes: ["employee", "software"]
+    displayName: 'Hardware',
+    refName: 'hardware',
+    relativeTypes: ['employee', 'software'],
   },
   saas: {
     query: {
@@ -152,23 +152,23 @@ const DataMap = {
       byId: GET_SAAS,
       relatives: GET_SAAS_EMPLOYEE,
       allBasicPage: GET_SAASES_BASIC_PAGE,
-      meta: SAAS_META
+      meta: SAAS_META,
     },
     mutate: {
       addRelative: {
-        user: ADD_EMPLOYEE_TO_SAAS
+        user: ADD_EMPLOYEE_TO_SAAS,
       },
       removeRelative: {
-        user: REMOVE_EMPLOYEE_FROM_SAAS
+        user: REMOVE_EMPLOYEE_FROM_SAAS,
       },
       update: UPDATE_SAAS,
       create: ADD_SAAS,
-      delete: DELETE_SAAS
+      delete: DELETE_SAAS,
     },
     fields: <SubscriptionFields />,
-    displayName: "Subscriptions",
-    refName: "saas",
-    relativeTypes: "user"
+    displayName: 'Subscriptions',
+    refName: 'saas',
+    relativeTypes: 'user',
   },
   saap: {
     query: {
@@ -177,51 +177,51 @@ const DataMap = {
       byId: GET_SAAP,
       relatives: GET_SAAP_EMPLOYEE,
       allBasicPage: GET_SAAPS_BASIC_PAGE,
-      meta: SAAP_META
+      meta: SAAP_META,
     },
     mutate: {
       addRelative: {
         user: ADD_EMPLOYEE_TO_SAAP,
-        hardware: ADD_SAAP_TO_HARDWARE
+        hardware: ADD_SAAP_TO_HARDWARE,
       },
       removeRelative: {
         user: REMOVE_EMPLOYEE_FROM_SAAP,
-        hardware: REMOVE_SAAP_FROM_HARDWARE
+        hardware: REMOVE_SAAP_FROM_HARDWARE,
       },
       update: UPDATE_SAAP,
       create: ADD_SAAP,
-      delete: DELETE_SAAP
+      delete: DELETE_SAAP,
     },
     fields: <SoftwareFields />,
-    displayName: "Desktop Software",
-    refName: "saap",
-    relativeTypes: ["user", "hardware"]
+    displayName: 'Desktop Software',
+    refName: 'saap',
+    relativeTypes: ['user', 'hardware'],
   },
   software: {
     query: {
       all: GET_SAAPS,
       allBasic: GET_SAAPS_BASIC,
       byId: GET_SAAP,
-      relatives: GET_SAAP_EMPLOYEE
+      relatives: GET_SAAP_EMPLOYEE,
     },
     mutate: {
       addRelative: {
         user: ADD_EMPLOYEE_TO_SAAP,
-        hardware: ADD_SAAP_TO_HARDWARE
+        hardware: ADD_SAAP_TO_HARDWARE,
       },
       removeRelative: {
         user: REMOVE_EMPLOYEE_FROM_SAAP,
-        hardware: REMOVE_SAAP_FROM_HARDWARE
+        hardware: REMOVE_SAAP_FROM_HARDWARE,
       },
       update: UPDATE_SAAP,
       create: ADD_SAAP,
-      delete: DELETE_SAAP
+      delete: DELETE_SAAP,
     },
     fields: <SoftwareFields />,
-    displayName: "Desktop Software",
-    refName: "saap",
-    relativeTypes: ["user", "hardware"]
-  }
+    displayName: 'Desktop Software',
+    refName: 'saap',
+    relativeTypes: ['user', 'hardware'],
+  },
 };
 
 export default DataMap;
