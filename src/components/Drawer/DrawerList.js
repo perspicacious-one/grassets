@@ -46,7 +46,7 @@ const styles = {
     padding: "0"
   },
   list: {
-    padding: "20px",
+    padding: "0",
     width: "100%"
   },
   header: {

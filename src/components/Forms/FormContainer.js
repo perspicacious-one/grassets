@@ -1,41 +1,41 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import DeleteButton from '../Controls/DeleteButton';
-import { UpdateButton, CreateButton } from '../Controls/UpdateButton';
-import { DrawerContext } from '../common/Contexts';
-import { FormContext } from '../common/Contexts';
-import DrawerList from '../Drawer/DrawerList';
-import { IsNumber } from '../../utils/string';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+import DeleteButton from "../Controls/DeleteButton";
+import { UpdateButton, CreateButton } from "../Controls/UpdateButton";
+import { DrawerContext } from "../common/Contexts";
+import { FormContext } from "../common/Contexts";
+import DrawerList from "../Drawer/DrawerList";
+import { IsNumber } from "../../utils/string";
 
 const styles = {
   root: {
-    display: 'flex',
-    alignItems: 'space-between',
-    maxWidth: '100%',
-    padding: '35px',
+    display: "flex",
+    alignItems: "space-between",
+    maxWidth: "100%",
+    padding: "35px"
   },
   formActions: {
-    marginTop: '20px',
-    paddingTop: '10px',
+    marginTop: "20px",
+    paddingTop: "10px"
   },
   footer: {
-    alignSelf: 'flex-end',
-    width: '100%',
-    marginLeft: '0',
-    padding: '0',
-    paddingTop: '10px',
-    bottom: '0',
-    right: '0',
-    position: 'fixed',
-  },
+    alignSelf: "flex-end",
+    width: "100%",
+    marginLeft: "0",
+    padding: "0",
+    paddingTop: "10px",
+    bottom: "0",
+    right: "0",
+    position: "fixed"
+  }
 };
 
 class FormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      id: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleUnlink = this.handleUnlink.bind(this);
@@ -47,9 +47,9 @@ class FormContainer extends React.Component {
       return;
     }
     const entries = Object.entries(Object.values(this.props.data)[0]);
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       this.setState({
-        [entry[0]]: entry[1],
+        [entry[0]]: entry[1]
       });
     });
   }
@@ -61,14 +61,14 @@ class FormContainer extends React.Component {
     }
     if (Array.isArray(this.state[typeName])) {
       const relationList = this.state[typeName].filter(
-        relative => relative.id !== data.id,
+        relative => relative.id !== data.id
       );
       this.setState({
-        [typeName]: relationList,
+        [typeName]: relationList
       });
     } else if (Object.values(this.state[typeName]).includes(data.id)) {
       this.setState({
-        [typeName]: '',
+        [typeName]: ""
       });
     }
   }
@@ -80,11 +80,11 @@ class FormContainer extends React.Component {
     }
     if (Array.isArray(this.state[typeName])) {
       this.setState(prevState => ({
-        [typeName]: prevState[typeName].concat(data),
+        [typeName]: prevState[typeName].concat(data)
       }));
     } else {
       this.setState({
-        [typeName]: Array.of(data),
+        [typeName]: Array.of(data)
       });
     }
   }
@@ -97,11 +97,11 @@ class FormContainer extends React.Component {
     }
     if (!altId) {
       this.setState({
-        [event.target.id]: value,
+        [event.target.id]: value
       });
     } else {
       this.setState({
-        [altId]: value,
+        [altId]: value
       });
     }
   }
@@ -121,14 +121,13 @@ class FormContainer extends React.Component {
   }
 
   render() {
-    const children = this.shouldRenderChildren() ? this.props.children : null;
     return (
       <FormContext.Provider
         value={{
           state: this.state,
           onChange: this.handleChange,
           unlinkAction: this.handleUnlink,
-          linkAction: this.handleLink,
+          linkAction: this.handleLink
         }}
       >
         <Grid container spacing={16} style={styles.root}>
@@ -175,7 +174,7 @@ class FormContainer extends React.Component {
 }
 
 FormContainer.defaultProps = {
-  empty: false,
+  empty: false
 };
 
 export default FormContainer;
