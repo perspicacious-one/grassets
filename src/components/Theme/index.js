@@ -22,11 +22,11 @@ const theme = createMuiTheme({
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
-      'Roboto',
-      '"Helvetica Neue"',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
       'Arial',
       'sans-serif',
       '"Apple Color Emoji"',

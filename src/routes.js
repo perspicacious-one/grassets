@@ -6,9 +6,7 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import LogRocket from 'logrocket';
 import history from './history';
-import Home from './components/Home';
 import App from './App';
-import Callback from './components/Callback/Callback';
 
 LogRocket.init('itb7ok/dsi-assets');
 
