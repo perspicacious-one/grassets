@@ -3,11 +3,14 @@
 # dependencies
 /node_modules
 
-# testing
-/coverage
+package-lock.json
+yarn.lock
 
 # production
 /build
+
+# test files
+/test
 
 # misc
 .DS_Store
