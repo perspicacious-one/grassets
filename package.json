@@ -12,7 +12,7 @@
     "auth0-lock": "^11.8.1",
     "babel-plugin-add-react-displayname": "0.0.5",
     "date-fns": "^1.29.0",
-    "graphiql": "^0.16.0",
+    "graphiql": "^1.4.7",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "history": "^4.7.2",
