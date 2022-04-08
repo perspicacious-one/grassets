@@ -19,7 +19,7 @@
     "lodash.capitalize": "^4.2.1",
     "lodash.sortby": "^4.7.0",
     "logrocket": "^0.6.16",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "react": "^16.8.0",
     "react-apollo": "^2.5.4",
     "react-dom": "^16.8.1",
